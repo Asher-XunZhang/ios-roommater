@@ -14,6 +14,7 @@
 		B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */; };
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
+		B63E5110270CABD9005F83EB /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = B63E510F270CABD9005F83EB /* SocketIO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		B63E5102270CA45D005F83EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B63E5105270CA45D005F83EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B63E5107270CA45D005F83EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B63E5111270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		B63E5112270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B63E5110270CABD9005F83EB /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +90,9 @@
 			dependencies = (
 			);
 			name = Roommater;
+			packageProductDependencies = (
+				B63E510F270CABD9005F83EB /* SocketIO */,
+			);
 			productName = Roommater;
 			productReference = B63E50F3270CA45A005F83EB /* Roommater.app */;
 			productType = "com.apple.product-type.application";
@@ -112,8 +119,12 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = B63E50EA270CA45A005F83EB;
+			packageReferences = (
+				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */,
+			);
 			productRefGroup = B63E50F4270CA45A005F83EB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -155,6 +166,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B63E50FD270CA45B005F83EB /* Base */,
+				B63E5111270CAC69005F83EB /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -163,6 +175,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B63E5105270CA45D005F83EB /* Base */,
+				B63E5112270CAC69005F83EB /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -174,6 +187,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -235,6 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -364,6 +379,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 15.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B63E510F270CABD9005F83EB /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */ = {
