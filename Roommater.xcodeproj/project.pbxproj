@@ -15,6 +15,8 @@
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
 		B63E5110270CABD9005F83EB /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = B63E510F270CABD9005F83EB /* SocketIO */; };
+		B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FE92710C6490032DEF2 /* SocketKit.swift */; };
+		B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FED2710D8DA0032DEF2 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,9 @@
 		B63E5107270CA45D005F83EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B63E5111270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		B63E5112270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		B69DF8DC270E9FEE009F41C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		B6AF3FE92710C6490032DEF2 /* SocketKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketKit.swift; sourceTree = "<group>"; };
+		B6AF3FED2710D8DA0032DEF2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,8 @@
 		B63E50F5270CA45A005F83EB /* Roommater */ = {
 			isa = PBXGroup;
 			children = (
+				B6AF3FEC2710D8CA0032DEF2 /* model */,
+				B6AF3FE82710C6280032DEF2 /* lib */,
 				B63E50F6270CA45A005F83EB /* AppDelegate.swift */,
 				B63E50F8270CA45B005F83EB /* SceneDelegate.swift */,
 				B63E50FA270CA45B005F83EB /* ViewController.swift */,
@@ -72,6 +79,22 @@
 				B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */,
 			);
 			path = Roommater;
+			sourceTree = "<group>";
+		};
+		B6AF3FE82710C6280032DEF2 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				B6AF3FE92710C6490032DEF2 /* SocketKit.swift */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		B6AF3FEC2710D8CA0032DEF2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B6AF3FED2710D8DA0032DEF2 /* User.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,8 +177,10 @@
 			files = (
 				B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */,
 				B63E50FB270CA45B005F83EB /* ViewController.swift in Sources */,
+				B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */,
 				B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */,
 				B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */,
+				B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +192,7 @@
 			children = (
 				B63E50FD270CA45B005F83EB /* Base */,
 				B63E5111270CAC69005F83EB /* zh-Hans */,
+				B69DF8DC270E9FEE009F41C9 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -308,6 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F9X8CNC5RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Roommater/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -336,6 +363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F9X8CNC5RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Roommater/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
