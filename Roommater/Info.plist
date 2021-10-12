@@ -21,5 +21,11 @@
 			</array>
 		</dict>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>wechat</string>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>
