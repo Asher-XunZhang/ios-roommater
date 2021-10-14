@@ -51,12 +51,19 @@ class SignupViewController: PrototypeViewController{
         Roommater.signup(
             username: Username.text!,
             pass: Password.text!,
-            email: Email.text!)
+            email: Email.text!
+        )
     }
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
-    
+    override func textFieldDone() {
+        Roommater.signup(
+            username: Username.text!,
+            pass: Password.text!,
+            email: Email.text!
+        )
+    }
     
 }
 
