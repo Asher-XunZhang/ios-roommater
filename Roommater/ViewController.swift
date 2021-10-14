@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: PrototypeViewController {
     @IBOutlet var Username: NoNullTextField!
     @IBOutlet var Password: NoNullTextField!
     @IBOutlet var Login: UIButton!
@@ -29,11 +29,17 @@ class LoginViewController: UIViewController {
         
     }
     
+    override func textFieldDone() {
+        Roommater.login(
+            username: Username.text!,
+            pass: Password.text!
+        )
+    }
 }
 
 
 
-class SignupViewController: UIViewController{
+class SignupViewController: PrototypeViewController{
     @IBOutlet var Username: NoNullTextField!
     @IBOutlet var Password: NoNullTextField!
     @IBOutlet var RePassword: NoNullTextField!
