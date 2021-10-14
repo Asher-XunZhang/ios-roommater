@@ -9,7 +9,7 @@ import Foundation
 import SocketIO
 
 struct SocketInstance {
-    static let socketOrigin = "http://localhost:1337"
+    static let socketOrigin = "https://roommater-server.herokuapp.com"
     
     static let manager = SocketManager(
         socketURL: URL(string: socketOrigin)!,
