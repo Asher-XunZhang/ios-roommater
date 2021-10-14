@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L8U-n7-jZH" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="40" y="204" width="236" height="34"/>
+                                <rect key="frame" x="40" y="204" width="291" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="mSX-jn-Sxm"/>
                                 </constraints>
@@ -29,7 +29,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWL-ta-aVw">
-                                <rect key="frame" x="40" y="340" width="236" height="46"/>
+                                <rect key="frame" x="40" y="340" width="291" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="6eW-yj-yVI"/>
                                 </constraints>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cZ7-Zf-im7">
-                                <rect key="frame" x="40" y="246" width="97" height="34"/>
+                                <rect key="frame" x="40" y="246" width="152" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="dvf-ve-XZU"/>
                                 </constraints>
@@ -48,7 +48,7 @@
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="avE-Bo-U7L">
-                                <rect key="frame" x="40" y="168" width="85" height="34"/>
+                                <rect key="frame" x="40" y="168" width="140" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="zEY-4S-QQf"/>
                                 </constraints>
@@ -56,12 +56,12 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
-                                <rect key="frame" x="116" y="246" width="160" height="31"/>
+                                <rect key="frame" x="116" y="246" width="215" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Forgot password?"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
-                                <rect key="frame" x="70" y="421" width="180" height="68"/>
+                                <rect key="frame" x="97.5" y="421" width="180" height="167"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Don't have an account?  Click here to signup!" titleAlignment="center"/>
                                 <connections>
@@ -69,7 +69,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pB8-zo-w2Y" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="40" y="279" width="236" height="34"/>
+                                <rect key="frame" x="40" y="279" width="291" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="uN4-Nm-nKw"/>
                                 </constraints>
@@ -122,27 +122,33 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D8T-Kx-NZr" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="41" y="105" width="238" height="34"/>
+                                <rect key="frame" x="41" y="105" width="293" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="Fcj-Tm-3Xj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="1G1-OR-Yff"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4xk-K4-WiJ">
-                                <rect key="frame" x="41" y="63" width="86" height="34"/>
+                                <rect key="frame" x="41" y="63" width="141" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="BMm-sh-qZB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="gbi-R5-l04"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wM5-Cc-fNV">
-                                <rect key="frame" x="41" y="147" width="98" height="34"/>
+                                <rect key="frame" x="41" y="147" width="153" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="yQL-pn-aov"/>
                                 </constraints>
@@ -150,7 +156,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wtn-DG-57O">
-                                <rect key="frame" x="41" y="231" width="123" height="34"/>
+                                <rect key="frame" x="41" y="231" width="178" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="G9R-61-7jC"/>
                                 </constraints>
@@ -158,15 +164,18 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="71J-fV-1SH" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="41" y="215" width="238" height="34"/>
+                                <rect key="frame" x="41" y="264.5" width="293" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="yFX-f8-Vly"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="I37-b8-JPc"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dnh-W6-TbI">
-                                <rect key="frame" x="41" y="257" width="123" height="34"/>
+                                <rect key="frame" x="41" y="306.5" width="178" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="k0x-Kw-25X"/>
                                 </constraints>
@@ -174,12 +183,15 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ccU-fJ-MhK" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="41" y="292" width="238" height="34"/>
+                                <rect key="frame" x="41" y="341.5" width="293" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="hUb-EV-gdB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="qpp-Wp-g1m"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7s0-R2-W42">
                                 <rect key="frame" x="69" y="361" width="236" height="5"/>
@@ -190,15 +202,18 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnC-G8-g6l" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
-                                <rect key="frame" x="41" y="189" width="238" height="34"/>
+                                <rect key="frame" x="41" y="189" width="293" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="nOd-Up-Ucl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="egw-WH-4qX"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
-                                <rect key="frame" x="41" y="24" width="238" height="31"/>
+                                <rect key="frame" x="41" y="24" width="293" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="7dA-Bh-xHH"/>
                                 </constraints>
