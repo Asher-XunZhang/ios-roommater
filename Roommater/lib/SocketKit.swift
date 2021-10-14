@@ -38,33 +38,40 @@ struct SocketInstance {
                 print("socket disconnected")
             }
             
-            client.on(clientEvent: .error) {data,ack in
+            client.on(clientEvent: .error) {data, ack in
                 // Handle error
                 print("socket error")
             }
             
             client.on("currentAmount") {data, ack in
                 guard let cur = data[0] as? Double else { return }
-                
                 client.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
                     if (data.first as? String ?? "passed") == SocketAckStatus.noAck.rawValue {
                         // Handle ack timeout
                     }
                     client.emit("update", ["amount": cur + 2.50])
                 }
-
                 ack.with("Got your currentAmount", "dude")
             }
         }
     }
     
     static func connect(){
-        socket?.connect()
+        if socket?.status == .connected {
+            socket?.connect()
+        }
     }
     
     static func disconnect(){
         socket?.disconnect()
     }
+    
+    static func auth(identity:String, passEncrypted :String) -> Bool {
+        if let client = socket {
+            client.emitWithAck("login", 0).timingOut(after: 1) {data in
+                
+            }
+        }
+        return false
+    }
 }
-
-
