@@ -24,7 +24,7 @@ func login(username: String, pass:String){
     }
 }
 
-func rgister(username: String, pass:String, email : String){
+func signup(username: String, pass:String, email : String){
     AF.request(
         "\(API_Root)/user/register",
         method: .post,
