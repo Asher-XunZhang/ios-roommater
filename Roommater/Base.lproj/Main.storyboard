@@ -60,14 +60,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Forgot password?"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
-                                <rect key="frame" x="97.5" y="421" width="180" height="167"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Don't have an account?  Click here to signup!" titleAlignment="center"/>
-                                <connections>
-                                    <segue destination="M1R-gG-2lp" kind="show" id="hRE-6I-4pV"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pB8-zo-w2Y" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
                                 <rect key="frame" x="40" y="279" width="291" height="34"/>
                                 <constraints>
@@ -79,6 +71,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="QWQ-Ms-tkL"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
+                                <rect key="frame" x="95" y="424" width="180" height="57"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Don't have an account?  Click here to signup!" titleAlignment="center"/>
+                                <connections>
+                                    <segue destination="M1R-gG-2lp" kind="show" id="hRE-6I-4pV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -87,7 +87,7 @@
                             <constraint firstItem="pB8-zo-w2Y" firstAttribute="leading" secondItem="RWL-ta-aVw" secondAttribute="leading" id="6OG-jP-XrL"/>
                             <constraint firstItem="cZ7-Zf-im7" firstAttribute="top" secondItem="ouM-h3-mbC" secondAttribute="top" id="7pZ-bQ-wYT"/>
                             <constraint firstItem="avE-Bo-U7L" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="168" id="8IJ-mF-LwE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OSF-tJ-Lpf" secondAttribute="bottom" constant="79" id="9WY-Nx-z39"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OSF-tJ-Lpf" secondAttribute="bottom" constant="186" id="9WY-Nx-z39"/>
                             <constraint firstItem="RWL-ta-aVw" firstAttribute="top" secondItem="cZ7-Zf-im7" secondAttribute="bottom" constant="60" id="Ihf-9F-BaR"/>
                             <constraint firstItem="cZ7-Zf-im7" firstAttribute="top" secondItem="L8U-n7-jZH" secondAttribute="bottom" constant="8" id="Loa-FB-RFU"/>
                             <constraint firstItem="avE-Bo-U7L" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="NpU-aX-r7e"/>
@@ -95,12 +95,12 @@
                             <constraint firstItem="ouM-h3-mbC" firstAttribute="trailing" secondItem="pB8-zo-w2Y" secondAttribute="trailing" id="THB-LA-mAg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L8U-n7-jZH" secondAttribute="trailing" constant="44" id="UEK-I2-ZMu"/>
                             <constraint firstItem="L8U-n7-jZH" firstAttribute="top" secondItem="avE-Bo-U7L" secondAttribute="bottom" constant="2" id="Ydl-IN-EN5"/>
-                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="top" secondItem="RWL-ta-aVw" secondAttribute="bottom" constant="35" id="asm-AS-UaI"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="top" secondItem="RWL-ta-aVw" secondAttribute="bottom" constant="38" id="asm-AS-UaI"/>
                             <constraint firstItem="pB8-zo-w2Y" firstAttribute="top" secondItem="ouM-h3-mbC" secondAttribute="bottom" constant="2" id="bsA-vh-Avf"/>
                             <constraint firstItem="cZ7-Zf-im7" firstAttribute="leading" secondItem="pB8-zo-w2Y" secondAttribute="leading" id="dr5-9h-Dym"/>
                             <constraint firstItem="L8U-n7-jZH" firstAttribute="leading" secondItem="cZ7-Zf-im7" secondAttribute="leading" id="g39-nz-Xfn"/>
                             <constraint firstItem="L8U-n7-jZH" firstAttribute="trailing" secondItem="ouM-h3-mbC" secondAttribute="trailing" id="jYz-E5-rDo"/>
-                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o7p-jb-aKC"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-2.5" id="o7p-jb-aKC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cZ7-Zf-im7" secondAttribute="trailing" constant="183" id="t3P-Db-hoI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="avE-Bo-U7L" secondAttribute="trailing" constant="195" id="uVM-45-Aa4"/>
                             <constraint firstItem="ouM-h3-mbC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="116" id="x1B-5U-0V0"/>
@@ -115,7 +115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="18.75" y="67.605633802816897"/>
+            <point key="canvasLocation" x="18.399999999999999" y="67.016491754122939"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="ESf-Qy-7MX">

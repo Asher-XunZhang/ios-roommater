@@ -13,20 +13,14 @@ class LoginViewController: PrototypeViewController {
     @IBOutlet var Login: UIButton!
 
     @IBAction func login(_ sender: UIButton){
-
         Roommater.login(
             username: Username.text!,
             pass: Password.text!
         )
     }
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        
+    override func textFieldAction() {
+        Login.isEnabled = !(Username.text!.isEmpty) && !(Password.text!.isEmpty)
     }
     
     override func textFieldDone() {
@@ -57,6 +51,11 @@ class SignupViewController: PrototypeViewController{
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
+    
+    override func textFieldAction() {
+        Signup.isEnabled = !(Username.text!.isEmpty) && !(Password.text!.isEmpty) && !(RePassword.text!.isEmpty) && !(Email.text!.isEmpty)
+    }
+    
     override func textFieldDone() {
         Roommater.signup(
             username: Username.text!,
