@@ -193,14 +193,6 @@
                                     <outlet property="delegate" destination="M1R-gG-2lp" id="qpp-Wp-g1m"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7s0-R2-W42">
-                                <rect key="frame" x="69" y="361" width="236" height="5"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Sign Up"/>
-                                <connections>
-                                    <action selector="signup:" destination="M1R-gG-2lp" eventType="touchDown" id="cOS-HT-kHY"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnC-G8-g6l" customClass="NoNullTextField" customModule="Roommater" customModuleProvider="target">
                                 <rect key="frame" x="41" y="189" width="293" height="34"/>
                                 <constraints>
@@ -221,6 +213,14 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Already have an account? Log in!"/>
                                 <connections>
                                     <action selector="back:" destination="M1R-gG-2lp" eventType="touchDown" id="MBz-T5-7xg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7s0-R2-W42">
+                                <rect key="frame" x="42" y="410.5" width="291" height="54.5"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signup:" destination="M1R-gG-2lp" eventType="touchDown" id="cOS-HT-kHY"/>
                                 </connections>
                             </button>
                         </subviews>

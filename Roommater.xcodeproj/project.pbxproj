@@ -21,6 +21,7 @@
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
 		B6EC251C2715D86000F55EBC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B6EC251B2715D86000F55EBC /* Alamofire */; };
 		B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC251D2715D99600F55EBC /* Dorm.swift */; };
+		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,11 +37,13 @@
 		B63E5107270CA45D005F83EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B63E5111270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		B63E5112270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		B65C426C2718152300BBD581 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B69DF8DC270E9FEE009F41C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		B6AF3FE92710C6490032DEF2 /* SocketKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketKit.swift; sourceTree = "<group>"; };
 		B6AF3FED2710D8DA0032DEF2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		B6EC251D2715D99600F55EBC /* Dorm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dorm.swift; sourceTree = "<group>"; };
+		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 			children = (
 				B63E50F5270CA45A005F83EB /* Roommater */,
 				B63E50F4270CA45A005F83EB /* Products */,
+				BC2091F93A1675003F65A767 /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,8 +162,8 @@
 			);
 			mainGroup = B63E50EA270CA45A005F83EB;
 			packageReferences = (
-				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */,
-				B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 			);
 			productRefGroup = B63E50F4270CA45A005F83EB /* Products */;
 			projectDirPath = "";
@@ -178,6 +182,7 @@
 				B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */,
 				B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */,
 				B63E50FE270CA45B005F83EB /* Main.storyboard in Resources */,
+				BC209A27488F892911198C8E /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +223,7 @@
 			children = (
 				B63E5105270CA45D005F83EB /* Base */,
 				B63E5112270CAC69005F83EB /* zh-Hans */,
+				B65C426C2718152300BBD581 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -425,7 +431,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */ = {
+		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
 			requirement = {
@@ -433,7 +439,7 @@
 				version = 15.2.0;
 			};
 		};
-		B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -446,12 +452,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B63E510F270CABD9005F83EB /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */;
+			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
 			productName = SocketIO;
 		};
 		B6EC251B2715D86000F55EBC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

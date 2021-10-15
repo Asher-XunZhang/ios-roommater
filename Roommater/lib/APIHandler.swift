@@ -8,17 +8,63 @@
 import Foundation
 import Alamofire
 
+enum AuthRoute : URLRequestConvertible {
+    static let consumerKey = "secret api key" //todo get form socket io
+    
+    var baseURL: URL {
+        return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
+    }
+    
+    case login(username: String, pass:String)
+    case signup(username: String, pass:String, email : String)
+    case recover(email:String)
+    
+    var method: HTTPMethod {
+        switch self {
+        case .login:
+            return .post
+        case .signup:
+            return .get
+        case .recover:
+            return .put
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .login:
+            return "/testuser/login"
+        case .signup:
+            return "/testuser/signup"
+        case .recover:
+            return "/testuser/recover"
+        }
+    }
+    
+    func asURLRequest() throws -> URLRequest {
+        let result: (path: String, parameters: Parameters) = {
+            switch self {
+            case .login(username: let username, pass: let pass):
+                return (path, ["user": username, "pass": pass])
+            case .signup(username: let username, pass: let pass, email: let email):
+                return (path, ["user": username, "pass": pass, "email": email])
+            case .recover(email: let email):
+                return (path, ["email": email])
+            }
+        }()
+        var req = URLRequest(url: baseURL.appendingPathComponent(result.path))
+        req.httpMethod = method.rawValue
+        // TODO: add header and query or params
+        print(req)
+        return try JSONEncoding.default.encode(req, with: result.parameters)
+    }
+}
+
 let API_Root = "https://roommater-server.herokuapp.com/api/v1"
 
 func login(username: String, pass:String){
     AF.request(
-        "\(API_Root)/user/login",
-        method: .post,
-        parameters: [
-            "user": username,
-            "pass": pass
-        ],
-        encoder: JSONParameterEncoder.default)
+        AuthRoute.login(username: username, pass: pass))
         .responseJSON() {
         res in print(res)
     }
@@ -26,7 +72,7 @@ func login(username: String, pass:String){
 
 func signup(username: String, pass:String, email : String){
     AF.request(
-        "\(API_Root)/user/register",
+        "\(API_Root)/testuser/signup",
         method: .post,
         parameters: [
             "user": username,
@@ -35,7 +81,7 @@ func signup(username: String, pass:String, email : String){
         ],
         encoder: JSONParameterEncoder.default)
         .responseJSON() {
-        res in print(res)
+            res in print(res)
     }
 }
 
@@ -48,8 +94,7 @@ func forgot(email:String){
         ],
         encoder: JSONParameterEncoder.default)
         .responseJSON() {
-        res in print(res)
+            res in print(res)
     }
 }
-
 
