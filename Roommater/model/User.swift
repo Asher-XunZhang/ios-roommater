@@ -7,6 +7,28 @@
 
 import Foundation
 import UIKit
+//import JWTKit
+
+//struct UserPayload: JWTPayload, Equatable {
+//    enum CodingKeys: String, CodingKey {
+//        case subject = "sub"
+//        case expiration = "exp"
+//        case isAdmin = "admin"
+//    }
+//    // The "sub" (subject) claim identifies the principal that is the
+//    // subject of the JWT.
+//    var subject: SubjectClaim
+//    var expiration: ExpirationClaim
+//    var uid : String
+//    var username : String
+//    var email : String
+//    var rating : Float
+//    var status : Status
+//
+//    func verify(using signer: JWTSigner) throws {
+//        try self.expiration.verifyNotExpired()
+//    }
+//}
 
 class User {
     var uid : String
@@ -26,13 +48,27 @@ class User {
         self.rating = rating
         self.status = status
     }
+    
+//    init(data: String){
+//        let signers = JWTSigners()
+//        signers.use(.hs256(key: "secret"))
+//        if let user = try? signers.verify(data, as: UserPayload.self){
+//            print(user)
+//            self.uid = user.uid
+//            self.username = user.username
+//            self.email = user.email
+//            self.rating = user.rating
+//            self.status = user.status
+//        }
+//
+//    }
 }
 
-enum Status {
-    case inactive
-    case active
-    case banned
-    case admin
+enum Status : String {
+    case inactive = "i"
+    case active = "a"
+    case banned = "b"
+    case admin = "p"
 }
 
 struct Todo {

@@ -24,9 +24,9 @@ enum AuthRoute : URLRequestConvertible {
         case .login:
             return .post
         case .signup:
-            return .get
-        case .recover:
             return .put
+        case .recover:
+            return .post
         }
     }
     
@@ -60,41 +60,23 @@ enum AuthRoute : URLRequestConvertible {
     }
 }
 
-let API_Root = "https://roommater-server.herokuapp.com/api/v1"
-
 func login(username: String, pass:String){
-    AF.request(
-        AuthRoute.login(username: username, pass: pass))
-        .responseJSON() {
+    AF.request(AuthRoute.login(username: username, pass: pass))
+    .responseJSON() {
         res in print(res)
     }
 }
 
 func signup(username: String, pass:String, email : String){
-    AF.request(
-        "\(API_Root)/testuser/signup",
-        method: .post,
-        parameters: [
-            "user": username,
-            "pass": pass,
-            "email" : email
-        ],
-        encoder: JSONParameterEncoder.default)
-        .responseJSON() {
-            res in print(res)
+    AF.request(AuthRoute.signup(username: username, pass: pass, email: email))
+    .responseJSON() {
+        res in print(res)
     }
 }
 
 func forgot(email:String){
-    AF.request(
-        "\(API_Root)/user/recover",
-        method: .post,
-        parameters: [
-            "email" : email
-        ],
-        encoder: JSONParameterEncoder.default)
-        .responseJSON() {
-            res in print(res)
+    AF.request(AuthRoute.recover(email: email))
+    .responseJSON() {
+        res in print(res)
     }
 }
-
