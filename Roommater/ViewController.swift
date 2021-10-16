@@ -13,6 +13,7 @@ class LoginViewController: PrototypeViewController {
     @IBOutlet var Login: UIButton!
 
     @IBAction func login(_ sender: UIButton){
+        sender.isEnabled = false
         Roommater.login(
             username: Username.text!,
             pass: Password.text!

@@ -60,23 +60,41 @@ enum AuthRoute : URLRequestConvertible {
     }
 }
 
-func login(username: String, pass:String){
+func login(username: String, pass:String) -> AFDataResponse<Any>? {
+    
     AF.request(AuthRoute.login(username: username, pass: pass))
-    .responseJSON() {
-        res in print(res)
+    .responseJSON() { res in
+        if let status = res.response?.statusCode {
+            switch(status){
+            case 201:
+                print("example success")
+            default:
+                print("error with response status: \(status)")
+            }
+        }
+        
+        if let result = res.data {
+        
+            
+        }
+        
+        print(res)
     }
+    return nil
 }
 
-func signup(username: String, pass:String, email : String){
+func signup(username: String, pass:String, email : String) -> AFDataResponse<Any>? {
     AF.request(AuthRoute.signup(username: username, pass: pass, email: email))
     .responseJSON() {
         res in print(res)
     }
+    return nil
 }
 
-func forgot(email:String){
+func forgot(email:String) -> AFDataResponse<Any>?{
     AF.request(AuthRoute.recover(email: email))
     .responseJSON() {
         res in print(res)
     }
+    return nil
 }
