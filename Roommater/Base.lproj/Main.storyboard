@@ -52,8 +52,8 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
                                 <rect key="frame" x="40" y="424" width="291" height="57"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Don't have an account? " subtitle="Click here to signup!" titleAlignment="center"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Don't have an account? "/>
                                 <connections>
                                     <segue destination="M1R-gG-2lp" kind="show" id="hRE-6I-4pV"/>
                                 </connections>

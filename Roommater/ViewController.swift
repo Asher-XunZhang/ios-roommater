@@ -16,10 +16,25 @@ class LoginViewController: PrototypeViewController {
     @IBAction func login(_ sender: PrototypeButton){
         Login.notAvailableAction()
         loading()
-        Roommater.login(
-            username: Username.text!,
-            pass: Password.text!
-        )
+        exec()
+    }
+    
+    func exec(){
+        Roommater.login(username: Username.text!, pass: Password.text!, callback: { [self] res, err in
+            if let e = err {
+                //TODO: Error Handel
+                print(e)
+            }
+            switch res{
+            case .Success(let data):
+                print(data?.msg ?? "00000")
+            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                print("Other: \(msg)")
+                self.Login.isEnabled = true
+            case .NONE:
+                print("None")
+            }
+        })
     }
     
     func loading(){
@@ -40,30 +55,22 @@ class LoginViewController: PrototypeViewController {
     }
     
     override func textFieldDone() {
-        Roommater.login(
-            username: Username.text!,
-            pass: Password.text!
-        )
+        exec()
     }
 }
-
-
 
 class SignupViewController: PrototypeViewController{
     @IBOutlet var Username: NoNullTextField!
     @IBOutlet var Password: NoNullTextField!
     @IBOutlet var RePassword: NoNullTextField!
     @IBOutlet var Email: NoNullTextField!
-    
     @IBOutlet var Signup: UIButton!
     
     @IBAction func signup(_ sender: UIButton){
-        Roommater.signup(
-            username: Username.text!,
-            pass: Password.text!,
-            email: Email.text!
-        )
+        sender.isEnabled = false
+        exec()
     }
+    
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
@@ -73,13 +80,25 @@ class SignupViewController: PrototypeViewController{
     }
     
     override func textFieldDone() {
-        Roommater.signup(
-            username: Username.text!,
-            pass: Password.text!,
-            email: Email.text!
-        )
+        exec()
     }
     
+    func exec(){
+        Roommater.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
+            if let e = err {
+                //TODO: Error Handel
+                print(e)
+            }
+            switch res{
+            case .Success(let data):
+                print(data?.status ?? 600)
+            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                print(msg)
+            case .NONE:
+                print("None")
+            }
+        })
+    }
 }
 
 
