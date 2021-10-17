@@ -7,10 +7,9 @@
 import Foundation
 import SocketIO
 
-struct SocketInstance {
+class SocketInstance {
     static let socketOrigin = "https://roommater-server.herokuapp.com"
     static var socket : SocketIOClient?
-    
     static let manager = SocketManager(
         socketURL: URL(string: socketOrigin)!,
         config: [
@@ -22,8 +21,6 @@ struct SocketInstance {
     
     static func setup(){
         socket = manager.defaultSocket
-        print(manager.socketURL)
-        
         /*========================
          * Register Socket Event Handler
          ========================*/
@@ -32,33 +29,28 @@ struct SocketInstance {
                 // Handle connected
                 print("socket connected")
             }
-            
             client.on(clientEvent: .disconnect) {data, ack in
                 // Handle disconnected
                 print("socket disconnected")
             }
-            
             client.on(clientEvent: .error) {data, ack in
                 // Handle error
                 print("socket error")
             }
-            
-            client.on("currentAmount") {data, ack in
-                guard let cur = data[0] as? Double else { return }
-                client.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-                    if (data.first as? String ?? "passed") == SocketAckStatus.noAck.rawValue {
-                        // Handle ack timeout
-                    }
-                    client.emit("update", ["amount": cur + 2.50])
-                }
-                ack.with("Got your currentAmount", "dude")
-            }
+            client.on("handshake"){res, ack in print(res)}
         }
     }
     
     static func connect(){
-        if socket?.status == .connected {
-            socket?.connect()
+        if let client = socket{
+            if client.status != .connected {
+                print("connecting...")
+                client.connect()
+                get(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
+                post(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
+            }
+        }else{
+            print("Socket is not inited!")
         }
     }
     
@@ -66,12 +58,22 @@ struct SocketInstance {
         socket?.disconnect()
     }
     
-    static func auth(identity:String, passEncrypted :String) -> Bool {
+    static func get(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
         if let client = socket {
-            client.emitWithAck("login", 0).timingOut(after: 1) {data in
-                
+            print(["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr}))
+            client.emitWithAck("get", ["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr})).timingOut(after: 1) {res in
+                print(res)
+                callback(res)
             }
         }
-        return false
+    }
+    
+    static func post(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
+        if let client = socket {
+            client.emitWithAck("post", ["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr})).timingOut(after: 1) {res in
+                print(res)
+                callback(res)
+            }
+        }
     }
 }

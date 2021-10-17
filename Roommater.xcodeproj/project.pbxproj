@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3D965689916EB95FF377AF4A /* Pods_Roommater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B47A74B49EB67505020188CA /* Pods_Roommater.framework */; };
 		5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F684C2717F48C00B0DD6E /* UIComponents.swift */; };
-		B6256D36271B75E400D8ADA5 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6256D35271B75E400D8ADA5 /* Response.swift */; };
 		B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50F6270CA45A005F83EB /* AppDelegate.swift */; };
 		B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50F8270CA45B005F83EB /* SceneDelegate.swift */; };
 		B63E50FB270CA45B005F83EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50FA270CA45B005F83EB /* ViewController.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		5B5F684C2717F48C00B0DD6E /* UIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
 		B47A74B49EB67505020188CA /* Pods_Roommater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6256D35271B75E400D8ADA5 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		B63E50F3270CA45A005F83EB /* Roommater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roommater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B63E50F6270CA45A005F83EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B63E50F8270CA45B005F83EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			children = (
 				B6AF3FED2710D8DA0032DEF2 /* User.swift */,
 				B6EC251D2715D99600F55EBC /* Dorm.swift */,
-				B6256D35271B75E400D8ADA5 /* Response.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -260,7 +257,6 @@
 				5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */,
 				B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */,
 				B63E50FB270CA45B005F83EB /* ViewController.swift in Sources */,
-				B6256D36271B75E400D8ADA5 /* Response.swift in Sources */,
 				B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */,
 				B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */,
 				B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */,

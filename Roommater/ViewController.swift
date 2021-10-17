@@ -14,9 +14,10 @@ class LoginViewController: PrototypeViewController {
     @IBOutlet var loadingBar: UIActivityIndicatorView!
 
     @IBAction func login(_ sender: PrototypeButton){
-        Login.notAvailableAction()
+//        Login.notAvailableAction()
         loading()
-        exec()
+        SocketInstance.connect()
+//        exec()
     }
     
     func exec(){
@@ -27,7 +28,7 @@ class LoginViewController: PrototypeViewController {
             }
             switch res{
             case .Success(let data):
-                print(data?.msg ?? "00000")
+                print(data ?? "None")
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 print("Other: \(msg)")
                 self.Login.isEnabled = true
