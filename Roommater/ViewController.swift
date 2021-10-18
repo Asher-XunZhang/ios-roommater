@@ -17,6 +17,9 @@ class LoginViewController: PrototypeViewController {
 //        Login.notAvailableAction()
         loading()
         SocketInstance.connect()
+        SocketInstance.GET(path: "socket", data: ["platform": "iOS"]){ res in print(res)}
+        SocketInstance.test()
+//        SocketInstance.POST(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
 //        exec()
     }
     

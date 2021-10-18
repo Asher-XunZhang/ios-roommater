@@ -13,9 +13,9 @@ class SocketInstance {
     static let manager = SocketManager(
         socketURL: URL(string: socketOrigin)!,
         config: [
-            .log(true),
+            .log(false),
             .compress,
-            .connectParams(["__sails_io_sdk_version":"1.0.2"]),
+            .connectParams(["__sails_io_sdk_version":"1.2.1"]),
             .forceWebsockets(true)
         ])
     
@@ -27,30 +27,41 @@ class SocketInstance {
         if let client = socket {
             client.on(clientEvent: .connect) {data, ack in
                 // Handle connected
-                print("socket connected")
+                print("[Socket Instance] Connected | session id:\(client.sid)")
             }
             client.on(clientEvent: .disconnect) {data, ack in
                 // Handle disconnected
-                print("socket disconnected")
+                print("[Socket Instance] Disconnected")
             }
             client.on(clientEvent: .error) {data, ack in
                 // Handle error
-                print("socket error")
+                print("[Socket Instance] Connect Error")
             }
+            client.onAny({e in
+                print("[Socket Instance](Any Event): \(e)")
+            })
+            
             client.on("handshake"){res, ack in print(res)}
+            client.on("testuser"){ res, ack in
+                print("[Socket Instance](Test User): \(res) | \(ack)")
+            }
         }
     }
     
     static func connect(){
         if let client = socket{
             if client.status != .connected {
-                print("connecting...")
                 client.connect()
-                get(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
-                post(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
+                print("connecting...")
             }
         }else{
             print("Socket is not inited!")
+        }
+    }
+    
+    static func test(){
+        if let client = socket, client.status == .connected {
+            client.emit("start", ["Name":"Kamiku"])
         }
     }
     
@@ -58,21 +69,22 @@ class SocketInstance {
         socket?.disconnect()
     }
     
-    static func get(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
-        if let client = socket {
-            print(["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr}))
-            client.emitWithAck("get", ["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr})).timingOut(after: 1) {res in
+    static func GET(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
+        if let client = socket, client.status == .connected {
+            let arg = ["method": "get", "params": [], "header": [], "url": "/api/v1/testuser/\(path)", "data": data] as [String : Any]
+            print(arg)
+            client.emitWithAck("get", arg).timingOut(after: 10) {res in
                 print(res)
-                callback(res)
+//                callback(res)
             }
         }
     }
     
-    static func post(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
-        if let client = socket {
-            client.emitWithAck("post", ["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr})).timingOut(after: 1) {res in
+    static func POST(path:String, data:[String:String], callback: @escaping ([Any])-> Void){
+        if let client = socket, client.status == .connected {
+            client.emitWithAck("post", ["url": "/\(path)"].merging(data, uniquingKeysWith: {(_, curr) in curr})).timingOut(after: 10) {res in
                 print(res)
-                callback(res)
+//                callback(res)
             }
         }
     }
