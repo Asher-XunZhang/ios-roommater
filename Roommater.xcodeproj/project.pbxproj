@@ -162,8 +162,8 @@
 			);
 			mainGroup = B63E50EA270CA45A005F83EB;
 			packageReferences = (
-				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
-				B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */,
+				B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = B63E50F4270CA45A005F83EB /* Products */;
 			projectDirPath = "";
@@ -431,7 +431,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
 			requirement = {
@@ -439,7 +439,7 @@
 				version = 15.2.0;
 			};
 		};
-		B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -452,12 +452,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B63E510F270CABD9005F83EB /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */;
 			productName = SocketIO;
 		};
 		B6EC251B2715D86000F55EBC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
