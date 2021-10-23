@@ -14,18 +14,20 @@ import SwiftJWT
 class MapJWT : Mappable, Claims {
     required init?(map: Map) {}
     
-    func mapping(map: Map) {
-        
-    }
+    func mapping(map: Map) {}
 }
 
 struct Response<T: Mappable>: Mappable {
     var error : Int?
     var msg : T?
     var data : MapJWT?
+    var token : MapJWT?
     init?(map: Map) {}
 
     mutating func mapping(map: Map) {
+        //print the map
+        print(map)
+        
         error <- map["error"]
         msg <- map["error"]
         data <- map["result"]
@@ -104,18 +106,21 @@ func login(username: String, pass: String, callback: @escaping (Result, Error?) 
         Alamofire.request(AuthRoute.login(username: username, pass: pass))
                 .responseObject { (res: DataResponse<User>) in
                     switch (res.response?.statusCode) {
-                    case 200:
-                        print("200")
-                    default:
-                        DispatchQueue.main.async {
-                            callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 600)"), nil)
-                        }
-                        return
-                    }
-                    if let user = res.result.value {
-                        print(user.toJSONString() ?? "None")
-                        DispatchQueue.main.async {
-                            callback(.Success(user), nil)
+                        case 200:
+                            if let result = response.result.value as? [String:Any] {
+                                print(result["err"])
+                                print(result["msg"])
+                            }
+                            // if let user = res.result.value {
+                            //     print(user.toJSONString() ?? "None")
+                            //     DispatchQueue.main.async {
+                            //     callback(.Success(user), nil)
+                            // }
+                        default:
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 600)"), nil)
+                            }
+                            return
                         }
                     }
 //        Alamofire.request(AuthRoute.login(username: username, pass: pass))
@@ -199,25 +204,23 @@ func login(username: String, pass: String, callback: @escaping (Result, Error?) 
                         if let status = res.response?.statusCode {
                             switch (status) {
                             case 200:
-                                print("")
+                                switch res.result {
+                                    case .success(let raw):
+                                        if raw is Dictionary<String, AnyObject> {
+                                            DispatchQueue.main.async {
+
+                                            }
+                                        }
+                                    case .failure(_):
+                                        DispatchQueue.main.async {
+                                            callback(.Error("Fail to phrase data"), nil)
+                                        }
+                                    }
                             default:
                                 DispatchQueue.main.async {
                                     callback(.Fail("Error API Response code: \(status)"), nil)
                                 }
                                 return
-                            }
-                        }
-
-                        switch res.result {
-                        case .success(let raw):
-                            if raw is Dictionary<String, AnyObject> {
-                                DispatchQueue.main.async {
-
-                                }
-                            }
-                        case .failure(_):
-                            DispatchQueue.main.async {
-                                callback(.Error("Fail to phrase data"), nil)
                             }
                         }
                     }

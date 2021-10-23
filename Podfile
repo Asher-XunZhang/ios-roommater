@@ -6,7 +6,11 @@ target 'Roommater' do
   use_frameworks!
 
   # Pods for Roommater
+  # Network Libraries
   pod 'AlamofireObjectMapper', '~> 5.2'
   pod 'Socket.IO-Client-Swift', '~> 15.2.0'
   pod 'SwiftJWT', '~> 3.6'
+	
+  # UI Libraries
+  pod 'SPIndicator'
 end
