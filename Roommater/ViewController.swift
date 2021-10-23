@@ -39,18 +39,18 @@ class LoginViewController: PrototypeViewController {
         }
         switch res{
             case .Success:
-                Login.availableAction()
+                login.availableAction()
                 loadingBar.stopAnimating()
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
-                self.Login.isEnabled = true
+                self.login.isEnabled = true
             case .NONE:
                 print("None")
         }
     }
 
     func exec(){
-        APIAction.login(username: Username.text!, pass: Password.text!, callback: handle)
+        APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: handle)
     }
 
     func loading(){
@@ -234,7 +234,7 @@ class SignupViewController: PrototypeViewController{
     }
 
     func exec(){
-        APIAction.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
+        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: { res, err in
             if let e = err {
                 //TODO: Error Handel
                 print(e)
@@ -261,8 +261,8 @@ class ForgotPasswordViewController: PrototypeViewController{
     @IBOutlet var loadingBar: UIActivityIndicatorView!
 
     func resetAction(){
-        loading()
         resetButton.notAvailableUI()
+        loading()
 //        forgot(email: emailRecoveryTextField.text!, callback: {})
     }
 
