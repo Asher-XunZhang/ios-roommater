@@ -52,10 +52,10 @@ class LoginViewController: PrototypeViewController {
 
 
 class SignupViewController: PrototypeViewController{
-    @IBOutlet var Username: NoNullTextField!
-    @IBOutlet var Password: NoNullTextField!
-    @IBOutlet var RePassword: NoNullTextField!
-    @IBOutlet var Email: NoNullTextField!
+    @IBOutlet var Username: UsernameTextField!
+    @IBOutlet var Password: PasswordTextField!
+    @IBOutlet var RePassword: RePasswordTextField!
+    @IBOutlet var Email: EmailTextField!
     
     
     @IBOutlet var noticeU: UILabel!
@@ -96,16 +96,16 @@ class SignupViewController: PrototypeViewController{
         )
     }
     private func checkUsername()->Bool{
-        return true
+        return false
     }
     private func checkPassword()->Bool{
-        return true
+        return false
     }
     private func checkRePassword()->Bool{
         return RePassword.text! == Password.text!
     }
     private func checkEmail()->Bool{
-        return true
+        return false
     }
     
     
@@ -113,19 +113,19 @@ class SignupViewController: PrototypeViewController{
         return UsernameTextFieldCheckAction() && PasswordTextFieldCheckAction() && RePasswordTextFieldCheckAction() && EmailTextFieldCheckAction()
     }
     
-    private func UsernameTextFieldCheckAction() -> Bool {
+    override func UsernameTextFieldCheckAction() -> Bool {
         noticeU.isHidden = checkUsername()
         return noticeRP.isHidden
     }
-    private func PasswordTextFieldCheckAction() -> Bool {
+    override func PasswordTextFieldCheckAction() -> Bool {
         noticeP.isHidden = checkPassword()
         return noticeP.isHidden
     }
-    private func RePasswordTextFieldCheckAction() -> Bool {
+    override func RePasswordTextFieldCheckAction() -> Bool {
         noticeRP.isHidden = checkRePassword()
         return noticeE.isHidden
     }
-    private func EmailTextFieldCheckAction() -> Bool {
+    override func EmailTextFieldCheckAction() -> Bool {
         noticeE.isHidden = checkEmail()
         return noticeE.isHidden
     }

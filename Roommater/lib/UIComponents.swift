@@ -13,17 +13,15 @@ let HEIGHT:CGFloat = UIScreen.main.bounds.height
 
 class NoNullTextField: UITextField, UITextFieldDelegate{
 }
-
+class UsernameTextField: NoNullTextField{
+}
+class PasswordTextField: NoNullTextField{
+}
 class RePasswordTextField: NoNullTextField{
 }
+class EmailTextField: NoNullTextField{
+}
 class PrototypeViewController: UIViewController{
-//    var centerY: CGFloat = 0.0
-//    var keyboardHeight:CGFloat = 0.0
-//    var maxTag: Int = 0
-//    var currentTag: Int = 0
-//    var openMoveKeyBoard = true
-//    var isCover = false
-//    var mutex = false
     
     func viewLoadAction(){}
     override func viewDidLoad() {
@@ -39,6 +37,11 @@ extension PrototypeViewController: UITextFieldDelegate{
     @objc func textFieldAction(){}
     
     @objc func textFieldAvailableCheck()->Bool {return true}
+    
+    @objc func UsernameTextFieldCheckAction() -> Bool{return true}
+    @objc func PasswordTextFieldCheckAction() -> Bool{return true}
+    @objc func RePasswordTextFieldCheckAction() -> Bool{return true}
+    @objc func EmailTextFieldCheckAction() -> Bool{return true}
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var checkNextAvailable = true
@@ -73,14 +76,22 @@ extension PrototypeViewController: UITextFieldDelegate{
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textFieldAvailableCheck()
+        if(textField.isKind(of: UsernameTextField.self)){
+            UsernameTextFieldCheckAction()
+        }else if(textField.isKind(of: PasswordTextField.self)){
+            PasswordTextFieldCheckAction()
+        }else if(textField.isKind(of: RePasswordTextField.self)){
+            RePasswordTextFieldCheckAction()
+        }else if(textField.isKind(of: EmailTextField.self)){
+            EmailTextFieldCheckAction()
+        }
     }
     
     
     
     func keyboardAppearAction(_ textField: UITextField){
         if (textField.frame.midY > (HEIGHT/2)){
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = 0
             })
         }
@@ -97,7 +108,7 @@ extension PrototypeViewController: UITextFieldDelegate{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
         self.view.frame.origin.y = 0
         })
     }
