@@ -8,9 +8,17 @@
 import UIKit
 
 class LoginViewController: PrototypeViewController {
-    @IBOutlet var Username: NoNullTextField!
-    @IBOutlet var Password: NoNullTextField!
-    @IBOutlet var Login: PrototypeButton!
+    
+    @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var passwordLabel: UILabel!
+    
+    @IBOutlet var usernameTextField: NoNullTextField!
+    @IBOutlet var passwordTextField: NoNullTextField!
+    
+    @IBOutlet var forgotPassword: UIButton!
+    @IBOutlet var jumpToSignUp: UIButton!
+    @IBOutlet var login: PrototypeButton!
+    
     @IBOutlet var loadingBar: UIActivityIndicatorView!
 
     @IBAction func login(_ sender: PrototypeButton){
@@ -18,7 +26,7 @@ class LoginViewController: PrototypeViewController {
     }
 
     func loginAction(){
-        Login.notAvailableAction()
+        login.notAvailableAction()
         loading()
         SocketInstance.connect()
         SocketInstance.GET(path: "socket", data: ["platform": "iOS"]){ res in print(res)}
@@ -28,7 +36,7 @@ class LoginViewController: PrototypeViewController {
     }
 
     func exec(){
-        Roommater.login(username: Username.text!, pass: Password.text!, callback: { [self] res, err in
+        Roommater.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: { [self] res, err in
             if let e = err {
                 //TODO: Error Handel
                 print(e)
@@ -38,7 +46,7 @@ class LoginViewController: PrototypeViewController {
                 print(data ?? "None")
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 print("Other: \(msg)")
-                self.Login.isEnabled = true
+                self.login.isEnabled = true
             case .NONE:
                 print("None")
             }
@@ -46,19 +54,31 @@ class LoginViewController: PrototypeViewController {
     }
     
     func loading(){
-        Login.setTitleColor(.clear, for: .normal)
+        login.setTitleColor(.clear, for: .normal)
         loadingBar.startAnimating()
     }
     
     override func viewLoadAction() {
+        let labelHeight = usernameLabel.frame.maxY - usernameLabel.frame.minY
+        let textFieldHeight = usernameTextField.frame.maxY - usernameTextField.frame.minY
+        
+        usernameLabel.frame.origin.y = HEIGHT/3
+        usernameTextField.frame.origin.y = usernameLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
+        passwordLabel.frame.origin.y = usernameTextField.frame.maxY + 10 + labelHeight/2
+        forgotPassword.frame.origin.y = passwordLabel.frame.origin.y
+        passwordTextField.frame.origin.y = passwordLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
+        login.frame.origin.y = passwordTextField.frame.maxY + textFieldHeight
+        loadingBar.frame.origin.y = login.frame.origin.y
+        jumpToSignUp.frame.origin.y = login.frame.maxY + textFieldHeight
+        
         textFieldAction()
     }
     
     override func textFieldAction() {
-        if !(Username.text!.isEmpty) && !(Password.text!.isEmpty){
-            Login.availableAction()
+        if !(usernameTextField.text!.isEmpty) && !(passwordTextField.text!.isEmpty){
+            login.availableAction()
         }else{
-            Login.notAvailableAction()
+            login.notAvailableAction()
         }
     }
     
@@ -69,20 +89,25 @@ class LoginViewController: PrototypeViewController {
 }
 
 class SignupViewController: PrototypeViewController{
-    @IBOutlet var Username: UsernameTextField!
-    @IBOutlet var Password: PasswordTextField!
-    @IBOutlet var RePassword: RePasswordTextField!
-    @IBOutlet var Email: EmailTextField!
-
+    @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var passwordLabel: UILabel!
+    @IBOutlet var rePasswordLabel: UILabel!
+    @IBOutlet var emailLabel: UILabel!
+    
+    @IBOutlet var usernameTextField: UsernameTextField!
+    @IBOutlet var passwordTextField: PasswordTextField!
+    @IBOutlet var rePasswordTextField: RePasswordTextField!
+    @IBOutlet var emailTextField: EmailTextField!
 
     @IBOutlet var noticeU: UILabel!
     @IBOutlet var noticeP: UILabel!
     @IBOutlet var noticeRP: UILabel!
     @IBOutlet var noticeE: UILabel!
 
-
-    @IBOutlet var Signup: PrototypeButton!
+    @IBOutlet var backLogin: UIButton!
+    @IBOutlet var signup: PrototypeButton!
     @IBOutlet var loadingBar: UIActivityIndicatorView!
+    
 
     
     @IBAction func signup(_ sender: UIButton){
@@ -94,66 +119,112 @@ class SignupViewController: PrototypeViewController{
     }
 
     @IBAction func passwordChangedAction(_ sender: UITextField){
-        self.RePassword.text = ""
+        self.rePasswordTextField.text = ""
         self.noticeRP.isHidden = true
     }
+    
     override func textFieldAction() {
-        if !(Username.text!.isEmpty), !(Password.text!.isEmpty), !(RePassword.text!.isEmpty), !(Email.text!.isEmpty), checkRePassword(){
-            Signup.availableAction()
+        if !(usernameTextField.text!.isEmpty), !(passwordTextField.text!.isEmpty), !(rePasswordTextField.text!.isEmpty), !(emailTextField.text!.isEmpty), checkRePassword(){
+            signup.availableAction()
         }else{
-            Signup.notAvailableAction()
+            signup.notAvailableAction()
         }
     }
     
     func signupAction(){
-        Signup.notAvailableAction()
+        signup.notAvailableAction()
         loading()
         exec()
     }
+    
     private func checkUsername()->Bool{
-        return false
+        // TODO: add regex condition
+        return true
     }
     private func checkPassword()->Bool{
-        return false
+        // TODO: add regex condition
+        return true
     }
     private func checkRePassword()->Bool{
-        return RePassword.text! == Password.text!
+        return rePasswordTextField.text! == passwordTextField.text!
     }
     private func checkEmail()->Bool{
-        return false
+        // TODO: add regex condition
+        return true
     }
 
 
-    override func textFieldAvailableCheck()->Bool{
-        return UsernameTextFieldCheckAction() && PasswordTextFieldCheckAction() && RePasswordTextFieldCheckAction() && EmailTextFieldCheckAction()
-    }
-
-    override func UsernameTextFieldCheckAction() -> Bool {
+    func UsernameTextFieldCheckAction() -> Bool {
         noticeU.isHidden = checkUsername()
         return noticeRP.isHidden
     }
-    override func PasswordTextFieldCheckAction() -> Bool {
+    
+    func PasswordTextFieldCheckAction() -> Bool {
         noticeP.isHidden = checkPassword()
         return noticeP.isHidden
     }
-    override func RePasswordTextFieldCheckAction() -> Bool {
+    
+    func RePasswordTextFieldCheckAction() -> Bool {
         noticeRP.isHidden = checkRePassword()
         return noticeE.isHidden
     }
-    override func EmailTextFieldCheckAction() -> Bool {
+    
+    func EmailTextFieldCheckAction() -> Bool {
         noticeE.isHidden = checkEmail()
         return noticeE.isHidden
     }
 
     func loading(){
-        Signup.setTitleColor(.clear, for: .normal)
+        signup.setTitleColor(.clear, for: .normal)
         loadingBar.isHidden = false
         loadingBar.startAnimating()
     }
-
+    
+    override func textFieldAvailableCheck(_ textField: UITextField)->Bool{
+        if textField.isKind(of: UsernameTextField.self) {
+            return UsernameTextFieldCheckAction()
+        }else if textField.isKind(of: PasswordTextField.self){
+            return PasswordTextFieldCheckAction()
+        }else if textField.isKind(of: RePasswordTextField.self){
+            return RePasswordTextFieldCheckAction()
+        }else if textField.isKind(of: EmailTextField.self){
+            return EmailTextFieldCheckAction()
+        }
+        return false
+    }
+    
     override func viewLoadAction() {
+        let buttonHeight =  backLogin.frame.height
+        let labelHeight = usernameLabel.frame.height
+        let textFieldHeight = usernameTextField.frame.height
+        let noticeHeight = noticeU.frame.height
+
+        backLogin.frame.origin.y = HEIGHT/30 + buttonHeight/2
+        
+        usernameLabel.frame.origin.y =  backLogin.frame.maxY + noticeHeight/2
+        usernameTextField.frame.origin.y =  usernameLabel.frame.maxY + 10
+        noticeU.frame.origin.y = usernameTextField.frame.maxY
+        
+        passwordLabel.frame.origin.y =  noticeU.frame.maxY
+        passwordTextField.frame.origin.y =  passwordLabel.frame.maxY + 10
+        noticeP.frame.origin.y = passwordTextField.frame.maxY
+        
+        rePasswordLabel.frame.origin.y =  noticeP.frame.maxY
+        rePasswordTextField.frame.origin.y =  rePasswordLabel.frame.maxY + 10
+        noticeRP.frame.origin.y = rePasswordTextField.frame.maxY
+        
+        emailLabel.frame.origin.y =  noticeRP.frame.maxY - 5
+        emailTextField.frame.origin.y =  emailLabel.frame.maxY + 10
+        noticeE.frame.origin.y = emailTextField.frame.maxY
+        
+        signup.frame.origin.y = noticeE.frame.maxY
+        loadingBar.frame.origin.y = signup.frame.origin.y
+        
         textFieldAction()
+        noticeU.isHidden = true
+        noticeP.isHidden = true
         noticeRP.isHidden = true
+        noticeE.isHidden = true
         loadingBar.isHidden = true
     }
 
@@ -163,7 +234,7 @@ class SignupViewController: PrototypeViewController{
     }
 
     func exec(){
-        Roommater.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
+        Roommater.signup(username: usernameTextField.text!, pass: passwordTextField.text!, email: emailTextField.text!, callback: { res, err in
             if let e = err {
                 //TODO: Error Handel
                 print(e)
@@ -180,4 +251,83 @@ class SignupViewController: PrototypeViewController{
     }
 }
 
+class ForgotPasswordViewController: PrototypeViewController{
+    @IBOutlet var backToLoginButton: PrototypeButton!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var emailRecoveryTextField: EmailTextField!
+    @IBOutlet var emailNotice: UILabel!
+    
+    @IBOutlet var resetButton: PrototypeButton!
+    @IBOutlet var loadingBar: UIActivityIndicatorView!
+    
+    func resetAction(){
+        loading()
+        resetButton.notAvailableUI()
+//        forgot(email: emailRecoveryTextField.text!, callback: {})
+    }
+    
+    @IBAction func reset(_ sender: UIButton){
+        resetAction()
+    }
+    
+    
+    @IBAction func back(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func loading(){
+        resetButton.setTitleColor(.clear, for: .normal)
+        loadingBar.isHidden = false
+        loadingBar.startAnimating()
+    }
+    
+    override func viewLoadAction() {
+        let buttonHeight =  backToLoginButton.frame.height
+        let labelHeight = emailLabel.frame.height
+        let textFieldHeight = emailRecoveryTextField.frame.height
+        let noticeHeight = emailNotice.frame.height
 
+        backToLoginButton.frame.origin.y = HEIGHT/30 + buttonHeight/2
+        
+        
+        emailLabel.frame.origin.y = backToLoginButton.frame.maxY + noticeHeight/2
+        emailRecoveryTextField.frame.origin.y =  emailLabel.frame.maxY + 10
+        emailNotice.frame.origin.y = emailRecoveryTextField.frame.maxY
+        
+        resetButton.frame.origin.y = emailNotice.frame.maxY
+        loadingBar.frame.origin.y = resetButton.frame.origin.y
+        
+        textFieldAction()
+        emailNotice.isHidden =  true
+    }
+    
+    override func textFieldAvailableCheck(_ textField: UITextField)->Bool{
+        if textField.isKind(of: EmailTextField.self){
+            return EmailTextFieldCheckAction()
+        }
+        return false
+    }
+    
+    private func checkEmail() -> Bool{
+        // TODO: add regex condition
+        return true
+    }
+    
+    func EmailTextFieldCheckAction() -> Bool {
+        emailNotice.isHidden = checkEmail()
+        return emailNotice.isHidden
+    }
+    
+    override func textFieldAction() {
+        if !(emailRecoveryTextField.text!.isEmpty) && checkEmail(){
+            resetButton.availableAction()
+        }else{
+            resetButton.notAvailableAction()
+        }
+    }
+    
+    override func textFieldDone(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        resetAction()
+    }
+}
