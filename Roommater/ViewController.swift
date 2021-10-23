@@ -16,14 +16,33 @@ class LoginViewController: PrototypeViewController {
     @IBAction func login(_ sender: PrototypeButton){
         loginAction()
     }
-    
+
     func loginAction(){
         Login.notAvailableAction()
         loading()
-        Roommater.login(
-            username: Username.text!,
-            pass: Password.text!
-        )
+        SocketInstance.connect()
+        SocketInstance.GET(path: "socket", data: ["platform": "iOS"]){ res in print(res)}
+        SocketInstance.test()
+//        SocketInstance.POST(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
+//        exec()
+    }
+
+    func exec(){
+        Roommater.login(username: Username.text!, pass: Password.text!, callback: { [self] res, err in
+            if let e = err {
+                //TODO: Error Handel
+                print(e)
+            }
+            switch res{
+            case .Success(let data):
+                print(data ?? "None")
+            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                print("Other: \(msg)")
+                self.Login.isEnabled = true
+            case .NONE:
+                print("None")
+            }
+        })
     }
     
     func loading(){
@@ -49,31 +68,31 @@ class LoginViewController: PrototypeViewController {
     }
 }
 
-
-
 class SignupViewController: PrototypeViewController{
     @IBOutlet var Username: UsernameTextField!
     @IBOutlet var Password: PasswordTextField!
     @IBOutlet var RePassword: RePasswordTextField!
     @IBOutlet var Email: EmailTextField!
-    
-    
+
+
     @IBOutlet var noticeU: UILabel!
     @IBOutlet var noticeP: UILabel!
     @IBOutlet var noticeRP: UILabel!
     @IBOutlet var noticeE: UILabel!
-    
-    
+
+
     @IBOutlet var Signup: PrototypeButton!
     @IBOutlet var loadingBar: UIActivityIndicatorView!
-    
+
     
     @IBAction func signup(_ sender: UIButton){
         signupAction()
     }
+
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
+
     @IBAction func passwordChangedAction(_ sender: UITextField){
         self.RePassword.text = ""
         self.noticeRP.isHidden = true
@@ -89,11 +108,7 @@ class SignupViewController: PrototypeViewController{
     func signupAction(){
         Signup.notAvailableAction()
         loading()
-        Roommater.signup(
-            username: Username.text!,
-            pass: Password.text!,
-            email: Email.text!
-        )
+        exec()
     }
     private func checkUsername()->Bool{
         return false
@@ -107,12 +122,12 @@ class SignupViewController: PrototypeViewController{
     private func checkEmail()->Bool{
         return false
     }
-    
-    
+
+
     override func textFieldAvailableCheck()->Bool{
         return UsernameTextFieldCheckAction() && PasswordTextFieldCheckAction() && RePasswordTextFieldCheckAction() && EmailTextFieldCheckAction()
     }
-    
+
     override func UsernameTextFieldCheckAction() -> Bool {
         noticeU.isHidden = checkUsername()
         return noticeRP.isHidden
@@ -129,24 +144,40 @@ class SignupViewController: PrototypeViewController{
         noticeE.isHidden = checkEmail()
         return noticeE.isHidden
     }
-    
+
     func loading(){
         Signup.setTitleColor(.clear, for: .normal)
         loadingBar.isHidden = false
         loadingBar.startAnimating()
     }
-    
+
     override func viewLoadAction() {
         textFieldAction()
         noticeRP.isHidden = true
         loadingBar.isHidden = true
     }
-    
+
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
         signupAction()
     }
-    
+
+    func exec(){
+        Roommater.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
+            if let e = err {
+                //TODO: Error Handel
+                print(e)
+            }
+            switch res{
+            case .Success(let data):
+                print(data?.status ?? 600)
+            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                print(msg)
+            case .NONE:
+                print("None")
+            }
+        })
+    }
 }
 
 

@@ -6,102 +6,79 @@
 //
 
 import Foundation
+import ObjectMapper
 import UIKit
-//import JWTKit
 
-//struct UserPayload: JWTPayload, Equatable {
-//    enum CodingKeys: String, CodingKey {
-//        case subject = "sub"
-//        case expiration = "exp"
-//        case isAdmin = "admin"
-//    }
-//    // The "sub" (subject) claim identifies the principal that is the
-//    // subject of the JWT.
-//    var subject: SubjectClaim
-//    var expiration: ExpirationClaim
-//    var uid : String
-//    var username : String
-//    var email : String
-//    var rating : Float
-//    var status : Status
-//
-//    func verify(using signer: JWTSigner) throws {
-//        try self.expiration.verifyNotExpired()
-//    }
-//}
-
-class User {
-    var uid : String
-    var username : String
-    var email : String
-    //var avatar : URL? // todo avatar storage and type
-    var contacts : [Contact]
-    var rating : Float
-    var status : Status
-    var dorm : Dorm?
+class TsetUser : Mappable {
+    var uid: String?
+    var username: String?
+    var token: String?
+    required init?(map: Map) {}
     
-    init(uid: String, username : String, email: String, contacts : [Contact], rating : Float, status: Status) {
-        self.uid = uid
-        self.username = username
-        self.email = email
-        self.contacts = contacts
-        self.rating = rating
-        self.status = status
+    func mapping(map: Map) {
+        uid <- map["uid"]
+        username <- map["username"]
+        token <- map["username"]
     }
-    
-//    init(data: String){
-//        let signers = JWTSigners()
-//        signers.use(.hs256(key: "secret"))
-//        if let user = try? signers.verify(data, as: UserPayload.self){
-//            print(user)
-//            self.uid = user.uid
-//            self.username = user.username
-//            self.email = user.email
-//            self.rating = user.rating
-//            self.status = user.status
-//        }
-//
-//    }
 }
 
-enum Status : String {
+class User: Mappable {
+    var uid: String?
+    var username: String?
+    var email: String?
+    var avatar: UIImage?
+    var contacts: [Contact]?
+    var rating: Float?
+    var status: Status?
+    var dorm: Dorm?
+
+    required init?(map: Map) {
+    }
+
+    func mapping(map: Map) {
+        uid <- map["uid"]
+        username <- map["username"]
+        email <- map["email"]
+        rating <- map["rating"]
+        status <- (map["status"], EnumTransform<Status>())
+    }
+}
+
+enum Status: String {
     case inactive = "i"
     case active = "a"
     case banned = "b"
     case admin = "p"
 }
 
-struct Todo {
-   //todo
+struct Contact: Mappable {
+    var name: String?
+    var identity: String?
+    var scheme: String?
+    var host: String?
+    var url: URL?
 
-}
+    init?(map: Map) {
+    }
 
-struct Contact {
-    var name : String
-    var identity : String
-    var scheme : String
-    var host : String
-    var url : URL?
-    
-    init(name:String, host:String, identity:String, scheme:String) {
-        self.name = name
-        self.identity = identity
-        self.scheme = scheme
-        self.host = host
+    mutating func mapping(map: Map) {
+        name <- map["username"]
+        identity <- map["username"]
+        scheme <- map["username"]
+        host <- map["username"]
         url = URL(string: "\(scheme)://\(host)\(identity)")
     }
-    
-    func redirect(){
+
+    func redirect() {
         if !UIApplication.shared.canOpenURL(url!) {
-             return
+            return
         }
-        
         UIApplication.shared.open(url!, options: [:]) { (success) in
-           if (success) {
+            if (success) {
                 print("Success")
-           }else{
+            } else {
                 print("Fail")
-           }
+            }
         }
     }
 }

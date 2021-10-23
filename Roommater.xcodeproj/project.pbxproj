@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D965689916EB95FF377AF4A /* Pods_Roommater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B47A74B49EB67505020188CA /* Pods_Roommater.framework */; };
 		5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F684C2717F48C00B0DD6E /* UIComponents.swift */; };
 		B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50F6270CA45A005F83EB /* AppDelegate.swift */; };
 		B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50F8270CA45B005F83EB /* SceneDelegate.swift */; };
@@ -15,17 +16,16 @@
 		B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */; };
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
-		B63E5110270CABD9005F83EB /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = B63E510F270CABD9005F83EB /* SocketIO */; };
 		B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FE92710C6490032DEF2 /* SocketKit.swift */; };
 		B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FED2710D8DA0032DEF2 /* User.swift */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
-		B6EC251C2715D86000F55EBC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B6EC251B2715D86000F55EBC /* Alamofire */; };
 		B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC251D2715D99600F55EBC /* Dorm.swift */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5B5F684C2717F48C00B0DD6E /* UIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
+		B47A74B49EB67505020188CA /* Pods_Roommater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B63E50F3270CA45A005F83EB /* Roommater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roommater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B63E50F6270CA45A005F83EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B63E50F8270CA45B005F83EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +44,8 @@
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		B6EC251D2715D99600F55EBC /* Dorm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dorm.swift; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.debug.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.debug.xcconfig"; sourceTree = "<group>"; };
+		F1BDE161B3CDA89DF39A6B23 /* Pods-Roommater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.release.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,20 +53,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B63E5110270CABD9005F83EB /* SocketIO in Frameworks */,
-				B6EC251C2715D86000F55EBC /* Alamofire in Frameworks */,
+				3D965689916EB95FF377AF4A /* Pods_Roommater.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4198AD350FD38C1B47ACB649 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */,
+				F1BDE161B3CDA89DF39A6B23 /* Pods-Roommater.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9C85E74677053712C804E1CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B47A74B49EB67505020188CA /* Pods_Roommater.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B63E50EA270CA45A005F83EB = {
 			isa = PBXGroup;
 			children = (
 				B63E50F5270CA45A005F83EB /* Roommater */,
 				B63E50F4270CA45A005F83EB /* Products */,
 				BC2091F93A1675003F65A767 /* .gitignore */,
+				4198AD350FD38C1B47ACB649 /* Pods */,
+				9C85E74677053712C804E1CC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,9 +139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B63E510A270CA45D005F83EB /* Build configuration list for PBXNativeTarget "Roommater" */;
 			buildPhases = (
+				EF7FBE0CE6EBA9C52713EE43 /* [CP] Check Pods Manifest.lock */,
 				B63E50EF270CA45A005F83EB /* Sources */,
 				B63E50F0270CA45A005F83EB /* Frameworks */,
 				B63E50F1270CA45A005F83EB /* Resources */,
+				31B414A2F8F08657F9D45E74 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,8 +151,6 @@
 			);
 			name = Roommater;
 			packageProductDependencies = (
-				B63E510F270CABD9005F83EB /* SocketIO */,
-				B6EC251B2715D86000F55EBC /* Alamofire */,
 			);
 			productName = Roommater;
 			productReference = B63E50F3270CA45A005F83EB /* Roommater.app */;
@@ -162,8 +182,6 @@
 			);
 			mainGroup = B63E50EA270CA45A005F83EB;
 			packageReferences = (
-				B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */,
-				B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = B63E50F4270CA45A005F83EB /* Products */;
 			projectDirPath = "";
@@ -187,6 +205,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		31B414A2F8F08657F9D45E74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Roommater/Pods-Roommater-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Roommater/Pods-Roommater-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Roommater/Pods-Roommater-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF7FBE0CE6EBA9C52713EE43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Roommater-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B63E50EF270CA45A005F83EB /* Sources */ = {
@@ -351,9 +411,11 @@
 		};
 		B63E510B270CA45D005F83EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F9X8CNC5RT;
@@ -372,6 +434,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixmeow.Roommater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -380,9 +443,11 @@
 		};
 		B63E510C270CA45D005F83EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1BDE161B3CDA89DF39A6B23 /* Pods-Roommater.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F9X8CNC5RT;
@@ -401,6 +466,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixmeow.Roommater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -429,38 +495,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
-			requirement = {
-				kind = exactVersion;
-				version = 15.2.0;
-			};
-		};
-		B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.4.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B63E510F270CABD9005F83EB /* SocketIO */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B63E510E270CABD9005F83EB /* XCRemoteSwiftPackageReference "socket" */;
-			productName = SocketIO;
-		};
-		B6EC251B2715D86000F55EBC /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B6EC251A2715D86000F55EBC /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */ = {
