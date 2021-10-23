@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPIndicator
 
 class LoginViewController: PrototypeViewController {
     @IBOutlet var Username: NoNullTextField!
@@ -20,29 +21,28 @@ class LoginViewController: PrototypeViewController {
     func loginAction(){
         Login.notAvailableAction()
         loading()
-        SocketInstance.connect()
-        SocketInstance.GET(path: "socket", data: ["platform": "iOS"]){ res in print(res)}
-        SocketInstance.test()
-//        SocketInstance.POST(path: "testuser/socket", data: ["platform": "iOS"]){ res in print(res)}
-//        exec()
+        exec()
     }
-
-    func exec(){
-        Roommater.login(username: Username.text!, pass: Password.text!, callback: { [self] res, err in
-            if let e = err {
-                //TODO: Error Handel
-                print(e)
-            }
-            switch res{
-            case .Success(let data):
-                print(data ?? "None")
+    
+    func handle(res: Result, err: Error?){
+        if let e = err {
+            //TODO: Error Handel
+            print(e)
+        }
+        switch res{
+            case .Success:
+                Login.availableAction()
+                loadingBar.stopAnimating()
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                print("Other: \(msg)")
+                SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.Login.isEnabled = true
             case .NONE:
                 print("None")
-            }
-        })
+        }
+    }
+
+    func exec(){
+        APIAction.login(username: Username.text!, pass: Password.text!, callback: handle)
     }
     
     func loading(){
@@ -163,7 +163,7 @@ class SignupViewController: PrototypeViewController{
     }
 
     func exec(){
-        Roommater.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
+        APIAction.signup(username: Username.text!, pass: Password.text!,email: Email.text!, callback: { res, err in
             if let e = err {
                 //TODO: Error Handel
                 print(e)

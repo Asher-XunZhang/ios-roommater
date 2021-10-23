@@ -25,6 +25,7 @@ class SocketInstance {
          * Register Socket Event Handler
          ========================*/
         if let client = socket {
+            // Baisc events
             client.on(clientEvent: .connect) {data, ack in
                 // Handle connected
                 print("[Socket Instance] Connected | session id:\(client.sid)")
@@ -37,10 +38,10 @@ class SocketInstance {
                 // Handle error
                 print("[Socket Instance] Connect Error")
             }
-            client.onAny({e in
-                print("[Socket Instance](Any Event): \(e)")
-            })
-            
+            client.on(clientEvent: .reconnect) {data, ack in
+                // Handle error
+                print("[Socket Instance] Reconnecting...")
+            }
             client.on("handshake"){res, ack in print(res)}
             client.on("testuser"){ res, ack in
                 print("[Socket Instance](Test User): \(res) | \(ack)")

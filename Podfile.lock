@@ -14,6 +14,7 @@ PODS:
   - ObjectMapper (3.5.3)
   - Socket.IO-Client-Swift (15.2.0):
     - Starscream (~> 3.1)
+  - SPIndicator (1.4.1)
   - Starscream (3.1.1)
   - SwiftJWT (3.6.200):
     - BlueCryptor (~> 1.0)
@@ -25,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - AlamofireObjectMapper (~> 5.2)
   - Socket.IO-Client-Swift (~> 15.2.0)
+  - SPIndicator
   - SwiftJWT (~> 3.6)
 
 SPEC REPOS:
@@ -39,6 +41,7 @@ SPEC REPOS:
     - Logging
     - ObjectMapper
     - Socket.IO-Client-Swift
+    - SPIndicator
     - Starscream
     - SwiftJWT
 
@@ -53,9 +56,10 @@ SPEC CHECKSUMS:
   Logging: beeb016c9c80cf77042d62e83495816847ef108b
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
 
-PODFILE CHECKSUM: c36f698e91bd26e5f359a5e314dfb268364adf98
+PODFILE CHECKSUM: 54d05a611330cd285184367974cce7474c2976e5
 
 COCOAPODS: 1.11.2
