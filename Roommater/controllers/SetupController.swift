@@ -35,13 +35,16 @@ class LoginViewController: PrototypeViewController {
 
     func handle(res: Result, err: Error?){
         if let e = err {
-            //TODO: Error Handel
             print(e)
+            SPIndicator.present(title: "Error", message: "Unknown Issues", preset: .error)
         }
         switch res{
-            case .Success:
-                login.availableAction()
-                
+            case .Success(let data):
+                print(data)
+                // rediecr to another storyboard with name is "App"
+                let storyboard = UIStoryboard(name: "App", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "App")
+                self.present(vc, animated: true, completion: nil)
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.login.availableUI()
@@ -64,34 +67,34 @@ class LoginViewController: PrototypeViewController {
         login.notAvailableUI()
         loadingBar.stopAnimating()
     }
-    
-    
+
+
     override func viewLoadAction() {
         let labelHeight = usernameLabel.frame.maxY - usernameLabel.frame.minY
         let textFieldHeight = usernameTextField.frame.maxY - usernameTextField.frame.minY
-        
+
 
         usernameLabel.frame.origin.y = HEIGHT/3
-        
+
         usernameTextField.frame.origin.x = WIDTH/2 - usernameTextField.frame.width/2
         usernameTextField.frame.origin.y = usernameLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
         usernameLabel.frame.origin.x = usernameTextField.frame.origin.x
-        
+
         passwordLabel.frame.origin.y = usernameTextField.frame.maxY + 10 + labelHeight/2
-        
+
         forgotPassword.frame.origin.y = passwordLabel.frame.origin.y
-        
+
         passwordTextField.frame.origin.x = WIDTH/2 - passwordTextField.frame.width/2
         passwordTextField.frame.origin.y = passwordLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
         passwordLabel.frame.origin.x = passwordTextField.frame.origin.x
         forgotPassword.frame.origin.x = passwordTextField.frame.maxX-forgotPassword.frame.width
-        
+
         login.frame.origin.x = WIDTH/2 - login.frame.width/2
         login.frame.origin.y = passwordTextField.frame.maxY + textFieldHeight
-        
+
         loadingBar.frame.origin.x = WIDTH/2 - loadingBar.frame.width/2
         loadingBar.frame.origin.y = passwordTextField.frame.maxY + textFieldHeight
-        
+
         jumpToSignUp.frame.origin.x = WIDTH/2 - jumpToSignUp.frame.width/2
         jumpToSignUp.frame.origin.y = login.frame.maxY + textFieldHeight
 
@@ -131,7 +134,6 @@ class SignupViewController: PrototypeViewController{
     @IBOutlet var backLogin: UIButton!
     @IBOutlet var signup: PrototypeButton!
     @IBOutlet var loadingBar: UIActivityIndicatorView!
-
 
     
     @IBAction func signup(_ sender: UIButton){
@@ -222,16 +224,16 @@ class SignupViewController: PrototypeViewController{
         let labelHeight = usernameLabel.frame.height
         let textFieldHeight = usernameTextField.frame.height
         let noticeHeight = noticeU.frame.height
-        
+
         backLogin.frame.origin.x = WIDTH/2 - backLogin.frame.width/2
         backLogin.frame.origin.y = HEIGHT/30 + buttonHeight/2
 
         usernameLabel.frame.origin.y =  backLogin.frame.maxY + noticeHeight/2
-        
+
         usernameTextField.frame.origin.x = WIDTH/2 - usernameTextField.frame.width/2
         usernameTextField.frame.origin.y =  usernameLabel.frame.maxY + 10
         usernameLabel.frame.origin.x = usernameTextField.frame.origin.x
-        
+
         noticeU.frame.origin.y = usernameTextField.frame.maxY
 
         passwordLabel.frame.origin.y =  noticeU.frame.maxY
@@ -270,9 +272,10 @@ class SignupViewController: PrototypeViewController{
             }
             switch res{
             case .Success(let data):
-                print(data?.status ?? 600)
+                print(data)
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 print(msg)
+                SPIndicator.present(title: "Error", message: msg, preset: .error)
             case .NONE:
                 print("None")
             }
@@ -291,7 +294,21 @@ class ForgotPasswordViewController: PrototypeViewController{
     func resetAction(){
         resetButton.notAvailableUI()
         loading()
-//        forgot(email: emailTextField.text!, callback: {})
+        APIAction.forgot(email: emailRecoveryTextField.text!, callback: {res, err in
+            if let e = err {
+            //TODO: Error Handel
+            print(e)
+        }
+        switch res{
+        case .Success(let data):
+            print(data)
+        case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+            print(msg)
+            SPIndicator.present(title: "Error", message: msg, preset: .error)
+        case .NONE:
+            print("None")
+        }
+        })
     }
 
     @IBAction func reset(_ sender: UIButton){
@@ -313,8 +330,8 @@ class ForgotPasswordViewController: PrototypeViewController{
         let buttonHeight =  backToLoginButton.frame.height
         let labelHeight = emailLabel.frame.height
         let textFieldHeight = emailTextField.frame.height
-        
-        
+
+
         backToLoginButton.frame.origin.x = WIDTH/2 - backToLoginButton.frame.width/2
         backToLoginButton.frame.origin.y = HEIGHT/30 + buttonHeight/2
 
@@ -322,7 +339,7 @@ class ForgotPasswordViewController: PrototypeViewController{
         emailLabel.frame.origin.y = backToLoginButton.frame.maxY
         emailTextField.frame.origin.x = WIDTH/2 - emailTextField.frame.width/2
         emailTextField.frame.origin.y =  emailLabel.frame.maxY
-        
+
         emailTextField.placeholder = "E-mail"
         emailTextField.title = "Your E-mail Address"
         emailTextField.tintColor = overcastBlueColor
@@ -330,14 +347,14 @@ class ForgotPasswordViewController: PrototypeViewController{
         emailTextField.selectedTitleColor = overcastBlueColor
         emailTextField.selectedLineColor = overcastBlueColor
         emailTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidEnd)
-        
+
         resetButton.frame.origin.x = emailTextField.frame.midX - resetButton.frame.width/2
         resetButton.frame.origin.y = emailTextField.frame.maxY + textFieldHeight/2
         resetButton.frame.origin.x = emailTextField.frame.midX - resetButton.frame.width/2
         loadingBar.frame.origin.y = emailTextField.frame.maxY + textFieldHeight/2
         resetButton.notAvailableUI()
     }
-    
+
     override func textFieldAvailableCheck(_ textField: UITextField)->Bool{
         if textField.isKind(of: SkyFloatingLabelTextField.self){
             return EmailTextFieldCheckAction()
@@ -370,5 +387,5 @@ class ForgotPasswordViewController: PrototypeViewController{
         textField.resignFirstResponder()
         resetAction()
     }
-    
+
 }

@@ -13,7 +13,7 @@ import SwiftJWT
 
 class MapJWT : Mappable, Claims {
     required init?(map: Map) {}
-    
+
     func mapping(map: Map) {}
 }
 
@@ -28,6 +28,7 @@ struct Response<T: Mappable>: Mappable {
         error <- map["error"]
         msg <- map["error"]
         data <- map["result"]
+        token <- map["token"]
     }
 }
 
@@ -74,6 +75,7 @@ enum AuthRoute: URLRequestConvertible {
     case login(username: String, pass: String)
     case signup(username: String, pass: String, email: String)
     case recover(email: String)
+    case fetchUser(token: String)
     
     var method: HTTPMethod {
         switch self {
@@ -83,6 +85,8 @@ enum AuthRoute: URLRequestConvertible {
             return .put
         case .recover:
             return .post
+        case .fetchUser:
+            return .get
         }
     }
     
@@ -94,6 +98,8 @@ enum AuthRoute: URLRequestConvertible {
             return "/testuser/signup"
         case .recover:
             return "/testuser/recover"
+        case .fetchUser:
+            return "/testuser/fetch"
         }
     }
 
@@ -106,6 +112,8 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["user": username, "pass": pass, "email": email])
             case .recover(email: let email):
                 return (path, ["email": email])
+            case .fetchUser(token: let token):
+                return (path, ["token": token])
             }
         }()
         var req = URLRequest(url: baseURL.appendingPathComponent(result.path))
@@ -116,6 +124,8 @@ enum AuthRoute: URLRequestConvertible {
 }
 
 class APIAction {
+
+    //login request with post
     static func login(username: String, pass: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
             Alamofire.request(AuthRoute.login(username: username, pass: pass))
@@ -125,7 +135,7 @@ class APIAction {
                             if let json = res.result.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil), nil)
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?), nil)
                                 }
                             }
                         default:
@@ -138,6 +148,7 @@ class APIAction {
         }
     }
     
+    //signuo request with put
     static func signup(username: String, pass: String, email: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
             Alamofire.request(AuthRoute.signup(username: username, pass: pass, email: email))
@@ -147,7 +158,7 @@ class APIAction {
                             if let json = res.result.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil), nil)
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?), nil)
                                 }
                             }
                         default:
@@ -160,6 +171,7 @@ class APIAction {
         }
     }
     
+    //forgot request with post
     static func forgot(email: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
             Alamofire.request(AuthRoute.recover(email: email))
@@ -181,4 +193,28 @@ class APIAction {
                 }
         }
     }
+
+    //fetch testuser with get
+    static func fetchUser(token: String, callback: @escaping (Result, Error?) -> Void) {
+        DispatchQueue.global().async {
+            Alamofire.request(AuthRoute.fetchUser(token: token))
+                .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.result.value as? [String:Any] {
+                                DispatchQueue.main.async {
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil), nil)
+                                }
+                            }
+                        default:
+                            print("Fail")
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"), nil)
+                            }
+                    }
+                }
+        }
+    }
+
+    
 }
