@@ -16,5 +16,5 @@ target 'Roommater' do
   pod 'SkyFloatingLabelTextField', '~> 3.0'
 
   #OCR
-  pod 'SwiftOCR'
+  #pod 'SwiftOCR'
 end

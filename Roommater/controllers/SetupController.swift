@@ -294,7 +294,7 @@ class ForgotPasswordViewController: PrototypeViewController{
     func resetAction(){
         resetButton.notAvailableUI()
         loading()
-        APIAction.forgot(email: emailRecoveryTextField.text!, callback: {res, err in
+        APIAction.forgot(email: emailTextField.text!, callback: {res, err in
             if let e = err {
             //TODO: Error Handel
             print(e)
@@ -302,8 +302,13 @@ class ForgotPasswordViewController: PrototypeViewController{
         switch res{
         case .Success(let data):
             print(data)
+            self.dismiss(animated: true, completion: nil)
+            SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
         case .Fail(let msg), .Timeout(let msg), .Error(let msg):
             print(msg)
+            self.resetButton.availableAction()
+            self.loadingBar.isHidden = true
+            self.loadingBar.stopAnimating()
             SPIndicator.present(title: "Error", message: msg, preset: .error)
         case .NONE:
             print("None")
