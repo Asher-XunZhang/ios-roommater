@@ -12,13 +12,15 @@ import UIKit
 class TsetUser : Mappable {
     var uid: String?
     var username: String?
+    var email: String?
     var token: String?
     required init?(map: Map) {}
     
     func mapping(map: Map) {
         uid <- map["uid"]
         username <- map["username"]
-        token <- map["username"]
+        token <- map["token"]
+        email <- map["email"]
     }
 }
 

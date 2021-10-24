@@ -21,6 +21,10 @@
 		B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FED2710D8DA0032DEF2 /* User.swift */; };
 		B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C05C0F2724D66A0047C0C8 /* SettingController.swift */; };
 		B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C1E2724E76A0047C0C8 /* App.storyboard */; };
+		B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2027251E570047C0C8 /* Dashboard.storyboard */; };
+		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
+		B6C05C2527251E9A0047C0C8 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2427251E9A0047C0C8 /* Chat.storyboard */; };
+		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
 		B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC251D2715D99600F55EBC /* Dorm.swift */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
@@ -47,6 +51,10 @@
 		B6AF3FED2710D8DA0032DEF2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B6C05C0F2724D66A0047C0C8 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		B6C05C1E2724E76A0047C0C8 /* App.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = App.storyboard; sourceTree = "<group>"; };
+		B6C05C2027251E570047C0C8 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
+		B6C05C2427251E9A0047C0C8 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		B6EC251D2715D99600F55EBC /* Dorm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dorm.swift; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -89,6 +97,10 @@
 				B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */,
 				B63E50FC270CA45B005F83EB /* Setup.storyboard */,
 				B6C05C1E2724E76A0047C0C8 /* App.storyboard */,
+				B6C05C2627251EA80047C0C8 /* Setting.storyboard */,
+				B6C05C2427251E9A0047C0C8 /* Chat.storyboard */,
+				B6C05C2227251E8D0047C0C8 /* Pending.storyboard */,
+				B6C05C2027251E570047C0C8 /* Dashboard.storyboard */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -223,9 +235,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */,
+				B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */,
 				B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */,
 				B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */,
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
+				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
+				B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */,
+				B6C05C2527251E9A0047C0C8 /* Chat.storyboard in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,7 +467,7 @@
 				INFOPLIST_FILE = Roommater/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Setup;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -483,7 +499,7 @@
 				INFOPLIST_FILE = Roommater/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Setup;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

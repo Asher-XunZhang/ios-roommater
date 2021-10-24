@@ -38,6 +38,7 @@ class RePasswordTextField: NoNullTextField{
 class EmailTextField: NoNullTextField{
 }
 class PrototypeViewController: UIViewController{
+    @IBOutlet var avoidingView: UIView!
     
     func viewLoadAction(){}
     override func viewDidLoad() {
@@ -60,7 +61,7 @@ extension PrototypeViewController: UITextFieldDelegate{
             nextResponder.becomeFirstResponder()
         } else {
             textFieldDone(textField)
-            keyboardDisappearAction(textField)
+//            keyboardDisappearAction(textField)
             var currentTag = textField.tag
             repeat{
                 if let currentTextField = textField.superview?.viewWithTag(currentTag){
@@ -76,7 +77,7 @@ extension PrototypeViewController: UITextFieldDelegate{
     
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        keyboardDisappearAction(textField)
+//        keyboardDisappearAction(textField)
 //        (textField as! NoNullTextField).showToolTip()
     }
     

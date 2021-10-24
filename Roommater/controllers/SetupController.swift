@@ -7,9 +7,9 @@
 
 import UIKit
 import SPIndicator
+import IHKeyboardAvoiding
 
 class LoginViewController: PrototypeViewController {
-
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var passwordLabel: UILabel!
 
@@ -38,9 +38,12 @@ class LoginViewController: PrototypeViewController {
             print(e)
         }
         switch res{
-            case .Success:
-                login.availableAction()
-                loadingBar.stopAnimating()
+            case .Success(let data):
+                print(data)
+                let targetStoryboard = UIStoryboard(name: "App", bundle: nil)
+                if let targetViewController = targetStoryboard.instantiateInitialViewController() {
+                    self.navigationController?.pushViewController(targetViewController, animated: true)
+                }
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.login.isEnabled = true
@@ -107,6 +110,10 @@ class SignupViewController: PrototypeViewController{
     @IBOutlet var backLogin: UIButton!
     @IBOutlet var signup: PrototypeButton!
     @IBOutlet var loadingBar: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        KeyboardAvoiding.avoidingView = self.avoidingView
+    }
 
 
     
@@ -194,6 +201,8 @@ class SignupViewController: PrototypeViewController{
     }
 
     override func viewLoadAction() {
+        KeyboardAvoiding.buffer = 100
+        KeyboardAvoiding.avoidingView = self.avoidingView
         let buttonHeight =  backLogin.frame.height
         let labelHeight = usernameLabel.frame.height
         let textFieldHeight = usernameTextField.frame.height
@@ -241,9 +250,10 @@ class SignupViewController: PrototypeViewController{
             }
             switch res{
             case .Success(let data):
-                print(data?.status ?? 600)
+                print(data)
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 print(msg)
+                SPIndicator.present(title: "Error", message: msg, preset: .error)
             case .NONE:
                 print("None")
             }
@@ -263,7 +273,21 @@ class ForgotPasswordViewController: PrototypeViewController{
     func resetAction(){
         resetButton.notAvailableUI()
         loading()
-//        forgot(email: emailRecoveryTextField.text!, callback: {})
+        APIAction.forgot(email: emailRecoveryTextField.text!, callback: {res, err in
+               if let e = err {
+            //TODO: Error Handel
+            print(e)
+        }
+        switch res{
+        case .Success(let data):
+            print(data)
+        case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+            print(msg)
+            SPIndicator.present(title: "Error", message: msg, preset: .error)
+        case .NONE:
+            print("None")
+        }
+        })
     }
 
     @IBAction func reset(_ sender: UIButton){

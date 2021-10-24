@@ -105,7 +105,7 @@
         <scene sceneID="ESf-Qy-7MX">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
+                    <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi" customClass="KeyboardDismissingView" customModule="IHKeyboardAvoiding">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -230,6 +230,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Az7-qw-gxQ"/>
                     <connections>
+                        <outlet property="avoidingView" destination="bAC-Cu-afi" id="WsQ-mA-pFv"/>
                         <outlet property="backLogin" destination="iGZ-xF-S9z" id="zvb-FV-P3z"/>
                         <outlet property="emailLabel" destination="mZy-uO-6vL" id="YKK-uO-XCV"/>
                         <outlet property="emailTextField" destination="ccU-fJ-MhK" id="epo-77-OB2"/>

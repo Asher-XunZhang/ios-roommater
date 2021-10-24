@@ -6,6 +6,7 @@ PODS:
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
+  - IHKeyboardAvoiding (4.7)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
   - LoggerAPI (1.9.200):
@@ -25,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireObjectMapper (~> 5.2)
+  - IHKeyboardAvoiding
   - Socket.IO-Client-Swift (~> 15.2.0)
   - SPIndicator
   - SwiftJWT (~> 3.6)
@@ -36,6 +38,7 @@ SPEC REPOS:
     - BlueCryptor
     - BlueECC
     - BlueRSA
+    - IHKeyboardAvoiding
     - KituraContracts
     - LoggerAPI
     - Logging
@@ -51,6 +54,7 @@ SPEC CHECKSUMS:
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  IHKeyboardAvoiding: 4cae0880c3975feffa278495df894c5166e71ad0
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
   Logging: beeb016c9c80cf77042d62e83495816847ef108b
@@ -60,6 +64,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
 
-PODFILE CHECKSUM: 54d05a611330cd285184367974cce7474c2976e5
+PODFILE CHECKSUM: 01dbac812e4ff33e5b8b6745de96edb47250e520
 
 COCOAPODS: 1.11.2

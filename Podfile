@@ -13,4 +13,8 @@ target 'Roommater' do
 	
   # UI Libraries
   pod 'SPIndicator'
+  pod 'IHKeyboardAvoiding'
+  
+  #OCR
+  pod 'SwiftOCR'
 end
