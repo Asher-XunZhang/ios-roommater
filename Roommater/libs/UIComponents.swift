@@ -4,12 +4,21 @@
 //
 //  Created by Asher Xun Zhang on 10/14/21.
 //
+let overcastBlueColor = UIColor(red: 0, green: 187/255, blue: 204/255, alpha: 1.0)
 
 import Foundation
 import UIKit
 
 let WIDTH:CGFloat = UIScreen.main.bounds.width
 let HEIGHT:CGFloat = UIScreen.main.bounds.height
+
+let mailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+let mailMatcher = MyRegex(mailPattern)
+
+
+
+
+
 
 class NoNullTextField: UITextField{
 //    func showToolTip() {
@@ -50,7 +59,7 @@ extension PrototypeViewController: UITextFieldDelegate{
     
     @objc func textFieldDone(_ textField: UITextField){}
     
-    @objc func textFieldAction(){}
+    @objc func textFieldAction(_ textField: UITextField){}
     
     @objc func textFieldAvailableCheck(_ textField: UITextField)->Bool {return true}
     
@@ -61,34 +70,35 @@ extension PrototypeViewController: UITextFieldDelegate{
         } else {
             textFieldDone(textField)
             keyboardDisappearAction(textField)
-            unableAllTextField(textField)
+            unableAllTextField()
         }
         return true
     }
     
-    func unableAllTextField(_ textField: UITextField){
+    func unableAllTextField(){
         self.view.subviews.filter {$0 is UITextField}.forEach {
             item in item.isUserInteractionEnabled = false
         }
     }
     
     func enableAllTextField(){
-        
+        self.view.subviews.filter {$0 is UITextField}.forEach {
+            item in item.isUserInteractionEnabled = true
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardDisappearAction(textField)
-//        (textField as! NoNullTextField).showToolTip()
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        textFieldAction()
+        textFieldAction(textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textFieldAvailableCheck(textField)
+        textFieldAction(textField)
     }
-    
     
     
     func keyboardAppearAction(_ textField: UITextField){
@@ -137,71 +147,89 @@ class PrototypeButton:UIButton{
     }
 }
 
+struct MyRegex {
+    let regex: NSRegularExpression?
+     
+    init(_ pattern: String) {
+        regex = try? NSRegularExpression(pattern: pattern,
+                                         options: .caseInsensitive)
+    }
+     
+    func match(input: String) -> Bool {
+        if let matches = regex?.matches(in: input,
+            options: [],
+            range: NSMakeRange(0, (input as NSString).length)) {
+                return matches.count > 0
+        } else {
+            return false
+        }
+    }
+}
 
-enum ToolTipPosition: Int {
-     case left
-     case right
-     case middle
-}
-class ToolTipView: UIView {
-    
-    var roundRect:CGRect!
-    let toolTipWidth : CGFloat = 20.0
-    let toolTipHeight : CGFloat = 12.0
-    let tipOffset : CGFloat = 20.0
-    var tipPosition : ToolTipPosition = .middle
-    
-    convenience init(frame: CGRect, text : String, tipPos: ToolTipPosition){
-       self.init(frame: frame)
-       self.tipPosition = tipPos
-       createLabel(text)
-    }
-    
-    func createLabel(_ text : String){
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: self.frame.height - self.toolTipHeight))
-        label.text = text
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        addSubview(label)
-    }
-    
-    func createTipPath() -> UIBezierPath{
-        let tooltipRect = CGRect(x: roundRect.midX, y: roundRect.maxY, width: toolTipWidth, height: toolTipHeight)
-       let trianglePath = UIBezierPath()
-       trianglePath.move(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
-       trianglePath.addLine(to: CGPoint(x: tooltipRect.maxX, y: tooltipRect.minY))
-       trianglePath.addLine(to: CGPoint(x: tooltipRect.midX, y: tooltipRect.maxY))
-       trianglePath.addLine(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
-       trianglePath.close()
-       return trianglePath
-    }
-    
-    func drawToolTip(_ rect : CGRect){
-        roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height - self.toolTipHeight)
-       let roundRectBez = UIBezierPath(roundedRect: roundRect, cornerRadius: 5.0)
-       let trianglePath = createTipPath()
-       roundRectBez.append(trianglePath)
-       let shape = createShapeLayer(roundRectBez.cgPath)
-       self.layer.insertSublayer(shape, at: 0)
-    }
-    
-    func createShapeLayer(_ path : CGPath) -> CAShapeLayer{
-       let shape = CAShapeLayer()
-       shape.path = path
-       shape.fillColor = UIColor.darkGray.cgColor
-       shape.shadowColor = UIColor.black.withAlphaComponent(0.60).cgColor
-       shape.shadowOffset = CGSize(width: 0, height: 2)
-       shape.shadowRadius = 5.0
-       shape.shadowOpacity = 0.8
-       return shape
-    }
-    
-    override func draw(_ rect: CGRect) {
-       super.draw(rect)
-       drawToolTip(rect)
-    }
-}
+//enum ToolTipPosition: Int {
+//     case left
+//     case right
+//     case middle
+//}
+//class ToolTipView: UIView {
+//
+//    var roundRect:CGRect!
+//    let toolTipWidth : CGFloat = 20.0
+//    let toolTipHeight : CGFloat = 12.0
+//    let tipOffset : CGFloat = 20.0
+//    var tipPosition : ToolTipPosition = .middle
+//
+//    convenience init(frame: CGRect, text : String, tipPos: ToolTipPosition){
+//       self.init(frame: frame)
+//       self.tipPosition = tipPos
+//       createLabel(text)
+//    }
+//
+//    func createLabel(_ text : String){
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: self.frame.height - self.toolTipHeight))
+//        label.text = text
+//        label.textColor = .white
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        label.lineBreakMode = .byWordWrapping
+//        addSubview(label)
+//    }
+//
+//    func createTipPath() -> UIBezierPath{
+//        let tooltipRect = CGRect(x: roundRect.midX, y: roundRect.maxY, width: toolTipWidth, height: toolTipHeight)
+//       let trianglePath = UIBezierPath()
+//       trianglePath.move(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
+//       trianglePath.addLine(to: CGPoint(x: tooltipRect.maxX, y: tooltipRect.minY))
+//       trianglePath.addLine(to: CGPoint(x: tooltipRect.midX, y: tooltipRect.maxY))
+//       trianglePath.addLine(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
+//       trianglePath.close()
+//       return trianglePath
+//    }
+//
+//    func drawToolTip(_ rect : CGRect){
+//        roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height - self.toolTipHeight)
+//       let roundRectBez = UIBezierPath(roundedRect: roundRect, cornerRadius: 5.0)
+//       let trianglePath = createTipPath()
+//       roundRectBez.append(trianglePath)
+//       let shape = createShapeLayer(roundRectBez.cgPath)
+//       self.layer.insertSublayer(shape, at: 0)
+//    }
+//
+//    func createShapeLayer(_ path : CGPath) -> CAShapeLayer{
+//       let shape = CAShapeLayer()
+//       shape.path = path
+//       shape.fillColor = UIColor.darkGray.cgColor
+//       shape.shadowColor = UIColor.black.withAlphaComponent(0.60).cgColor
+//       shape.shadowOffset = CGSize(width: 0, height: 2)
+//       shape.shadowRadius = 5.0
+//       shape.shadowOpacity = 0.8
+//       return shape
+//    }
+//
+//    override func draw(_ rect: CGRect) {
+//       super.draw(rect)
+//       drawToolTip(rect)
+//    }
+//}
 
 

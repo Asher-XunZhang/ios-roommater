@@ -13,5 +13,9 @@ target 'Roommater' do
 	
   # UI Libraries
   pod 'SPIndicator'
-  pod 'CocoaTextField', '~> 1.1.1'
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
+
+
+
+
 end
