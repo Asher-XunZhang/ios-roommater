@@ -1,0 +1,73 @@
+PODS:
+  - Alamofire (4.9.1)
+  - AlamofireObjectMapper (5.2.1):
+    - Alamofire (~> 4.7)
+    - ObjectMapper (~> 3.4)
+  - BlueCryptor (1.0.32)
+  - BlueECC (1.2.5)
+  - BlueRSA (1.0.34)
+  - KituraContracts (1.2.1):
+    - LoggerAPI (~> 1.7)
+  - LoggerAPI (1.9.200):
+    - Logging (~> 1.1)
+  - Logging (1.4.0)
+  - ObjectMapper (3.5.3)
+  - SkyFloatingLabelTextField (3.8.0)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - SPIndicator (1.4.1)
+  - Starscream (3.1.1)
+  - SwiftJWT (3.6.200):
+    - BlueCryptor (~> 1.0)
+    - BlueECC (~> 1.1)
+    - BlueRSA (~> 1.0)
+    - KituraContracts (~> 1.2)
+    - LoggerAPI (~> 1.7)
+  - TransitionButton (0.5.3)
+
+DEPENDENCIES:
+  - AlamofireObjectMapper (~> 5.2)
+  - SkyFloatingLabelTextField (~> 3.0)
+  - Socket.IO-Client-Swift (~> 15.2.0)
+  - SPIndicator
+  - SwiftJWT (~> 3.6)
+  - TransitionButton
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireObjectMapper
+    - BlueCryptor
+    - BlueECC
+    - BlueRSA
+    - KituraContracts
+    - LoggerAPI
+    - Logging
+    - ObjectMapper
+    - SkyFloatingLabelTextField
+    - Socket.IO-Client-Swift
+    - SPIndicator
+    - Starscream
+    - SwiftJWT
+    - TransitionButton
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
+  BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
+  BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
+  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
+  LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
+  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
+  TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
+
+PODFILE CHECKSUM: 7e6bc37c21d5ba5fd9d5032715f913adb1c38b68
+
+COCOAPODS: 1.11.2
