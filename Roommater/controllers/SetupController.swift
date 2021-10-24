@@ -34,16 +34,16 @@ class LoginViewController: PrototypeViewController {
 
     func handle(res: Result, err: Error?){
         if let e = err {
-            //TODO: Error Handel
             print(e)
+            SPIndicator.present(title: "Error", message: "Unknown Issues", preset: .error)
         }
         switch res{
             case .Success(let data):
                 print(data)
-                let targetStoryboard = UIStoryboard(name: "App", bundle: nil)
-                if let targetViewController = targetStoryboard.instantiateInitialViewController() {
-                    self.navigationController?.pushViewController(targetViewController, animated: true)
-                }
+                // rediecr to another storyboard with name is "App"
+                let storyboard = UIStoryboard(name: "App", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "App")
+                self.present(vc, animated: true, completion: nil)
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.login.isEnabled = true
@@ -274,7 +274,7 @@ class ForgotPasswordViewController: PrototypeViewController{
         resetButton.notAvailableUI()
         loading()
         APIAction.forgot(email: emailRecoveryTextField.text!, callback: {res, err in
-               if let e = err {
+            if let e = err {
             //TODO: Error Handel
             print(e)
         }
