@@ -8,30 +8,16 @@
 import UIKit
 import SPIndicator
 import SkyFloatingLabelTextField
+import TransitionButton
 
 class LoginViewController: PrototypeViewController {
 
-    @IBOutlet var usernameLabel: UILabel!
-    @IBOutlet var passwordLabel: UILabel!
-
-    @IBOutlet var usernameTextField: NoNullTextField!
-    @IBOutlet var passwordTextField: NoNullTextField!
+    @IBOutlet var usernameTextField: SkyFloatingLabelTextField!
+    @IBOutlet var passwordTextField: SkyFloatingLabelTextField!
 
     @IBOutlet var forgotPassword: UIButton!
     @IBOutlet var jumpToSignUp: UIButton!
-    @IBOutlet var login: PrototypeButton!
-
-    @IBOutlet var loadingBar: UIActivityIndicatorView!
-
-    @IBAction func login(_ sender: PrototypeButton){
-        loginAction()
-    }
-
-    func loginAction(){
-        login.notAvailableAction()
-        loading()
-        exec()
-    }
+    @IBOutlet var login: TransitionButton!
 
     func handle(res: Result, err: Error?){
         if let e = err {
@@ -42,14 +28,16 @@ class LoginViewController: PrototypeViewController {
             case .Success(let data):
                 print(data)
                 // rediecr to another storyboard with name is "App"
-                let storyboard = UIStoryboard(name: "App", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "App")
-                self.present(vc, animated: true, completion: nil)
+                login.stopAnimation(animationStyle: .expand, completion: {
+                    let storyboard = UIStoryboard(name: "App", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "App")
+                    self.present(vc, animated: true, completion: nil)
+                })
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                SPIndicator.present(title: "Error", message: msg, preset: .error)
-                self.login.availableUI()
-                loadingBar.stopAnimating()
-                self.enableAllTextField()
+                
+                login.stopAnimation(animationStyle: .shake, completion: {
+                    SPIndicator.present(title: "Error", message: msg, preset: .error)
+                })
             case .NONE:
                 print("None")
         }
@@ -59,227 +47,327 @@ class LoginViewController: PrototypeViewController {
         APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: handle)
     }
 
-    func loading(){
-        login.setTitleColor(.clear, for: .normal)
-        loadingBar.startAnimating()
-    }
-    func unloading(){
-        login.notAvailableUI()
-        loadingBar.stopAnimating()
-    }
-
 
     override func viewLoadAction() {
-        let labelHeight = usernameLabel.frame.maxY - usernameLabel.frame.minY
         let textFieldHeight = usernameTextField.frame.maxY - usernameTextField.frame.minY
 
-
-        usernameLabel.frame.origin.y = HEIGHT/3
-
         usernameTextField.frame.origin.x = WIDTH/2 - usernameTextField.frame.width/2
-        usernameTextField.frame.origin.y = usernameLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
-        usernameLabel.frame.origin.x = usernameTextField.frame.origin.x
+        usernameTextField.frame.origin.y = HEIGHT/3
+        
+        usernameTextField.tag = 0
+        usernameTextField.returnKeyType = .next
+        usernameTextField.clearButtonMode = .whileEditing
+        usernameTextField.placeholder = "Username"
+        usernameTextField.title = "Your Username"
+        usernameTextField.tintColor = overcastBlueColor
+        usernameTextField.errorColor = .red
+        usernameTextField.selectedTitleColor = overcastBlueColor
+        usernameTextField.selectedLineColor = overcastBlueColor
+        usernameTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
+        
 
-        passwordLabel.frame.origin.y = usernameTextField.frame.maxY + 10 + labelHeight/2
-
-        forgotPassword.frame.origin.y = passwordLabel.frame.origin.y
+        forgotPassword.frame.origin.y = usernameTextField.frame.maxY + textFieldHeight/2
 
         passwordTextField.frame.origin.x = WIDTH/2 - passwordTextField.frame.width/2
-        passwordTextField.frame.origin.y = passwordLabel.frame.origin.y + labelHeight/2 + textFieldHeight/2 + 10
-        passwordLabel.frame.origin.x = passwordTextField.frame.origin.x
-        forgotPassword.frame.origin.x = passwordTextField.frame.maxX-forgotPassword.frame.width
+        passwordTextField.frame.origin.y = usernameTextField.frame.maxY + textFieldHeight
 
+        forgotPassword.frame.origin.x = passwordTextField.frame.maxX-forgotPassword.frame.width
+        
+        passwordTextField.tag = 1
+        
+        passwordTextField.returnKeyType = .done
+        passwordTextField.clearButtonMode = .whileEditing
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.placeholder = "Password"
+        passwordTextField.title = "Your Password"
+        passwordTextField.tintColor = overcastBlueColor
+        passwordTextField.errorColor = .red
+        passwordTextField.selectedTitleColor = overcastBlueColor
+        passwordTextField.selectedLineColor = overcastBlueColor
+        passwordTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
+        
+        
         login.frame.origin.x = WIDTH/2 - login.frame.width/2
         login.frame.origin.y = passwordTextField.frame.maxY + textFieldHeight
-
-        loadingBar.frame.origin.x = WIDTH/2 - loadingBar.frame.width/2
-        loadingBar.frame.origin.y = passwordTextField.frame.maxY + textFieldHeight
-
+        
+        login.setTitle("Login", for: .normal)
+        login.cornerRadius = 20
+        disableLoginButton()
+        login.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
+        
         jumpToSignUp.frame.origin.x = WIDTH/2 - jumpToSignUp.frame.width/2
         jumpToSignUp.frame.origin.y = login.frame.maxY + textFieldHeight
-
-        login.notAvailableAction()
+    }
+    func disableLoginButton(){
+        login.backgroundColor = .systemGray5
+        login.isUserInteractionEnabled = false
+        login.spinnerColor = .systemGray3
+    }
+    func enableLoginButton(){
+        login.backgroundColor = overcastBlueColor
+        login.isUserInteractionEnabled = true
+        login.spinnerColor = .white
+    }
+    
+    private func checkUsername() -> Bool{
+        return usernameMatcher.match(input: usernameTextField.text!)
+    }
+    private func checkPassword() -> Bool{
+        return passwordMatcher.match(input: passwordTextField.text!)
+    }
+    
+    func checkTextFieldAction(_ textField: UITextField) -> Bool{
+        if(textField.isKind(of: SkyFloatingLabelTextField.self)){
+            switch(textField.tag){
+            case 0:
+                usernameTextField.errorMessage = checkUsername() ? "" : "Invalid Username"
+                return checkUsername()
+            case 1:
+                passwordTextField.errorMessage = checkPassword() ? "" : "Invalid Password"
+                return checkPassword()
+            default:
+                return false
+            }
+        }
+        return false
     }
     
     override func textFieldAction(_ textField: UITextField) {
-        if !(usernameTextField.text!.isEmpty) && !(passwordTextField.text!.isEmpty){
-            login.availableAction()
+        if checkTextFieldAction(textField), checkUsername(), checkPassword(){
+            enableLoginButton()
         }else{
-            login.notAvailableAction()
+            disableLoginButton()
         }
+    }
+    
+    @IBAction func buttonAction(_ button: TransitionButton) {
+        login.startAnimation()
+        exec()
     }
     
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        loginAction()
+        buttonAction(login)
     }
 }
 
 class SignupViewController: PrototypeViewController{
-    @IBOutlet var usernameLabel: UILabel!
-    @IBOutlet var passwordLabel: UILabel!
-    @IBOutlet var rePasswordLabel: UILabel!
-    @IBOutlet var emailLabel: UILabel!
 
-    @IBOutlet var usernameTextField: UsernameTextField!
-    @IBOutlet var passwordTextField: PasswordTextField!
-    @IBOutlet var rePasswordTextField: RePasswordTextField!
-    @IBOutlet var emailTextField: EmailTextField!
-
-    @IBOutlet var noticeU: UILabel!
-    @IBOutlet var noticeP: UILabel!
-    @IBOutlet var noticeRP: UILabel!
-    @IBOutlet var noticeE: UILabel!
+    @IBOutlet var usernameTextField: SkyFloatingLabelTextField!
+    @IBOutlet var passwordTextField: SkyFloatingLabelTextField!
+    @IBOutlet var rePasswordTextField: SkyFloatingLabelTextField!
+    @IBOutlet var emailTextField: SkyFloatingLabelTextField!
 
     @IBOutlet var backLogin: UIButton!
-    @IBOutlet var signup: PrototypeButton!
-    @IBOutlet var loadingBar: UIActivityIndicatorView!
+    @IBOutlet var signup: TransitionButton!
 
     
-    @IBAction func signup(_ sender: UIButton){
-        signupAction()
+    
+    func disableSignupButton(){
+        signup.backgroundColor = .systemGray5
+        signup.isUserInteractionEnabled = false
+        signup.spinnerColor = .systemGray3
     }
-
+    func enableSignupButton(){
+        signup.backgroundColor = overcastBlueColor
+        signup.isUserInteractionEnabled = true
+        signup.spinnerColor = .white
+    }
+    @IBAction func buttonAction(_ button: TransitionButton) {
+        signup.startAnimation()
+        exec()
+    }
+    
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func passwordChangedAction(_ sender: UITextField){
-        self.rePasswordTextField.text = ""
-        self.noticeRP.isHidden = true
-    }
-
     override func textFieldAction(_ textField: UITextField) {
-        if !(usernameTextField.text!.isEmpty), !(passwordTextField.text!.isEmpty), !(rePasswordTextField.text!.isEmpty), !(emailTextField.text!.isEmpty), checkRePassword(){
-            signup.availableAction()
+        if checkTextFieldAction(textField), checkUsername(), checkPassword(), checkRePassword(), checkEmail(){
+            enableSignupButton()
         }else{
-            signup.notAvailableAction()
+            disableSignupButton()
         }
     }
     
-    func signupAction(){
-        signup.notAvailableAction()
-        loading()
-        exec()
+    func checkTextFieldAction(_ textField: UITextField)->Bool{
+        if(textField.isKind(of: SkyFloatingLabelTextField.self)){
+            switch(textField.tag){
+            case 0:
+                usernameTextField.errorMessage = checkUsernameStr()
+                return (checkUsernameStr() == "")
+            case 1:
+                passwordTextField.errorMessage = checkPasswordStr()
+                return (checkPasswordStr() == "")
+            case 2:
+                rePasswordTextField.errorMessage = checkRePassword() ? "" : "Different from Password"
+                return checkRePassword()
+            case 3:
+                emailTextField.errorMessage = checkEmail() ? "" : "Invalid Email Address"
+                return checkEmail()
+            default:
+                return false
+            }
+        }
+        return false
+        
     }
-
+    
+    
+    
+    private func checkUsernameStr()->String{
+        if !(usernameMatcher.match(input: usernameTextField.text!)){
+            let errmsg = "Username "
+            if !(noSpecialCharMatcher.match(input: usernameTextField.text!)) {
+                return errmsg + regexErrMsg["noSpeChar"]!
+            }
+            if !(lower4LimitedMatcher.match(input: usernameTextField.text!)) {
+                return errmsg + regexErrMsg["lower4Limited"]!
+            }
+            if !(upperLimitedMatcher.match(input: usernameTextField.text!)) {
+                return errmsg + regexErrMsg["upperLimited"]!
+            }
+        }
+        return ""
+    }
+    
+    private func checkPasswordStr()->String{
+        rePasswordTextField.text! = ""
+        if !(passwordMatcher.match(input: passwordTextField.text!)){
+            let errmsg = "Password "
+            if !(specialCharRequireMatcher.match(input: passwordTextField.text!)) {
+                return errmsg + regexErrMsg["speChar"]!
+            }
+            if !(digitRequireMatcher.match(input: passwordTextField.text!)) {
+                return errmsg + regexErrMsg["digit"]!
+            }
+            if !(uppercaseRequireMatcher.match(input: passwordTextField.text!)) {
+                return errmsg + regexErrMsg["uppercase"]!
+            }
+            if !(lowercaseRequireMatcher.match(input: passwordTextField.text!)) {
+                return errmsg + regexErrMsg["lowercase"]!
+            }
+            if !(lower8LimitedMatcher.match(input: passwordTextField.text!)) {
+                return errmsg + regexErrMsg["lower8Limited"]!
+            }
+            if !(upperLimitedMatcher.match(input: usernameTextField.text!)) {
+                return errmsg + regexErrMsg["upperLimited"]!
+            }
+        }
+        return ""
+    }
     private func checkUsername()->Bool{
-        // TODO: add regex condition
-        return true
+        return rePasswordTextField.text! == passwordTextField.text!
     }
     private func checkPassword()->Bool{
-        // TODO: add regex condition
-        return true
+        return emailMatcher.match(input: emailTextField.text!)
     }
     private func checkRePassword()->Bool{
         return rePasswordTextField.text! == passwordTextField.text!
     }
     private func checkEmail()->Bool{
-        // TODO: add regex condition
-        return true
+        return emailMatcher.match(input: emailTextField.text!)
     }
-
-
-    func UsernameTextFieldCheckAction() -> Bool {
-        noticeU.isHidden = checkUsername()
-        return noticeRP.isHidden
-    }
-
-    func PasswordTextFieldCheckAction() -> Bool {
-        noticeP.isHidden = checkPassword()
-        return noticeP.isHidden
-    }
-
-    func RePasswordTextFieldCheckAction() -> Bool {
-        noticeRP.isHidden = checkRePassword()
-        return noticeE.isHidden
-    }
-
-    func EmailTextFieldCheckAction() -> Bool {
-        noticeE.isHidden = checkEmail()
-        return noticeE.isHidden
-    }
-
-    func loading(){
-        signup.setTitleColor(.clear, for: .normal)
-        loadingBar.isHidden = false
-        loadingBar.startAnimating()
-    }
-
-    override func textFieldAvailableCheck(_ textField: UITextField)->Bool{
-        if textField.isKind(of: UsernameTextField.self) {
-            return UsernameTextFieldCheckAction()
-        }else if textField.isKind(of: PasswordTextField.self){
-            return PasswordTextFieldCheckAction()
-        }else if textField.isKind(of: RePasswordTextField.self){
-            return RePasswordTextFieldCheckAction()
-        }else if textField.isKind(of: EmailTextField.self){
-            return EmailTextFieldCheckAction()
-        }
-        return false
-    }
+    
 
     override func viewLoadAction() {
         let buttonHeight =  backLogin.frame.height
-        let labelHeight = usernameLabel.frame.height
         let textFieldHeight = usernameTextField.frame.height
-        let noticeHeight = noticeU.frame.height
 
         backLogin.frame.origin.x = WIDTH/2 - backLogin.frame.width/2
         backLogin.frame.origin.y = HEIGHT/30 + buttonHeight/2
 
-        usernameLabel.frame.origin.y =  backLogin.frame.maxY + noticeHeight/2
-
         usernameTextField.frame.origin.x = WIDTH/2 - usernameTextField.frame.width/2
-        usernameTextField.frame.origin.y =  usernameLabel.frame.maxY + 10
-        usernameLabel.frame.origin.x = usernameTextField.frame.origin.x
+        usernameTextField.frame.origin.y =  backLogin.frame.maxY + textFieldHeight/2
+        usernameTextField.tag = 0
+        usernameTextField.returnKeyType = .next
+        usernameTextField.clearButtonMode = .whileEditing
+        usernameTextField.placeholder = "Username"
+        usernameTextField.title = "Your Username"
+        usernameTextField.tintColor = overcastBlueColor
+        usernameTextField.errorColor = .red
+        usernameTextField.selectedTitleColor = overcastBlueColor
+        usernameTextField.selectedLineColor = overcastBlueColor
+        usernameTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
+        
+        passwordTextField.frame.origin.x = WIDTH/2 - passwordTextField.frame.width/2
+        passwordTextField.frame.origin.y =  usernameTextField.frame.maxY + textFieldHeight/4
+        passwordTextField.tag = 1
+        passwordTextField.returnKeyType = .next
+        passwordTextField.clearButtonMode = .whileEditing
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.placeholder = "Password"
+        passwordTextField.title = "Your Password"
+        passwordTextField.tintColor = overcastBlueColor
+        passwordTextField.errorColor = .red
+        passwordTextField.selectedTitleColor = overcastBlueColor
+        passwordTextField.selectedLineColor = overcastBlueColor
+        passwordTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
 
-        noticeU.frame.origin.y = usernameTextField.frame.maxY
-
-        passwordLabel.frame.origin.y =  noticeU.frame.maxY
-        passwordTextField.frame.origin.y =  passwordLabel.frame.maxY + 10
-        noticeP.frame.origin.y = passwordTextField.frame.maxY
-
-        rePasswordLabel.frame.origin.y =  noticeP.frame.maxY
-        rePasswordTextField.frame.origin.y =  rePasswordLabel.frame.maxY + 10
-        noticeRP.frame.origin.y = rePasswordTextField.frame.maxY
-
-        emailLabel.frame.origin.y =  noticeRP.frame.maxY - 5
-        emailTextField.frame.origin.y =  emailLabel.frame.maxY + 10
-        noticeE.frame.origin.y = emailTextField.frame.maxY
-
-        signup.frame.origin.y = noticeE.frame.maxY
-        loadingBar.frame.origin.y = signup.frame.origin.y
-
-        signup.notAvailableAction()
-        noticeU.isHidden = true
-        noticeP.isHidden = true
-        noticeRP.isHidden = true
-        noticeE.isHidden = true
-        loadingBar.isHidden = true
+        rePasswordTextField.frame.origin.x = WIDTH/2 - rePasswordTextField.frame.width/2
+        rePasswordTextField.frame.origin.y =  passwordTextField.frame.maxY + textFieldHeight/4
+        rePasswordTextField.tag = 2
+        rePasswordTextField.returnKeyType = .next
+        rePasswordTextField.clearButtonMode = .whileEditing
+        rePasswordTextField.isSecureTextEntry = true
+        rePasswordTextField.placeholder = "Confirm Password"
+        rePasswordTextField.title = "Confirm Password"
+        rePasswordTextField.tintColor = overcastBlueColor
+        rePasswordTextField.errorColor = .red
+        rePasswordTextField.selectedTitleColor = overcastBlueColor
+        rePasswordTextField.selectedLineColor = overcastBlueColor
+        rePasswordTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
+        
+        
+        emailTextField.frame.origin.x = WIDTH/2 - emailTextField.frame.width/2
+        emailTextField.frame.origin.y =  rePasswordTextField.frame.maxY + textFieldHeight/4
+        emailTextField.tag = 3
+        emailTextField.returnKeyType = .done
+        emailTextField.clearButtonMode = .whileEditing
+        emailTextField.placeholder = "E-mail"
+        emailTextField.title = "Your E-mail"
+        emailTextField.tintColor = overcastBlueColor
+        emailTextField.errorColor = .red
+        emailTextField.selectedTitleColor = overcastBlueColor
+        emailTextField.selectedLineColor = overcastBlueColor
+        emailTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
+        
+        signup.frame.origin.y = emailTextField.frame.maxY + textFieldHeight/4
+        signup.frame.origin.x = WIDTH/2 - signup.frame.width/2
+        signup.setTitle("Signup", for: .normal)
+        signup.cornerRadius = 20
+        disableSignupButton()
+        signup.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
     }
 
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        signupAction()
+        exec()
     }
 
-    func exec(){
-        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: { res, err in
-            if let e = err {
-                //TODO: Error Handel
-                print(e)
-            }
-            switch res{
-            case .Success(let data):
-                print(data)
-            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                print(msg)
+    func handle(res: Result, err: Error?){
+        if let e = err {
+            //TODO: Error Handel
+            print(e)
+        }
+        switch res{
+        case .Success(let data):
+            print(data)
+            self.signup.stopAnimation(animationStyle: .expand, completion: {
+                self.dismiss(animated: true, completion: nil)
+                SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
+            })
+        case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+            print(msg)
+            self.signup.stopAnimation(animationStyle: .shake, completion: {
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
-            case .NONE:
-                print("None")
-            }
-        })
+            })
+        case .NONE:
+            print("None")
+        }
+    }
+    func exec(){
+        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: handle)
     }
 }
 
@@ -288,52 +376,58 @@ class ForgotPasswordViewController: PrototypeViewController{
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var emailTextField: SkyFloatingLabelTextField!
 
-    @IBOutlet var resetButton: PrototypeButton!
-    @IBOutlet var loadingBar: UIActivityIndicatorView!
-
-    func resetAction(){
-        resetButton.notAvailableUI()
-        loading()
-        APIAction.forgot(email: emailTextField.text!, callback: {res, err in
-            if let e = err {
+    @IBOutlet var resetButton: TransitionButton!
+    
+    func exec(){
+        APIAction.forgot(email: emailTextField.text!, callback:handle )
+    }
+    
+    func handle(res: Result, err: Error?){
+        if let e = err {
             //TODO: Error Handel
             print(e)
         }
         switch res{
         case .Success(let data):
             print(data)
-            self.dismiss(animated: true, completion: nil)
-            SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
+            self.resetButton.stopAnimation(animationStyle: .expand, completion: {
+                self.dismiss(animated: true, completion: nil)
+                SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
+            })
         case .Fail(let msg), .Timeout(let msg), .Error(let msg):
             print(msg)
-            self.resetButton.availableAction()
-            self.loadingBar.isHidden = true
-            self.loadingBar.stopAnimating()
-            SPIndicator.present(title: "Error", message: msg, preset: .error)
+            self.resetButton.stopAnimation(animationStyle: .shake, completion: {
+                SPIndicator.present(title: "Error", message: msg, preset: .error)
+            })
         case .NONE:
             print("None")
         }
-        })
     }
 
-    @IBAction func reset(_ sender: UIButton){
-        resetAction()
+    func disableResetButton(){
+        resetButton.backgroundColor = .systemGray5
+        resetButton.isUserInteractionEnabled = false
+        resetButton.spinnerColor = .systemGray3
     }
-
+    func enableResetButton(){
+        resetButton.backgroundColor = overcastBlueColor
+        resetButton.isUserInteractionEnabled = true
+        resetButton.spinnerColor = .white
+    }
+    
+    @IBAction func buttonAction(_ button: TransitionButton) {
+        resetButton.startAnimation()
+        exec()
+    }
 
     @IBAction func back(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
 
-    func loading(){
-        resetButton.setTitleColor(.clear, for: .normal)
-        loadingBar.isHidden = false
-        loadingBar.startAnimating()
-    }
 
     override func viewLoadAction() {
+        
         let buttonHeight =  backToLoginButton.frame.height
-        let labelHeight = emailLabel.frame.height
         let textFieldHeight = emailTextField.frame.height
 
 
@@ -351,24 +445,18 @@ class ForgotPasswordViewController: PrototypeViewController{
         emailTextField.errorColor = .red
         emailTextField.selectedTitleColor = overcastBlueColor
         emailTextField.selectedLineColor = overcastBlueColor
-        emailTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidEnd)
+        emailTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
 
         resetButton.frame.origin.x = emailTextField.frame.midX - resetButton.frame.width/2
         resetButton.frame.origin.y = emailTextField.frame.maxY + textFieldHeight/2
-        resetButton.frame.origin.x = emailTextField.frame.midX - resetButton.frame.width/2
-        loadingBar.frame.origin.y = emailTextField.frame.maxY + textFieldHeight/2
-        resetButton.notAvailableUI()
-    }
-
-    override func textFieldAvailableCheck(_ textField: UITextField)->Bool{
-        if textField.isKind(of: SkyFloatingLabelTextField.self){
-            return EmailTextFieldCheckAction()
-        }
-        return false
+        resetButton.setTitle("Send", for: .normal)
+        resetButton.cornerRadius = 20
+        disableResetButton()
+        resetButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
     }
 
     private func checkEmail() -> Bool{
-        return mailMatcher.match(input: emailTextField.text!)
+        return emailMatcher.match(input: emailTextField.text!)
     }
 
     func EmailTextFieldCheckAction() -> Bool {
@@ -381,16 +469,16 @@ class ForgotPasswordViewController: PrototypeViewController{
     }
 
     override func textFieldAction(_ textField: UITextField) {
-        if !(emailTextField.text!.isEmpty) && EmailTextFieldCheckAction(){
-            resetButton.availableAction()
+        if EmailTextFieldCheckAction(){
+            enableResetButton()
         }else{
-            resetButton.notAvailableAction()
+            disableResetButton()
         }
     }
 
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        resetAction()
+        exec()
     }
 
 }

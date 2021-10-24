@@ -23,6 +23,7 @@ PODS:
     - BlueRSA (~> 1.0)
     - KituraContracts (~> 1.2)
     - LoggerAPI (~> 1.7)
+  - TransitionButton (0.5.3)
 
 DEPENDENCIES:
   - AlamofireObjectMapper (~> 5.2)
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift (~> 15.2.0)
   - SPIndicator
   - SwiftJWT (~> 3.6)
+  - TransitionButton
 
 SPEC REPOS:
   trunk:
@@ -47,6 +49,7 @@ SPEC REPOS:
     - SPIndicator
     - Starscream
     - SwiftJWT
+    - TransitionButton
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -63,7 +66,8 @@ SPEC CHECKSUMS:
   SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
+  TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: ff97a13fab72af7255ec1c069f791a1538585f04
+PODFILE CHECKSUM: 7e6bc37c21d5ba5fd9d5032715f913adb1c38b68
 
 COCOAPODS: 1.11.2

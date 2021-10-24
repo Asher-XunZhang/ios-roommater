@@ -14,6 +14,8 @@ target 'Roommater' do
   # UI Libraries
   pod 'SPIndicator'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'TransitionButton'
+
 
   #OCR
   #pod 'SwiftOCR'
