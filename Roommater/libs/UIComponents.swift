@@ -61,20 +61,21 @@ extension PrototypeViewController: UITextFieldDelegate{
         } else {
             textFieldDone(textField)
             keyboardDisappearAction(textField)
-            var currentTag = textField.tag
-            repeat{
-                if let currentTextField = textField.superview?.viewWithTag(currentTag){
-                    currentTextField.isUserInteractionEnabled = false
-                }
-                currentTag -= 1
-            }while(currentTag >= 0)
+            unableAllTextField(textField)
         }
-        
         return true
     }
     
+    func unableAllTextField(_ textField: UITextField){
+        self.view.subviews.filter {$0 is UITextField}.forEach {
+            item in item.isUserInteractionEnabled = false
+        }
+    }
     
-
+    func enableAllTextField(){
+        
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardDisappearAction(textField)
 //        (textField as! NoNullTextField).showToolTip()

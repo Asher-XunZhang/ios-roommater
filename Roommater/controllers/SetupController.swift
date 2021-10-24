@@ -44,6 +44,7 @@ class LoginViewController: PrototypeViewController {
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.login.isEnabled = true
+                self
             case .NONE:
                 print("None")
         }
@@ -57,6 +58,11 @@ class LoginViewController: PrototypeViewController {
         login.setTitleColor(.clear, for: .normal)
         loadingBar.startAnimating()
     }
+    func unloading(){
+        login.notAvailableUI()
+        loadingBar.stopAnimating()
+    }
+    
     
     override func viewLoadAction() {
         let labelHeight = usernameLabel.frame.maxY - usernameLabel.frame.minY
