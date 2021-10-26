@@ -102,7 +102,9 @@ class PrototypeViewController: UIViewController, UITextViewDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardAppearAction(node:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDisappearAction(node:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
 //}
 //
 //extension PrototypeViewController: UITextFieldDelegate{

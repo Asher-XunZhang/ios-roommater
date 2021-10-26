@@ -26,13 +26,17 @@ class LoginViewController: PrototypeViewController {
         }
         switch res{
             case .Success(let data):
+                print(data)
                 // redirect to another storyboard with name is "App"
                 login.stopAnimation(animationStyle: .expand, completion: {
                     let storyboard = UIStoryboard(name: "App", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "App")
-                    vc.modalPresentationStyle = .fullScreen
-                    vc.modalTransitionStyle = .crossDissolve
+//                    vc.modalPresentationStyle = .fullScreen
+//                    vc.modalTransitionStyle = .crossDissolve
+//                    self.navigationController?.viewControllers.removeFirst()
                     self.present(vc, animated: true, completion: nil)
+                    self.navigationController?.pushViewController(self, animated: true)
+                    self.navigationController?.viewControllers.removeFirst()
                 })
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 login.stopAnimation(animationStyle: .shake, completion: {
@@ -48,8 +52,7 @@ class LoginViewController: PrototypeViewController {
         self.disableAllTextField()
         APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: handle)
     }
-
-
+    
     override func viewLoadAction() {
         let textFieldHeight = usernameTextField.frame.maxY - usernameTextField.frame.minY
 
@@ -104,6 +107,7 @@ class LoginViewController: PrototypeViewController {
         jumpToSignUp.frame.origin.x = WIDTH/2 - jumpToSignUp.frame.width/2
         jumpToSignUp.frame.origin.y = login.frame.maxY + textFieldHeight
     }
+    
     func disableLoginButton(){
         login.backgroundColor = .systemGray5
         login.isUserInteractionEnabled = false
@@ -355,13 +359,14 @@ class SignupViewController: PrototypeViewController{
         signup.frame.origin.x = WIDTH/2 - signup.frame.width/2
         signup.setTitle("Signup", for: .normal)
         signup.cornerRadius = 20
+        
         disableSignupButton()
         signup.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
     }
 
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        buttonAction(signup)
+//        buttonAction(signup)
     }
 
     func handle(res: Result, err: Error?){
@@ -446,7 +451,6 @@ class ForgotPasswordViewController: PrototypeViewController{
         
         let buttonHeight =  backToLoginButton.frame.height
         let textFieldHeight = emailTextField.frame.height
-
 
         backToLoginButton.frame.origin.x = WIDTH/2 - backToLoginButton.frame.width/2
         backToLoginButton.frame.origin.y = HEIGHT/30 + buttonHeight/2
