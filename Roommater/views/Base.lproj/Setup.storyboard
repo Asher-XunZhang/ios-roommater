@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="login" storyboardIdentifier="Loginpage" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,11 +21,17 @@
                                 <rect key="frame" x="63" y="234" width="288" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="gf3-BD-hks"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                 <rect key="frame" x="63" y="381" width="288" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="OYB-J8-Xxb"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
                                 <rect key="frame" x="203" y="331" width="148" height="31"/>
@@ -188,6 +194,38 @@
             <point key="canvasLocation" x="866.66666666666674" y="833.96739130434787"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="18r-9Z-xkn">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="2og-8d-AWW">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+        <designable name="COY-YP-avc">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="L4B-2T-rvh">
+            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
+        </designable>
+        <designable name="cdO-2W-Vnk">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="d8N-za-wjd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="dBv-VQ-kPl">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="iJo-OQ-R5P">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="uh5-7m-PFY">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="z7N-O8-efu">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

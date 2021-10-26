@@ -27,16 +27,24 @@ class LoginViewController: PrototypeViewController {
         switch res{
             case .Success(let data):
                 print(data)
-                // rediecr to another storyboard with name is "App"
+                // redirect to another storyboard with name is "App"
                 login.stopAnimation(animationStyle: .expand, completion: {
                     let storyboard = UIStoryboard(name: "App", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "App")
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true, completion: nil)
+//                    let currentView = self.presentedViewController
+//                    self.dismiss(animated: true, completion: {
+//                        let storyboard = UIStoryboard(name: "App", bundle: nil)
+//                        let vc = storyboard.instantiateViewController(withIdentifier: "App")
+//                        currentView?.present(vc, animated: true, completion: nil)
+//                    })
                 })
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                
                 login.stopAnimation(animationStyle: .shake, completion: {
                     SPIndicator.present(title: "Error", message: msg, preset: .error)
+                    self.enableAllTextField()
                 })
             case .NONE:
                 print("None")
@@ -44,6 +52,7 @@ class LoginViewController: PrototypeViewController {
     }
 
     func exec(){
+        self.disableAllTextField()
         APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: handle)
     }
 
@@ -56,6 +65,8 @@ class LoginViewController: PrototypeViewController {
         
         usernameTextField.tag = 0
         usernameTextField.returnKeyType = .next
+        usernameTextField.enablesReturnKeyAutomatically = true
+        usernameTextField.spellCheckingType = .no
         usernameTextField.clearButtonMode = .whileEditing
         usernameTextField.placeholder = "Username"
         usernameTextField.title = "Your Username"
@@ -76,6 +87,8 @@ class LoginViewController: PrototypeViewController {
         passwordTextField.tag = 1
         
         passwordTextField.returnKeyType = .done
+        passwordTextField.enablesReturnKeyAutomatically = true
+        passwordTextField.spellCheckingType = .no
         passwordTextField.clearButtonMode = .whileEditing
         passwordTextField.isSecureTextEntry = true
         passwordTextField.placeholder = "Password"
@@ -147,7 +160,7 @@ class LoginViewController: PrototypeViewController {
     
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        buttonAction(login)
+//        buttonAction(login)
     }
 }
 
@@ -161,8 +174,6 @@ class SignupViewController: PrototypeViewController{
     @IBOutlet var backLogin: UIButton!
     @IBOutlet var signup: TransitionButton!
 
-    
-    
     func disableSignupButton(){
         signup.backgroundColor = .systemGray5
         signup.isUserInteractionEnabled = false
@@ -172,6 +183,11 @@ class SignupViewController: PrototypeViewController{
         signup.backgroundColor = overcastBlueColor
         signup.isUserInteractionEnabled = true
         signup.spinnerColor = .white
+    }
+    
+    func exec(){
+        self.disableAllTextField()
+        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: handle)
     }
     @IBAction func buttonAction(_ button: TransitionButton) {
         signup.startAnimation()
@@ -257,10 +273,10 @@ class SignupViewController: PrototypeViewController{
         return ""
     }
     private func checkUsername()->Bool{
-        return rePasswordTextField.text! == passwordTextField.text!
+        return usernameMatcher.match(input: usernameTextField.text!)
     }
     private func checkPassword()->Bool{
-        return emailMatcher.match(input: emailTextField.text!)
+        return passwordMatcher.match(input: passwordTextField.text!)
     }
     private func checkRePassword()->Bool{
         return rePasswordTextField.text! == passwordTextField.text!
@@ -276,11 +292,14 @@ class SignupViewController: PrototypeViewController{
 
         backLogin.frame.origin.x = WIDTH/2 - backLogin.frame.width/2
         backLogin.frame.origin.y = HEIGHT/30 + buttonHeight/2
-
+        
+        
         usernameTextField.frame.origin.x = WIDTH/2 - usernameTextField.frame.width/2
         usernameTextField.frame.origin.y =  backLogin.frame.maxY + textFieldHeight/2
         usernameTextField.tag = 0
         usernameTextField.returnKeyType = .next
+        usernameTextField.enablesReturnKeyAutomatically = true
+        usernameTextField.spellCheckingType = .no
         usernameTextField.clearButtonMode = .whileEditing
         usernameTextField.placeholder = "Username"
         usernameTextField.title = "Your Username"
@@ -294,6 +313,8 @@ class SignupViewController: PrototypeViewController{
         passwordTextField.frame.origin.y =  usernameTextField.frame.maxY + textFieldHeight/4
         passwordTextField.tag = 1
         passwordTextField.returnKeyType = .next
+        passwordTextField.spellCheckingType = .no
+        passwordTextField.enablesReturnKeyAutomatically = true
         passwordTextField.clearButtonMode = .whileEditing
         passwordTextField.isSecureTextEntry = true
         passwordTextField.placeholder = "Password"
@@ -308,6 +329,8 @@ class SignupViewController: PrototypeViewController{
         rePasswordTextField.frame.origin.y =  passwordTextField.frame.maxY + textFieldHeight/4
         rePasswordTextField.tag = 2
         rePasswordTextField.returnKeyType = .next
+        rePasswordTextField.spellCheckingType = .no
+        rePasswordTextField.enablesReturnKeyAutomatically = true
         rePasswordTextField.clearButtonMode = .whileEditing
         rePasswordTextField.isSecureTextEntry = true
         rePasswordTextField.placeholder = "Confirm Password"
@@ -323,7 +346,10 @@ class SignupViewController: PrototypeViewController{
         emailTextField.frame.origin.y =  rePasswordTextField.frame.maxY + textFieldHeight/4
         emailTextField.tag = 3
         emailTextField.returnKeyType = .done
+        emailTextField.spellCheckingType = .no
+        emailTextField.enablesReturnKeyAutomatically = true
         emailTextField.clearButtonMode = .whileEditing
+        emailTextField.spellCheckingType = .no
         emailTextField.placeholder = "E-mail"
         emailTextField.title = "Your E-mail"
         emailTextField.tintColor = overcastBlueColor
@@ -342,7 +368,7 @@ class SignupViewController: PrototypeViewController{
 
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        exec()
+        buttonAction(signup)
     }
 
     func handle(res: Result, err: Error?){
@@ -366,9 +392,6 @@ class SignupViewController: PrototypeViewController{
             print("None")
         }
     }
-    func exec(){
-        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: handle)
-    }
 }
 
 class ForgotPasswordViewController: PrototypeViewController{
@@ -379,7 +402,8 @@ class ForgotPasswordViewController: PrototypeViewController{
     @IBOutlet var resetButton: TransitionButton!
     
     func exec(){
-        APIAction.forgot(email: emailTextField.text!, callback:handle )
+        self.disableAllTextField()
+        APIAction.forgot(email: emailTextField.text!, callback:handle)
     }
     
     func handle(res: Result, err: Error?){
@@ -395,9 +419,9 @@ class ForgotPasswordViewController: PrototypeViewController{
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
             })
         case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-            print(msg)
             self.resetButton.stopAnimation(animationStyle: .shake, completion: {
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
+                self.enableAllTextField()
             })
         case .NONE:
             print("None")
@@ -443,6 +467,9 @@ class ForgotPasswordViewController: PrototypeViewController{
         emailTextField.title = "Your E-mail Address"
         emailTextField.tintColor = overcastBlueColor
         emailTextField.errorColor = .red
+        emailTextField.returnKeyType  = .done
+        emailTextField.enablesReturnKeyAutomatically = true
+        emailTextField.spellCheckingType = .no
         emailTextField.selectedTitleColor = overcastBlueColor
         emailTextField.selectedLineColor = overcastBlueColor
         emailTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingChanged)
@@ -478,7 +505,6 @@ class ForgotPasswordViewController: PrototypeViewController{
 
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
-        exec()
+//        buttonAction(resetButton)
     }
-
 }

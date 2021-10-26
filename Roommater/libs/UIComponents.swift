@@ -87,34 +87,43 @@ class RePasswordTextField: NoNullTextField{
 }
 class EmailTextField: NoNullTextField{
 }
-class PrototypeViewController: UIViewController{
+
+class PrototypeViewController: UIViewController, UITextViewDelegate{
+    var keyboardMarginY:CGFloat = 0
+    var keyboardAnimitionDuration: TimeInterval = 0
+    var viewDistanceFromTopScreen: CGFloat = 0
+    var offsetDistance: CGFloat = 0
     
     func viewLoadAction(){}
     override func viewDidLoad() {
         super.viewDidLoad()
         viewLoadAction()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame(node:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardAppearAction(node:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDisappearAction(node:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-}
-
-extension PrototypeViewController: UITextFieldDelegate{
+    
+//}
+//
+//extension PrototypeViewController: UITextFieldDelegate{
     
     @objc func textFieldDone(_ textField: UITextField){}
     
     @objc func textFieldAction(_ textField: UITextField){}
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag+1
         if let nextResponder = textField.superview?.viewWithTag(nextTag) {
             nextResponder.becomeFirstResponder()
         } else {
+            self.view.endEditing(true)
+//            disableAllTextField()
             textFieldDone(textField)
-            keyboardDisappearAction(textField)
-            unableAllTextField()
         }
         return true
     }
     
-    func unableAllTextField(){
+    func disableAllTextField(){
         self.view.subviews.filter {$0 is UITextField}.forEach {
             item in item.isUserInteractionEnabled = false
         }
@@ -126,33 +135,35 @@ extension PrototypeViewController: UITextFieldDelegate{
         }
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        keyboardDisappearAction(textField)
-//    }
-//
-//    func textFieldDidChangeSelection(_ textField: UITextField) {
-//        textFieldAction(textField)
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//    }
-    
-    
-    func keyboardAppearAction(_ textField: UITextField){
-        if (textField.frame.midY > (HEIGHT/2)){
-            UIView.animate(withDuration: 0.3, animations: {
-            self.view.frame.origin.y = 0
-            })
-        }
+    @objc func keyboardWillChangeFrame(node:Notification){
+        keyboardAnimitionDuration = node.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+        let endFrame = (node.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardMarginY = endFrame.origin.y
     }
-    func keyboardDisappearAction(_ textField: UITextField){
-        if (textField.frame.midY > (HEIGHT/2)){
-            UIView.animate(withDuration: 0.4, animations: {
-            self.view.frame.origin.y = -150
-            })
+    
+    @objc func keyboardAppearAction(node:Notification){
+        self.view.subviews.filter{$0 is UITextField && $0.isFirstResponder}.forEach{ focusTextField in
+            viewDistanceFromTopScreen = HEIGHT-self.view.frame.height
+            let textFieldFromTopScreen = focusTextField.frame.maxY + viewDistanceFromTopScreen - offsetDistance
+            let textFieldLowestBoundLimit = keyboardMarginY - focusTextField.frame.height
+            if textFieldFromTopScreen > textFieldLowestBoundLimit {
+                offsetDistance += (textFieldFromTopScreen - textFieldLowestBoundLimit)
+                self.view.frame.origin.y = 0-offsetDistance
+                if keyboardAnimitionDuration <= 0 {keyboardAnimitionDuration = 0.3}
+                UIView.animate(withDuration: keyboardAnimitionDuration) {
+                    self.view.layoutIfNeeded()
+                }
+            }
         }
     }
     
+    @objc func keyboardDisappearAction(node:Notification){
+        self.view.frame.origin.y = 0
+        offsetDistance = 0
+        UIView.animate(withDuration: keyboardAnimitionDuration) {
+            self.view.layoutIfNeeded()
+        }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.3, animations: {
@@ -163,7 +174,9 @@ extension PrototypeViewController: UITextFieldDelegate{
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     }
 }
-
+    
+    
+    
 class PrototypeButton:UIButton{
     func notAvailableAction(){
         notAvailableUI()
