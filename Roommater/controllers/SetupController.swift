@@ -26,7 +26,6 @@ class LoginViewController: PrototypeViewController {
         }
         switch res{
             case .Success(let data):
-                print(data)
                 // redirect to another storyboard with name is "App"
                 login.stopAnimation(animationStyle: .expand, completion: {
                     let storyboard = UIStoryboard(name: "App", bundle: nil)
@@ -34,12 +33,6 @@ class LoginViewController: PrototypeViewController {
                     vc.modalPresentationStyle = .fullScreen
                     vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true, completion: nil)
-//                    let currentView = self.presentedViewController
-//                    self.dismiss(animated: true, completion: {
-//                        let storyboard = UIStoryboard(name: "App", bundle: nil)
-//                        let vc = storyboard.instantiateViewController(withIdentifier: "App")
-//                        currentView?.present(vc, animated: true, completion: nil)
-//                    })
                 })
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 login.stopAnimation(animationStyle: .shake, completion: {
