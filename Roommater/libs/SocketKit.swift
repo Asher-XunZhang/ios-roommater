@@ -5,6 +5,7 @@
 //  Created by KAMIKU on 10/8/21.
 //
 import SocketIO
+import StreamChat
 
 class SocketInstance {
     static let socketOrigin = "https://roommater-server.herokuapp.com"
@@ -106,4 +107,62 @@ class SocketInstance {
             }
         }
     }
+}
+
+extension ChatClient {
+    static var shared: ChatClient!
+}
+
+func initStreamUser(avatar: String){
+    if let user = UserDefaults.standard.string(forKey: "userID"),
+        let nickname = UserDefaults.standard.string(forKey: "nickname"),
+        let _token = UserDefaults.standard.string(forKey: "token"){
+        let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
+        ChatClient.shared = ChatClient(config: config){ completion in
+            APIAction.fetchNewtoken(user: user, callback: {res, err in
+                if let e = err {
+                    print(e)
+                }
+                switch res{
+                    case .Success(let data):
+                        if let token = data as? String {
+                            do {
+                                try completion(.success(Token(rawValue: token)))
+                            }
+                            catch {
+                                print("Init token failed!")
+                            }
+                        }else{
+                            print("Fail to get token")
+                        }
+                    case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                        print("Fail Res")
+                        print(msg)
+                    case .NONE:
+                        print("None")
+                }
+            })
+        }
+
+        do {
+            let token = try Token(rawValue: _token)
+            ChatClient.shared.connectUser(
+                userInfo: UserInfo(
+                    id: user,
+                    name: nickname,
+                    imageURL: URL(string: avatar)
+                ),
+                token: token
+            )
+        }
+        catch {
+            print("Init token failed!")
+        }
+    }
+}
+
+func connectToChatDev(){
+    let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
+    ChatClient.shared = ChatClient(config: config)
+    ChatClient.shared.connectUser(userInfo: .init(id: "Kamiku"), token: .development(userId: "Kamiku"))
 }

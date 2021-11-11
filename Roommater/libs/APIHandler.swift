@@ -66,9 +66,9 @@ enum Result {
 }
 
 enum AuthRoute: URLRequestConvertible {
-    static let consumerKey = "secret api key" //todo get form socket io
     var baseURL: URL {
-        return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
+//        return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
+        return URL(string: "http://localhost:1337/api/v1")!
     }
     
     // case
@@ -76,6 +76,8 @@ enum AuthRoute: URLRequestConvertible {
     case signup(username: String, pass: String, email: String)
     case recover(email: String)
     case fetchUser(token: String)
+    case fetchToken(username: String)
+    case fetchDormInfo(roomID: String)
     
     var method: HTTPMethod {
         switch self {
@@ -87,19 +89,27 @@ enum AuthRoute: URLRequestConvertible {
             return .post
         case .fetchUser:
             return .get
+        case .fetchToken:
+            return .post
+        case .fetchDormInfo:
+            return .post
         }
     }
     
     var path: String {
         switch self {
         case .login:
-            return "/testuser/login"
+            return "/user/login"
         case .signup:
-            return "/testuser/signup"
+            return "/user/signup"
         case .recover:
-            return "/testuser/recover"
+            return "/user/recover"
         case .fetchUser:
-            return "/testuser/fetch"
+            return "/user/fetch"
+        case .fetchToken:
+            return "/user/renewToken"
+        case .fetchDormInfo:
+            return "/room/fetch"
         }
     }
 
@@ -114,6 +124,10 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["email": email])
             case .fetchUser(token: let token):
                 return (path, ["token": token])
+            case .fetchToken(username: let username):
+                return (path, ["user": username])
+            case .fetchDormInfo(roomID: let roomID):
+                return (path, ["room": roomID])
             }
         }()
         var req = URLRequest(url: baseURL.appendingPathComponent(result.path))
@@ -124,7 +138,6 @@ enum AuthRoute: URLRequestConvertible {
 }
 
 class APIAction {
-
     //login request with post
     static func login(username: String, pass: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
@@ -215,6 +228,52 @@ class APIAction {
                 }
         }
     }
-
     
+    //fetch token with post
+    static func fetchNewtoken(user: String, callback: @escaping (Result, Error?) -> Void){
+        DispatchQueue.global().async {
+            AF.request(AuthRoute.fetchToken(username: user))
+                .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                DispatchQueue.main.async {
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["new-token"] as AnyObject), nil)
+                                }
+                            }
+                        default:
+                            print("Fail")
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"), nil)
+                            }
+                    }
+                }
+        }
+    }
+    
+    //fetch dorm info
+    static func fetchDormInfo(callback: @escaping (Result, Error?) -> Void){
+        if let roomID = UserDefaults.standard.string(forKey: "room_id"){
+            DispatchQueue.global().async {
+                AF.request(AuthRoute.fetchDormInfo(roomID: roomID))
+                    .responseJSON() { res in
+                        switch (res.response?.statusCode) {
+                            case 200:
+                                if let json = res.value as? [String:Any] {
+                                    DispatchQueue.main.async {
+                                        callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["new-token"] as AnyObject), nil)
+                                    }
+                                }
+                            default:
+                                print("Fail")
+                                DispatchQueue.main.async {
+                                    callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"), nil)
+                                }
+                        }
+                    }
+            }
+        }
+        
+        
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StreamChatUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -49,7 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
+    
+    func applyChatCustomizations() {
+        Appearance.default.colorPalette.background6 = .green
+        Appearance.default.images.sendArrow = UIImage(systemName: "arrowshape.turn.up.right")!
+        Components.default.channelVC = ChatController.self
+    }
 }
 

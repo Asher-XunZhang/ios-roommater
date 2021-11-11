@@ -11,14 +11,12 @@ import SkyFloatingLabelTextField
 import TransitionButton
 
 class LoginViewController: PrototypeViewController {
-
     @IBOutlet var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet var passwordTextField: SkyFloatingLabelTextField!
 
     @IBOutlet var forgotPassword: UIButton!
     @IBOutlet var jumpToSignUp: UIButton!
     @IBOutlet var login: TransitionButton!
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "dashboardPage" {
@@ -375,7 +373,7 @@ class SignupViewController: PrototypeViewController{
         switch res{
         case .Success(_):
             self.signup.stopAnimation(animationStyle: .expand, completion: {
-                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
             })
         case .Fail(let msg), .Timeout(let msg), .Error(let msg):
@@ -409,7 +407,7 @@ class ForgotPasswordViewController: PrototypeViewController{
         switch res{
         case .Success(_):
             self.resetButton.stopAnimation(animationStyle: .expand, completion: {
-                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
             })
         case .Fail(let msg), .Timeout(let msg), .Error(let msg):
