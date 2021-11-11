@@ -7,16 +7,13 @@ target 'Roommater' do
 
   # Pods for Roommater
   # Network Libraries
-  pod 'AlamofireObjectMapper', '~> 5.2'
-  pod 'Socket.IO-Client-Swift', '~> 15.2.0'
-  pod 'SwiftJWT', '~> 3.6'
+  pod 'AlamofireObjectMapper'
+  pod 'Socket.IO-Client-Swift'
+  pod 'SwiftJWT'
 	
   # UI Libraries
   pod 'SPIndicator'
-  pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'SkyFloatingLabelTextField'
   pod 'TransitionButton'
-
-
-  #OCR
-  #pod 'SwiftOCR'
+  pod 'StreamChatUI'
 end
