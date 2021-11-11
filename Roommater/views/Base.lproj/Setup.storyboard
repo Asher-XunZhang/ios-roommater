@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3F3-Wq-qll"/>
                         <segue destination="deT-Uk-ePT" kind="show" identifier="dashboardPage" id="Asb-UP-o8Y"/>
+                        <segue destination="deT-Uk-ePT" kind="relationship" relationship="rootViewController" id="Cy1-Li-3ju"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOg-Kx-40f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -95,7 +95,7 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
@@ -177,7 +177,7 @@
             <objects>
                 <viewController id="WbT-Np-JLj" customClass="ForgotPasswordViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWk-E5-svw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter the email address for receiving the verification email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-au-w5n">
@@ -235,38 +235,9 @@
             <point key="canvasLocation" x="919" y="777"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="18r-9Z-xkn">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="2og-8d-AWW">
-            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
-        </designable>
-        <designable name="COY-YP-avc">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="L4B-2T-rvh">
-            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
-        </designable>
-        <designable name="cdO-2W-Vnk">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="d8N-za-wjd">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="dBv-VQ-kPl">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="iJo-OQ-R5P">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="uh5-7m-PFY">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="z7N-O8-efu">
-            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
-        </designable>
-    </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="Asb-UP-o8Y"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

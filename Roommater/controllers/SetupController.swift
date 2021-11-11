@@ -228,45 +228,43 @@ class SignupViewController: PrototypeViewController{
     
     private func checkUsernameStr()->String{
         if !(usernameMatcher.match(input: usernameTextField.text!)){
-            let errmsg = "Username "
             if !(noSpecialCharMatcher.match(input: usernameTextField.text!)) {
-                return errmsg + regexErrMsg["noSpeChar"]!
+                return regexErrMsg["noSpeChar"]!
             }
             if !(lower4LimitedMatcher.match(input: usernameTextField.text!)) {
-                return errmsg + regexErrMsg["lower4Limited"]!
+                return regexErrMsg["lower4Limited"]!
             }
             if !(upperLimitedMatcher.match(input: usernameTextField.text!)) {
-                return errmsg + regexErrMsg["upperLimited"]!
+                return regexErrMsg["upperLimited"]!
             }
         }
         return ""
     }
     
     private func checkPasswordStr()->String{
-        rePasswordTextField.text! = ""
         if !(passwordMatcher.match(input: passwordTextField.text!)){
-            let errmsg = "Password "
             if !(specialCharRequireMatcher.match(input: passwordTextField.text!)) {
-                return errmsg + regexErrMsg["speChar"]!
+                return regexErrMsg["speChar"]!
             }
             if !(digitRequireMatcher.match(input: passwordTextField.text!)) {
-                return errmsg + regexErrMsg["digit"]!
+                return regexErrMsg["digit"]!
             }
             if !(uppercaseRequireMatcher.match(input: passwordTextField.text!)) {
-                return errmsg + regexErrMsg["uppercase"]!
+                return regexErrMsg["uppercase"]!
             }
             if !(lowercaseRequireMatcher.match(input: passwordTextField.text!)) {
-                return errmsg + regexErrMsg["lowercase"]!
+                return regexErrMsg["lowercase"]!
             }
             if !(lower8LimitedMatcher.match(input: passwordTextField.text!)) {
-                return errmsg + regexErrMsg["lower8Limited"]!
+                return regexErrMsg["lower8Limited"]!
             }
             if !(upperLimitedMatcher.match(input: usernameTextField.text!)) {
-                return errmsg + regexErrMsg["upperLimited"]!
+                return regexErrMsg["upperLimited"]!
             }
         }
         return ""
     }
+    
     private func checkUsername()->Bool{
         return usernameMatcher.match(input: usernameTextField.text!)
     }

@@ -6,6 +6,8 @@ PODS:
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.200)
+  - Cards (1.4.0):
+    - Player (= 0.13.0)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
   - LoggerAPI (1.9.200):
@@ -13,6 +15,7 @@ PODS:
   - Logging (1.4.0)
   - Nuke (10.5.1)
   - ObjectMapper (3.5.3)
+  - Player (0.13.0)
   - SkyFloatingLabelTextField (4.0.0)
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
@@ -35,6 +38,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireObjectMapper
+  - Cards
   - SkyFloatingLabelTextField
   - Socket.IO-Client-Swift
   - SPIndicator
@@ -50,11 +54,13 @@ SPEC REPOS:
     - BlueCryptor
     - BlueECC
     - BlueRSA
+    - Cards
     - KituraContracts
     - LoggerAPI
     - Logging
     - Nuke
     - ObjectMapper
+    - Player
     - SkyFloatingLabelTextField
     - Socket.IO-Client-Swift
     - SPIndicator
@@ -71,11 +77,13 @@ SPEC CHECKSUMS:
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: dfeef51db96bcc4edec654956c1581adbda4e6a3
+  Cards: 45ae6bd0eca7b5e8016d3b6cb30b60b04753f68f
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
   Logging: beeb016c9c80cf77042d62e83495816847ef108b
   Nuke: 6ae28db7d24c07d040bcc52f6957b32dac23e91b
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  Player: 968d8d07d923bcdd6f7e4091c9e306eb44a5f7a4
   SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
@@ -86,6 +94,6 @@ SPEC CHECKSUMS:
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 02389ef84ebb036ea13f8565bbf55274b74e9122
+PODFILE CHECKSUM: 3ecb979d316e7733c10cc4060491e154bf8cba4e
 
 COCOAPODS: 1.11.2

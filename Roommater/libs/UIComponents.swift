@@ -29,7 +29,7 @@ let lower8LimitedMatcher =  MyRegex(lower8Limited)
 let upperLimited = "^.{0,20}$"
 let upperLimitedMatcher =  MyRegex(upperLimited)
 
-let noSpecialCharacterLimited = "^[A-Z0-9a-z_]+$"
+let noSpecialCharacterLimited = "^[A-Z0-9a-z_-]+$"
 let noSpecialCharMatcher = MyRegex(noSpecialCharacterLimited)
 
 let specialChararcterRequire = "^(?=.*[-!@#$%&*ˆ+=_<>?,\\.;:\\'\\\"\\\\\\]\\[\\}\\{]).*$"
@@ -45,14 +45,14 @@ let digitRequire = "^(?=.*[\\d]).*$"
 let digitRequireMatcher = MyRegex(digitRequire)
 
 let regexErrMsg = [
-    "lower4Limited" : "should be at least 4 characters",
-    "lower8Limited" : "should be at least 8 characters",
-    "upperLimited"  : "should be at most 20 characters",
-    "noSpeChar"     : "cannot have any special character",
-    "speChar"       : "should have at least 1 special character",
-    "lowercase"     : "should have at least 1 lowercase character",
-    "uppercase"     : "should have at least 1 uppercase character",
-    "digit"         : "should have at least 1 digit"
+    "lower4Limited" : "At least 4 characters",
+    "lower8Limited" : "Be at least 8 characters",
+    "upperLimited"  : "Be at most 20 characters",
+    "noSpeChar"     : "Have any special character",
+    "speChar"       : "Have at least 1 special character",
+    "lowercase"     : "Have at least 1 lowercase character",
+    "uppercase"     : "Have at least 1 uppercase character",
+    "digit"         : "Have at least 1 digit"
 ]
 
 
@@ -81,10 +81,13 @@ class NoNullTextField: UITextField{
 }
 class UsernameTextField: NoNullTextField{
 }
+
 class PasswordTextField: NoNullTextField{
 }
+
 class RePasswordTextField: NoNullTextField{
 }
+
 class EmailTextField: NoNullTextField{
 }
 
@@ -179,7 +182,7 @@ class PrototypeViewController: UIViewController, UITextViewDelegate{
     
     
     
-class PrototypeButton:UIButton{
+class PrototypeButton : UIButton{
     func notAvailableAction(){
         notAvailableUI()
     }
