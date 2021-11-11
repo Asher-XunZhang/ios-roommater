@@ -190,7 +190,7 @@ class SignupViewController: PrototypeViewController{
     }
     
     @IBAction func back(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
     override func textFieldAction(_ textField: UITextField) {
@@ -439,7 +439,7 @@ class ForgotPasswordViewController: PrototypeViewController{
     }
 
     @IBAction func back(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
 
