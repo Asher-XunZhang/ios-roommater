@@ -10,7 +10,6 @@ import UIKit
 
 class SettingController : PrototypeViewController {
     @IBOutlet var settingView : UITableView!
-    
     override func viewDidLoad() {
         
     }

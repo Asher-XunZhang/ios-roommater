@@ -18,6 +18,13 @@ class LoginViewController: PrototypeViewController {
     @IBOutlet var forgotPassword: UIButton!
     @IBOutlet var jumpToSignUp: UIButton!
     @IBOutlet var login: TransitionButton!
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "dashboardPage" {
+            
+        }
+    }
 
     func handle(res: Result, err: Error?){
         if let e = err {
@@ -26,18 +33,9 @@ class LoginViewController: PrototypeViewController {
         }
         switch res{
             case .Success(let data):
-                print(data)
                 // redirect to another storyboard with name is "App"
                 login.stopAnimation(animationStyle: .expand, completion: {
-                    let storyboard = UIStoryboard(name: "App", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "App")
-//                    vc.modalPresentationStyle = .fullScreen
-//                    vc.modalTransitionStyle = .crossDissolve
-//                    self.navigationController?.viewControllers.removeFirst()
-                    self.present(vc, animated: true, completion: nil)
-                    self.navigationController?.pushViewController(self, animated: true)
-                    self.navigationController?.viewControllers.removeFirst()
-                })
+                    self.navigationController?.performSegue(withIdentifier: "dashboardPage", sender: data)})
             case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                 login.stopAnimation(animationStyle: .shake, completion: {
                     SPIndicator.present(title: "Error", message: msg, preset: .error)
@@ -375,8 +373,7 @@ class SignupViewController: PrototypeViewController{
             print(e)
         }
         switch res{
-        case .Success(let data):
-            print(data)
+        case .Success(_):
             self.signup.stopAnimation(animationStyle: .expand, completion: {
                 self.dismiss(animated: true, completion: nil)
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
@@ -410,8 +407,7 @@ class ForgotPasswordViewController: PrototypeViewController{
             print(e)
         }
         switch res{
-        case .Success(let data):
-            print(data)
+        case .Success(_):
             self.resetButton.stopAnimation(animationStyle: .expand, completion: {
                 self.dismiss(animated: true, completion: nil)
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
