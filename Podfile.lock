@@ -38,6 +38,7 @@ DEPENDENCIES:
   - SkyFloatingLabelTextField
   - Socket.IO-Client-Swift
   - SPIndicator
+  - StreamChat
   - StreamChatUI
   - SwiftJWT
   - TransitionButton
@@ -85,6 +86,6 @@ SPEC CHECKSUMS:
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: cdb323884c33935fe21980b5c9690e1488939bfd
+PODFILE CHECKSUM: 02389ef84ebb036ea13f8565bbf55274b74e9122
 
 COCOAPODS: 1.11.2

@@ -25,6 +25,7 @@
 		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
 		B6C05C2527251E9A0047C0C8 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2427251E9A0047C0C8 /* Chat.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
+		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
 		B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC251D2715D99600F55EBC /* Dorm.swift */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
@@ -55,6 +56,7 @@
 		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
 		B6C05C2427251E9A0047C0C8 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		B6EC251D2715D99600F55EBC /* Dorm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dorm.swift; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				B63E50FA270CA45B005F83EB /* SetupController.swift */,
 				B67D8ECE2723F76900BEFB62 /* DashboardController.swift */,
 				B6C05C0F2724D66A0047C0C8 /* SettingController.swift */,
+				B6D44953273CCA3600C9D0EC /* ChatController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */,
 				B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */,
 				B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */,
+				B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

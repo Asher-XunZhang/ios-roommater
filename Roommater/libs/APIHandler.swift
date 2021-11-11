@@ -128,11 +128,11 @@ class APIAction {
     //login request with post
     static func login(username: String, pass: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
-            Alamofire.request(AuthRoute.login(username: username, pass: pass))
+            AF.request(AuthRoute.login(username: username, pass: pass))
                 .responseJSON { res in
                     switch (res.response?.statusCode) {
                         case 200:
-                            if let json = res.result.value as? [String:Any] {
+                            if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
                                     callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?), nil)
@@ -151,11 +151,11 @@ class APIAction {
     //signuo request with put
     static func signup(username: String, pass: String, email: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
-            Alamofire.request(AuthRoute.signup(username: username, pass: pass, email: email))
+            AF.request(AuthRoute.signup(username: username, pass: pass, email: email))
                 .responseJSON { res in
                     switch (res.response?.statusCode) {
                         case 200:
-                            if let json = res.result.value as? [String:Any] {
+                            if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
                                     callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?), nil)
@@ -174,11 +174,11 @@ class APIAction {
     //forgot request with post
     static func forgot(email: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
-            Alamofire.request(AuthRoute.recover(email: email))
+            AF.request(AuthRoute.recover(email: email))
                 .responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
-                            if let json = res.result.value as? [String:Any] {
+                            if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
                                     callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil), nil)
@@ -197,11 +197,11 @@ class APIAction {
     //fetch testuser with get
     static func fetchUser(token: String, callback: @escaping (Result, Error?) -> Void) {
         DispatchQueue.global().async {
-            Alamofire.request(AuthRoute.fetchUser(token: token))
+            AF.request(AuthRoute.fetchUser(token: token))
                 .responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
-                            if let json = res.result.value as? [String:Any] {
+                            if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil), nil)
                                 }

@@ -16,4 +16,5 @@ target 'Roommater' do
   pod 'SkyFloatingLabelTextField'
   pod 'TransitionButton'
   pod 'StreamChatUI'
+  pod 'StreamChat'
 end
