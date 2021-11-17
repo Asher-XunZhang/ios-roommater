@@ -6,6 +6,7 @@
 //
 import SocketIO
 import StreamChat
+import Dispatch
 
 class SocketInstance {
     static let socketOrigin = "https://roommater-server.herokuapp.com"
@@ -114,7 +115,7 @@ extension ChatClient {
 }
 
 func initStreamUser(avatar: String){
-    if let user = UserDefaults.standard.string(forKey: "userID"),
+    if  let user = UserDefaults.standard.string(forKey: "userID"),
         let nickname = UserDefaults.standard.string(forKey: "nickname"),
         let _token = UserDefaults.standard.string(forKey: "token"){
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
@@ -164,5 +165,9 @@ func initStreamUser(avatar: String){
 func connectToChatDev(){
     let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
     ChatClient.shared = ChatClient(config: config)
-    ChatClient.shared.connectUser(userInfo: .init(id: "Kamiku"), token: .development(userId: "Kamiku"))
+    ChatClient.shared.connectUser(userInfo: .init(id: "Dev", name: "Dev User"), token: .development(userId: "Dev"), completion: {err in
+        if ChatClient.shared.connectionStatus != .connected {
+            fatalError("Failed to connected to the chat service!")
+        }
+    })
 }

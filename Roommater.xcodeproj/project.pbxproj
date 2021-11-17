@@ -13,7 +13,6 @@
 		B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50F8270CA45B005F83EB /* SceneDelegate.swift */; };
 		B63E50FB270CA45B005F83EB /* SetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E50FA270CA45B005F83EB /* SetupController.swift */; };
 		B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E50FC270CA45B005F83EB /* Setup.storyboard */; };
-		B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */; };
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
 		B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67D8ECE2723F76900BEFB62 /* DashboardController.swift */; };
@@ -23,7 +22,6 @@
 		B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C1E2724E76A0047C0C8 /* App.storyboard */; };
 		B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2027251E570047C0C8 /* Dashboard.storyboard */; };
 		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
-		B6C05C2527251E9A0047C0C8 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2427251E9A0047C0C8 /* Chat.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
@@ -39,7 +37,6 @@
 		B63E50F8270CA45B005F83EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B63E50FA270CA45B005F83EB /* SetupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupController.swift; sourceTree = "<group>"; };
 		B63E50FD270CA45B005F83EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
-		B63E5100270CA45B005F83EB /* Roommater.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Roommater.xcdatamodel; sourceTree = "<group>"; };
 		B63E5102270CA45D005F83EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B63E5105270CA45D005F83EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B63E5107270CA45D005F83EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,7 +51,6 @@
 		B6C05C1E2724E76A0047C0C8 /* App.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = App.storyboard; sourceTree = "<group>"; };
 		B6C05C2027251E570047C0C8 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
-		B6C05C2427251E9A0047C0C8 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
@@ -100,7 +96,6 @@
 				B63E50FC270CA45B005F83EB /* Setup.storyboard */,
 				B6C05C1E2724E76A0047C0C8 /* App.storyboard */,
 				B6C05C2627251EA80047C0C8 /* Setting.storyboard */,
-				B6C05C2427251E9A0047C0C8 /* Chat.storyboard */,
 				B6C05C2227251E8D0047C0C8 /* Pending.storyboard */,
 				B6C05C2027251E570047C0C8 /* Dashboard.storyboard */,
 			);
@@ -137,7 +132,6 @@
 				B63E50F8270CA45B005F83EB /* SceneDelegate.swift */,
 				B63E5102270CA45D005F83EB /* Assets.xcassets */,
 				B63E5107270CA45D005F83EB /* Info.plist */,
-				B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */,
 			);
 			path = Roommater;
 			sourceTree = "<group>";
@@ -244,7 +238,6 @@
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
 				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
 				B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */,
-				B6C05C2527251E9A0047C0C8 /* Chat.storyboard in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,7 +294,6 @@
 				B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */,
 				5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */,
 				B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */,
-				B63E5101270CA45B005F83EB /* Roommater.xcdatamodeld in Sources */,
 				B63E50FB270CA45B005F83EB /* SetupController.swift in Sources */,
 				B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */,
 				B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */,
@@ -543,19 +535,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B63E50FF270CA45B005F83EB /* Roommater.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B63E5100270CA45B005F83EB /* Roommater.xcdatamodel */,
-			);
-			currentVersion = B63E5100270CA45B005F83EB /* Roommater.xcdatamodel */;
-			path = Roommater.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B63E50EB270CA45A005F83EB /* Project object */;
 }

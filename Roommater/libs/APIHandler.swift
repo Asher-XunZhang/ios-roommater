@@ -9,40 +9,6 @@ import Foundation
 import AlamofireObjectMapper
 import Alamofire
 import ObjectMapper
-import SwiftJWT
-
-class MapJWT : Mappable, Claims {
-    required init?(map: Map) {}
-
-    func mapping(map: Map) {}
-}
-
-struct Response<T: Mappable>: Mappable {
-    var error : Int?
-    var msg : T?
-    var data : MapJWT?
-    var token : MapJWT?
-    init?(map: Map) {}
-
-    mutating func mapping(map: Map) {
-        error <- map["error"]
-        msg <- map["error"]
-        data <- map["result"]
-        token <- map["token"]
-    }
-}
-
-func verify(sign: String, token: String) throws {
-    if let _sign = Data(base64Encoded: sign){
-        let jwtVerifier = JWTVerifier.hs256(key: _sign)
-        if JWT<MapJWT>.verify(token, using: jwtVerifier) {
-            let newJWT = try JWT<MapJWT>(jwtString: token, verifier: jwtVerifier)
-            print(newJWT)
-        }else{
-            print("Verify Failed!")
-        }
-    }
-}
 
 enum Result {
     case Success(AnyObject?)

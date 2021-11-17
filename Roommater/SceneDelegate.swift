@@ -6,18 +6,34 @@
 //
 
 import UIKit
+import StreamChat
 import StreamChatUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: scene)
+        
+        if window.restorationIdentifier == "ChatUI" {
+            print("Here!")
+            do{
+                Appearance.default.colorPalette.background6 = .green
+                Appearance.default.images.sendArrow = UIImage(systemName: "arrowshape.turn.up.right")!
+                Components.default.channelVC = ChatViewController.self
+                let channelVC = ChatViewController()
+                channelVC.channelController = ChatClient.shared.channelController(for: try .init(cid: "dev_ad284e8a-baff-4ada-b009-595e7ef68c82"))
+                let navVC = UINavigationController(rootViewController: channelVC)
+                window.rootViewController = navVC
+                window.rootViewController?.present(channelVC, animated: true, completion: nil)
+            }catch{
+                fatalError("Fail to init the chat view!")
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,12 +65,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-    }
-    
-    func applyChatCustomizations() {
-        Appearance.default.colorPalette.background6 = .green
-        Appearance.default.images.sendArrow = UIImage(systemName: "arrowshape.turn.up.right")!
-        Components.default.channelVC = ChatController.self
     }
 }
 

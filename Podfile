@@ -9,7 +9,6 @@ target 'Roommater' do
   # Network Libraries
   pod 'AlamofireObjectMapper'
   pod 'Socket.IO-Client-Swift'
-  pod 'SwiftJWT'
 	
   # UI Libraries
   pod 'SPIndicator'
