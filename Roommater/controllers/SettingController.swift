@@ -9,8 +9,5 @@ import Foundation
 import UIKit
 
 class SettingController : UIViewController {
-    @IBOutlet var settingView : UITableView!
-    override func viewDidLoad() {
-        
-    }
+    
 }

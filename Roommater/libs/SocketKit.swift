@@ -29,7 +29,7 @@ class SocketInstance {
             // Baisc events
             client.on(clientEvent: .connect) {data, ack in
                 // Handle connected
-                print("[Socket Instance] Connected | session id:\(client.sid)")
+                print("[Socket Instance] Connected | session id:\(String(describing: client.sid))")
             }
             client.on(clientEvent: .disconnect) {data, ack in
                 // Handle disconnected

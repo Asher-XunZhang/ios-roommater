@@ -39,6 +39,7 @@ enum AuthRoute: URLRequestConvertible {
     
     // case
     case login(username: String, pass: String)
+    case loginWithToken(token: String)
     case signup(username: String, pass: String, email: String)
     case recover(email: String)
     case fetchUser(token: String)
@@ -48,6 +49,8 @@ enum AuthRoute: URLRequestConvertible {
     var method: HTTPMethod {
         switch self {
         case .login:
+            return .post
+        case .loginWithToken:
             return .post
         case .signup:
             return .put
@@ -65,6 +68,8 @@ enum AuthRoute: URLRequestConvertible {
     var path: String {
         switch self {
         case .login:
+            return "/user/login"
+        case .loginWithToken:
             return "/user/login"
         case .signup:
             return "/user/signup"
@@ -94,6 +99,8 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["user": username])
             case .fetchDormInfo(roomID: let roomID):
                 return (path, ["room": roomID])
+            case .loginWithToken(token: let token):
+                return (path + "?token=\(token)", [:])
             }
         }()
         var req = URLRequest(url: baseURL.appendingPathComponent(result.path))
@@ -109,6 +116,28 @@ class APIAction {
         DispatchQueue.global().async {
             AF.request(AuthRoute.login(username: username, pass: pass))
                 .responseJSON { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                DispatchQueue.main.async {
+                                    // TODO: Obj should be implemented in next version
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?), nil)
+                                }
+                            }
+                        default:
+                            print("Fail")
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"), nil)
+                            }
+                    }
+                }
+        }
+    }
+    
+    static func login(token: String, callback: @escaping (Result, Error?) -> Void){
+        DispatchQueue.global().async {
+            AF.request(AuthRoute.loginWithToken(token: token))
+                .responseJSON { res  in
                     switch (res.response?.statusCode) {
                         case 200:
                             if let json = res.value as? [String:Any] {
