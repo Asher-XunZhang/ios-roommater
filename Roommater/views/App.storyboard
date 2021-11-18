@@ -20,8 +20,8 @@
                     <connections>
                         <segue destination="X1b-qV-1ig" kind="relationship" relationship="viewControllers" id="B9a-mi-09i"/>
                         <segue destination="gfH-c9-ilu" kind="relationship" relationship="viewControllers" id="Ucd-wl-eSh"/>
-                        <segue destination="1hT-Bn-71I" kind="relationship" relationship="viewControllers" id="bec-65-NTH"/>
-                        <segue destination="6Ic-dV-Wzo" kind="relationship" relationship="viewControllers" id="4UP-KE-8eH"/>
+                        <segue destination="opo-Bn-xsW" kind="relationship" relationship="viewControllers" id="STn-Fr-F5P"/>
+                        <segue destination="6Ic-dV-Wzo" kind="relationship" relationship="viewControllers" id="2qF-sV-NQr"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6V-jj-Guo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -38,6 +38,20 @@
             </objects>
             <point key="canvasLocation" x="1048" y="139"/>
         </scene>
+        <!--Chat-->
+        <scene sceneID="LXo-b1-Fej">
+            <objects>
+                <navigationController id="opo-Bn-xsW" customClass="ChatNavigationVC" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" id="YmW-5L-eDL"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wpv-Ds-nNM">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tL7-CN-xn4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1555" y="402"/>
+        </scene>
         <!--Pending-->
         <scene sceneID="8Ak-Cy-RKj">
             <objects>
@@ -48,16 +62,6 @@
             </objects>
             <point key="canvasLocation" x="1036" y="177"/>
         </scene>
-        <!--Chat-->
-        <scene sceneID="n4B-n4-mc5">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Chat" id="1hT-Bn-71I" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" id="v6f-3u-ZOi"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hFh-fV-rBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1021" y="234"/>
-        </scene>
         <!--Setting-->
         <scene sceneID="s1m-4e-7Xb">
             <objects>
@@ -66,12 +70,13 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WxE-zd-bE2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1030" y="292"/>
+            <point key="canvasLocation" x="1030" y="225"/>
         </scene>
     </scenes>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>
         <image name="gear.circle" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
+        <image name="message" catalog="system" width="128" height="113"/>
     </resources>
 </document>
