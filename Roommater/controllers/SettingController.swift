@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SettingController : PrototypeViewController {
+class SettingController : UIViewController {
     @IBOutlet var settingView : UITableView!
     override func viewDidLoad() {
         
