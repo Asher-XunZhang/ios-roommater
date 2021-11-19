@@ -120,10 +120,7 @@ func initStreamUser(avatar: String){
         let _token = UserDefaults.standard.string(forKey: "token"){
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
         ChatClient.shared = ChatClient(config: config){ completion in
-            APIAction.fetchNewtoken(user: user, callback: {res, err in
-                if let e = err {
-                    print(e)
-                }
+            APIAction.fetchNewtoken(user: user, callback: {res in
                 switch res{
                     case .Success(let data):
                         if let token = data as? String {
@@ -168,6 +165,8 @@ func connectToChatDev(){
     ChatClient.shared.connectUser(userInfo: .init(id: "Dev", name: "Dev User"), token: .development(userId: "Dev"), completion: {err in
         if ChatClient.shared.connectionStatus != .connected {
             fatalError("Failed to connected to the chat service!")
+        }else {
+            print("Chat channel is ready!")
         }
     })
 }
