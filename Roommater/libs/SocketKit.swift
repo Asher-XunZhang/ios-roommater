@@ -158,15 +158,3 @@ func initStreamUser(avatar: String){
         }
     }
 }
-
-func connectToChatDev(){
-    let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
-    ChatClient.shared = ChatClient(config: config)
-    ChatClient.shared.connectUser(userInfo: .init(id: "Dev", name: "Dev User"), token: .development(userId: "Dev"), completion: {err in
-        if ChatClient.shared.connectionStatus != .connected {
-            fatalError("Failed to connected to the chat service!")
-        }else {
-            print("Chat channel is ready!")
-        }
-    })
-}

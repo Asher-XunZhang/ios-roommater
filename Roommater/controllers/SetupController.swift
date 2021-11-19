@@ -20,10 +20,10 @@ class AuthNavVC : UINavigationController {
                         break
                     case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                         SPIndicator.present(title: "Session Out", message: msg, preset: .done)
-//                        UserDefaults.standard.removeObject(forKey: "token")
+                        UserDefaults.standard.removeObject(forKey: "token")
                         self.popViewController(animated: true)
                     case .NONE:
-//                        UserDefaults.standard.removeObject(forKey: "token")
+                        UserDefaults.standard.removeObject(forKey: "token")
                         self.popViewController(animated: true)
                 }
             })

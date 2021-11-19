@@ -46,6 +46,7 @@ enum AuthRoute: URLRequestConvertible {
     case fetchUser(token: String)
     case fetchToken(username: String)
     case fetchDormInfo(roomID: String)
+    case logout
     
     var method: HTTPMethod {
         switch self {
@@ -62,6 +63,8 @@ enum AuthRoute: URLRequestConvertible {
         case .fetchToken:
             return .post
         case .fetchDormInfo:
+            return .post
+        case .logout:
             return .post
         }
     }
@@ -82,6 +85,8 @@ enum AuthRoute: URLRequestConvertible {
             return "/user/renewToken"
         case .fetchDormInfo:
             return "/room/fetch"
+        case .logout:
+            return "/user/logout"
         }
     }
 
@@ -100,7 +105,9 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["user": username])
             case .fetchDormInfo(roomID: let roomID):
                 return (path, ["room": roomID])
-            case .loginWithToken(token: let token):
+            case .loginWithToken:
+                return (path, [:])
+            case .logout:
                 return (path, [:])
             }
         }()
@@ -117,16 +124,17 @@ enum AuthRoute: URLRequestConvertible {
 
 class APIAction {
     //login request with post
-    private static func initChat(id: String, nickname: String){
+    @discardableResult private static func initChat(id: String, nickname: String) -> Bool{
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
         ChatClient.shared = ChatClient(config: config)
-        ChatClient.shared.connectUser(userInfo: .init(id: id, name: nickname), token: .development(userId: "Dev"), completion: {err in
+        var res = true
+        ChatClient.shared.connectUser(userInfo: .init(id: id, name: nickname), token: .development(userId: id), completion: {err in
             if ChatClient.shared.connectionStatus != .connected {
-                fatalError("Failed to connected to the chat service!")
-            }else {
-                print("Chat channel is ready!")
+                print("Failed to connected to the chat service!")
+                res = false
             }
         })
+        return res
     }
     
     static func login(username: String, pass: String, callback: @escaping (Result) -> Void) {
@@ -138,15 +146,21 @@ class APIAction {
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
+                                    
                                     if json["err"] as! Int == 0{
                                         UserDefaults.standard.set((json["res"] as? [String:Any])?["token"] as? String, forKey: "token")
                                         if let _id = (json["res"] as? [String:Any])?["uid"] as? String, let _name = (json["res"] as? [String:Any])?["nickname"] as? String{
-                                            initChat(id: _id, nickname: _name)
+                                            if initChat(id: _id, nickname: _name) {
+                                                callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
+                                            }else{
+                                                callback(.Error("Failed to init chat account!"))
+                                            }
                                         }else{
                                             callback(.Error("Failed to init account!"))
                                         }
+                                    }else{
+                                        callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                     }
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                 }
                             }
                         default:
@@ -167,12 +181,18 @@ class APIAction {
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
                                     // TODO: Obj should be implemented in next version
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["msg"] as AnyObject?))
+                                    if let _id = (json["res"] as? [String:Any])?["uid"] as? String, let _name = (json["res"] as? [String:Any])?["nickname"] as? String{
+                                        if initChat(id: _id, nickname: _name) {
+                                            callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
+                                        }else{
+                                            callback(.Error("Failed to init chat account!"))
+                                        }
+                                    }else{
+                                        callback(.Error("Failed to init account!"))
+                                    }
                                 }
                             }
                         default:
-                            print(res.response?.statusCode)
-                            print(res.value)
                             DispatchQueue.main.async {
                                 callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
                             }
@@ -285,7 +305,6 @@ class APIAction {
                                     }
                                 }
                             default:
-                                print("Fail")
                                 DispatchQueue.main.async {
                                     callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
                                 }
@@ -295,5 +314,30 @@ class APIAction {
         }
         
         
+    }
+    
+    //log out
+    static func logout(callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(AuthRoute.logout)
+                .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                if json["err"] as! Int == 0 {
+                                    UserDefaults.standard.removeObject(forKey: "token")
+                                    ChatClient.shared.disconnect()
+                                }
+                                DispatchQueue.main.async {
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["new-token"] as AnyObject))
+                                }
+                            }
+                        default:
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
+                            }
+                    }
+                }
+        }
     }
 }
