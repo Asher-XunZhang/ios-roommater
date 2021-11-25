@@ -10,6 +10,33 @@ import SPIndicator
 import SkyFloatingLabelTextField
 import TransitionButton
 
+class AuthNavVC : UINavigationController {
+    override func viewDidLoad() {
+        if let token = UserDefaults.standard.string(forKey: "token") {
+            self.performSegue(withIdentifier: "dashboardPage", sender: nil)
+            APIAction.login(token: token, callback: {res in
+                switch res {
+                    case .Success:
+                        break
+                    case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                        SPIndicator.present(title: "Session Out", message: msg, preset: .done)
+                        UserDefaults.standard.removeObject(forKey: "token")
+                        self.popViewController(animated: true)
+                    case .NONE:
+                        UserDefaults.standard.removeObject(forKey: "token")
+                        self.popViewController(animated: true)
+                }
+            })
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "dashboardPage"{
+            
+        }
+    }
+}
+
 class LoginViewController: PrototypeViewController {
     @IBOutlet var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet var passwordTextField: SkyFloatingLabelTextField!
@@ -23,12 +50,9 @@ class LoginViewController: PrototypeViewController {
             
         }
     }
+    
 
-    func handle(res: Result, err: Error?){
-        if let e = err {
-            print(e)
-            SPIndicator.present(title: "Error", message: "Unknown Issues", preset: .error)
-        }
+    func handle(res: Result){
         switch res{
             case .Success(let data):
                 // redirect to another storyboard with name is "App"
@@ -363,11 +387,7 @@ class SignupViewController: PrototypeViewController{
 //        buttonAction(signup)
     }
 
-    func handle(res: Result, err: Error?){
-        if let e = err {
-            //TODO: Error Handel
-            print(e)
-        }
+    func handle(res: Result){
         switch res{
         case .Success(_):
             self.signup.stopAnimation(animationStyle: .expand, completion: {
@@ -397,11 +417,7 @@ class ForgotPasswordViewController: PrototypeViewController{
         APIAction.forgot(email: emailTextField.text!, callback:handle)
     }
     
-    func handle(res: Result, err: Error?){
-        if let e = err {
-            //TODO: Error Handel
-            print(e)
-        }
+    func handle(res: Result){
         switch res{
         case .Success(_):
             self.resetButton.stopAnimation(animationStyle: .expand, completion: {

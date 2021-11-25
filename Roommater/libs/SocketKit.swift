@@ -29,7 +29,7 @@ class SocketInstance {
             // Baisc events
             client.on(clientEvent: .connect) {data, ack in
                 // Handle connected
-                print("[Socket Instance] Connected | session id:\(client.sid)")
+                print("[Socket Instance] Connected | session id:\(String(describing: client.sid))")
             }
             client.on(clientEvent: .disconnect) {data, ack in
                 // Handle disconnected
@@ -120,10 +120,7 @@ func initStreamUser(avatar: String){
         let _token = UserDefaults.standard.string(forKey: "token"){
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
         ChatClient.shared = ChatClient(config: config){ completion in
-            APIAction.fetchNewtoken(user: user, callback: {res, err in
-                if let e = err {
-                    print(e)
-                }
+            APIAction.fetchNewtoken(user: user, callback: {res in
                 switch res{
                     case .Success(let data):
                         if let token = data as? String {
@@ -160,14 +157,4 @@ func initStreamUser(avatar: String){
             print("Init token failed!")
         }
     }
-}
-
-func connectToChatDev(){
-    let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
-    ChatClient.shared = ChatClient(config: config)
-    ChatClient.shared.connectUser(userInfo: .init(id: "Dev", name: "Dev User"), token: .development(userId: "Dev"), completion: {err in
-        if ChatClient.shared.connectionStatus != .connected {
-            fatalError("Failed to connected to the chat service!")
-        }
-    })
 }
