@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="deT-Uk-ePT" kind="show" identifier="dashboardPage" id="Asb-UP-o8Y"/>
-                        <segue destination="deT-Uk-ePT" kind="relationship" relationship="rootViewController" id="Cy1-Li-3ju"/>
+                        <segue destination="deT-Uk-ePT" kind="show" id="ajc-KH-ES5"/>
+                        <segue destination="deT-Uk-ePT" kind="relationship" relationship="rootViewController" id="sgh-tQ-dob"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOg-Kx-40f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -235,8 +235,40 @@
             <point key="canvasLocation" x="919" y="777"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="18r-9Z-xkn">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="2og-8d-AWW">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+        <designable name="COY-YP-avc">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="L4B-2T-rvh">
+            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
+        </designable>
+        <designable name="cdO-2W-Vnk">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="d8N-za-wjd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="dBv-VQ-kPl">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="iJo-OQ-R5P">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="uh5-7m-PFY">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="z7N-O8-efu">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="Asb-UP-o8Y"/>
+        <segue reference="sgh-tQ-dob"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
