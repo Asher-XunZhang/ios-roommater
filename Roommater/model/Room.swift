@@ -61,26 +61,6 @@ enum EventPriority : Int{
     case High = 2
 }
 
-struct Event {
-    var title : String
-    var Description : String
-    var start : DateFormatter
-    var end : DateFormatter
-    var allDay : Bool
-    var participants : RoommateInfo
-    var priority : EventPriority
-}
-
-enum Day {
-    case Mon
-    case Tue
-    case Wed
-    case Thr
-    case Fri
-    case Sat
-    case Sun
-}
-
 struct Time {
     var hour : Int
     var min : Int
@@ -96,10 +76,29 @@ struct Schedule {
     var end : Time
 }
 
+struct Event {
+    var title : String
+    var Description : String
+    var schedule : Schedule
+    var allDay : Bool
+    var participants : RoommateInfo
+    var priority : EventPriority
+}
+
+enum Day {
+    case Mon
+    case Tue
+    case Wed
+    case Thr
+    case Fri
+    case Sat
+    case Sun
+}
+
 struct Affair {
     var title : String
     var Description : String
-    var time : [Day: [Schedule]]
+    var time : [Day: Int]
     var participants : RoommateInfo
     var priority : EventPriority
 }
