@@ -156,7 +156,6 @@
 				B6AF3FE92710C6490032DEF2 /* SocketKit.swift */,
 				B6EC25182715D7B500F55EBC /* APIHandler.swift */,
 				B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */,
-				B6A2B1EE2750BFB0009D8F2E /* User.swift */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -164,6 +163,7 @@
 		B6A2B1ED2750BF9C009D8F2E /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B6A2B1EE2750BFB0009D8F2E /* User.swift */,
 				B6A2B1F02750BFCD009D8F2E /* Room.swift */,
 			);
 			path = model;

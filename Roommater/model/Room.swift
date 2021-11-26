@@ -14,6 +14,8 @@ struct DormInfo{
     var maxMemeber : Int
     var owner : RoommateInfo
     var residents : [RoommateInfo]
+    var announcements : [Event]
+    var bills : [Bill]
     
     init(data : [String:Any]) {
         if let value = data["roomID"] as? String{
@@ -65,6 +67,39 @@ struct Event {
     var start : DateFormatter
     var end : DateFormatter
     var allDay : Bool
+    var participants : RoommateInfo
+    var priority : EventPriority
+}
+
+enum Day {
+    case Mon
+    case Tue
+    case Wed
+    case Thr
+    case Fri
+    case Sat
+    case Sun
+}
+
+struct Time {
+    var hour : Int
+    var min : Int
+    
+    init(h : Int, m : Int) {
+        hour = h
+        min = m
+    }
+}
+
+struct Schedule {
+    var start : Time
+    var end : Time
+}
+
+struct Affair {
+    var title : String
+    var Description : String
+    var time : [Day: [Schedule]]
     var participants : RoommateInfo
     var priority : EventPriority
 }

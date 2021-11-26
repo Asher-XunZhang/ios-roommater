@@ -508,6 +508,7 @@ class ForgotPasswordViewController: PrototypeViewController{
         }else{
             disableResetButton()
         }
+        
     }
 
     override func textFieldDone(_ textField: UITextField) {
