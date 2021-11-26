@@ -10,6 +10,8 @@ import UIKit
 import SPIndicator
 
 class SettingController : UITableViewController {
+    @IBOutlet var usernameLabel : UILabel!
+    
     @IBAction func logout(){
         APIAction.logout(callback: {res in
             switch res {
