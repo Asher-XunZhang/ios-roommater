@@ -16,7 +16,9 @@ target 'Roommater' do
   pod 'TransitionButton'
   pod 'StreamChatUI'
   pod 'StreamChat'
-  pod 'Cards'
+  pod 'TaggerKit'
+  pod 'RAMReel'
+  pod 'FoldingCell'
   
   
 end

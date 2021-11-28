@@ -21,7 +21,6 @@
 		B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C05C0F2724D66A0047C0C8 /* SettingController.swift */; };
 		B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C1E2724E76A0047C0C8 /* App.storyboard */; };
 		B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2027251E570047C0C8 /* Dashboard.storyboard */; };
-		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
@@ -50,7 +49,6 @@
 		B6C05C0F2724D66A0047C0C8 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		B6C05C1E2724E76A0047C0C8 /* App.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = App.storyboard; sourceTree = "<group>"; };
 		B6C05C2027251E570047C0C8 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
-		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 				B63E50FC270CA45B005F83EB /* Setup.storyboard */,
 				B6C05C1E2724E76A0047C0C8 /* App.storyboard */,
 				B6C05C2627251EA80047C0C8 /* Setting.storyboard */,
-				B6C05C2227251E8D0047C0C8 /* Pending.storyboard */,
 				B6C05C2027251E570047C0C8 /* Dashboard.storyboard */,
 			);
 			path = views;
@@ -237,7 +234,6 @@
 				B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */,
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
 				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
-				B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
