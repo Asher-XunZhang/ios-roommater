@@ -50,7 +50,7 @@ enum AuthRoute: URLRequestConvertible {
     case logout
     
     //dorm
-    case bindDorm
+    case bindDorm(code: String)
     case unbindDorm
     case createDorm
     case deleteDorm(roomID: String)
@@ -58,12 +58,12 @@ enum AuthRoute: URLRequestConvertible {
     case fetchEvent(roomID: String)
     case fetchBill(roomID: String)
     case fetchAffair(roomID: String)
-    case updateDormInfo(update: [[String: Any]])
+    case updateDormInfo(update: [String: Any])
     case postEvent
     case postBill
     case postAffair
-    case updateEvent
-    case updateAffair
+    case updateEvent(update: [String: Any])
+    case updateAffair(update: [String: Any])
     case deleteEvent(eid: String)
     case deleteBill(bid: String)
     case deleteAffair(aid: String)
@@ -199,39 +199,39 @@ enum AuthRoute: URLRequestConvertible {
             case .logout:
                 return (path, [:])
             case .updateInfo(update: let update):
-                <#code#>
-            case .bindDorm:
-                <#code#>
+                return (path, [:])
+            case .bindDorm(code : let code):
+                return (path, ["inviteCode": code])
             case .unbindDorm:
-                <#code#>
+                return (path, [:])
             case .createDorm:
-                <#code#>
+                return (path, [:])
             case .deleteDorm(roomID: let roomID):
-                <#code#>
+                return (path, ["room": roomID])
             case .fetchEvent(roomID: let roomID):
-                <#code#>
+                return (path, ["room": roomID])
             case .fetchBill(roomID: let roomID):
-                <#code#>
+                return (path, ["room": roomID])
             case .fetchAffair(roomID: let roomID):
-                <#code#>
+                return (path, ["room": roomID])
             case .updateDormInfo(update: let update):
-                <#code#>
+                return (path, update)
             case .postEvent:
-                <#code#>
+                return (path, [:])
             case .postBill:
-                <#code#>
+                return (path, [:])
             case .postAffair:
-                <#code#>
+                return (path, [:])
             case .updateEvent:
-                <#code#>
+                return (path, [:])
             case .updateAffair:
-                <#code#>
+                return (path, [:])
             case .deleteEvent(eid: let eid):
-                <#code#>
+                return (path, ["eventID": eid])
             case .deleteBill(bid: let bid):
-                <#code#>
+                return (path, ["billID": bid])
             case .deleteAffair(aid: let aid):
-                <#code#>
+                return (path, ["affairID": aid])
             }
         }()
         

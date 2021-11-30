@@ -8,14 +8,14 @@
 import Foundation
 
 struct DormInfo{
-    var roomID : String
-    var inviteCode : String
-    var roomName : String
-    var maxMemeber : Int
-    var owner : RoommateInfo
-    var residents : [RoommateInfo]
-    var announcements : [Event]
-    var bills : [Bill]
+    var roomID : String = ""
+    var inviteCode : String = ""
+    var roomName : String = ""
+    var maxMemeber : Int = 1
+    var owner : RoommateInfo!
+    var residents : [RoommateInfo] = []
+    var announcements : [Event] = []
+    var bills : [Bill] = []
     
     init(data : [String:Any]) {
         if let value = data["roomID"] as? String{
@@ -48,7 +48,7 @@ struct DormInfo{
 
 struct Bill {
     var name: String
-    var due : DateFormatter
+    var due : Date
     var des : String
     var spread : [RoommateInfo : Double]
     var amount : Double
@@ -61,44 +61,18 @@ enum EventPriority : Int{
     case High = 2
 }
 
-struct Time {
-    var hour : Int
-    var min : Int
-    
-    init(h : Int, m : Int) {
-        hour = h
-        min = m
-    }
-}
-
-struct Schedule {
-    var start : Time
-    var end : Time
-}
-
 struct Event {
     var title : String
     var Description : String
-    var schedule : Schedule
-    var allDay : Bool
+    var schedule : DateComponents
     var participants : RoommateInfo
     var priority : EventPriority
-}
-
-enum Day {
-    case Mon
-    case Tue
-    case Wed
-    case Thr
-    case Fri
-    case Sat
-    case Sun
 }
 
 struct Affair {
     var title : String
     var Description : String
-    var time : [Day: Int]
+    var schedule : DateComponents
     var participants : RoommateInfo
     var priority : EventPriority
 }

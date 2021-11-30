@@ -145,7 +145,7 @@ func initStreamUser(avatar: String){
         do {
             let token = try Token(rawValue: _token)
             ChatClient.shared.connectUser(
-                userInfo: UserInfo(
+                userInfo: StreamChat.UserInfo(
                     id: user,
                     name: nickname,
                     imageURL: URL(string: avatar)

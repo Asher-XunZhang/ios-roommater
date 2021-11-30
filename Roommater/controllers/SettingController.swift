@@ -11,6 +11,16 @@ import SPIndicator
 
 class SettingController : UITableViewController {
     @IBOutlet var usernameLabel : UILabel!
+    @IBOutlet var roomConigCell : UITableViewCell!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if true {
+            var bindBtn = UIButton()
+            bindBtn.setTitle("Bind Room", for: .normal)
+            roomConigCell.addSubview(bindBtn)
+        }
+    }
     
     @IBAction func logout(){
         APIAction.logout(callback: {res in

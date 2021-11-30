@@ -11,15 +11,15 @@ import Alamofire
 
 protocol UserDes : Hashable {
     var nickname: String { get }
-    var uid: String { get }
+    var uid: String { get set}
     var rating : Float {get set}
-    var avatar : UIImage? {get}
+    var avatar : UIImage? {get set}
 }
 
 struct RoommateInfo : UserDes {
-    var nickname: String
-    var uid: String
-    var rating: Float
+    var nickname: String = ""
+    var uid: String = ""
+    var rating: Float = 0.0
     var avatar: UIImage?
     
     init(data: [String : Any]) {
@@ -32,11 +32,13 @@ struct RoommateInfo : UserDes {
         }
         
         if let value = data["avatar"] as? String{
+            var image : UIImage? = nil
             AF.download(value).response { response in
                 if response.error == nil, let imagePath = response.fileURL?.path {
-                    avatar = UIImage(contentsOfFile: imagePath)
+                    image = UIImage(contentsOfFile: imagePath)
                 }
             }
+            self.avatar = image
         }
         
         if let value = data["rating"] as? Float {
@@ -53,44 +55,47 @@ struct RoommateInfo : UserDes {
 }
 
 struct UserInfo : UserDes {
-    var nickname: String
-    var uid: String
+    var nickname: String = ""
+    var uid: String = ""
     
-    var username : String
-    var email : String
-    var rating : Float
+    var username : String = ""
+    var email : String = ""
+    var rating : Float = 0.0
     var avatar : UIImage?
     
-    var userDes : RoommateInfo
+    var userDes : RoommateInfo!
     
     init(data: [String : Any]) {
         if let value = data["username"] as? String{
-            username = value
+            self.username = value
         }
         
         if let value = data["uid"] as? String{
-            uid = value
+            self.uid = value
         }
         
         if let value = data["email"] as? String{
-            email = value
+            self.email = value
         }
         
         if let value = data["nickname"] as? String{
-            nickname = value
+            self.nickname = value
         }
         
         if let value = data["avatar"] as? String{
+            var image : UIImage? = nil
             AF.download(value).response { response in
                 if response.error == nil, let imagePath = response.fileURL?.path {
-                    avatar = UIImage(contentsOfFile: imagePath)
+                    image = UIImage(contentsOfFile: imagePath)
                 }
             }
+            self.avatar = image
         }
         
         if let value = data["rating"] as? Float {
-            rating = value
+            self.rating = value
         }
-        userDes = RoommateInfo(nickname: nickname, uid: uid, rating: rating, avatar: avatar)
+        
+        self.userDes = RoommateInfo(nickname: self.nickname, uid: self.uid, rating: self.rating, avatar: self.avatar)
     }
 }
