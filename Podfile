@@ -16,4 +16,5 @@ target 'Roommater' do
   pod 'TransitionButton'
   pod 'StreamChatUI'
   pod 'StreamChat'
+  pod 'Former'
 end

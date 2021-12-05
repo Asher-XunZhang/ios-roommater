@@ -15,6 +15,7 @@ class SessionManager{
     
     func initUser(data: [String : Any]){
         user = UserInfo(data: data)
+        print("[Session Manager]Successfully Init User")
     }
     
     func initDorm(data: [String : Any]){
@@ -23,5 +24,5 @@ class SessionManager{
 }
 
 extension SessionManager {
-    static var instance : SessionManager!
+    static var instance = SessionManager()
 }

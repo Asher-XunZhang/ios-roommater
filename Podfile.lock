@@ -3,24 +3,26 @@ PODS:
   - AlamofireObjectMapper (6.2.0):
     - Alamofire (= 5.0.0-rc.2)
     - ObjectMapper (~> 3.5.1)
-  - Nuke (10.5.1)
+  - Former (1.8.1)
+  - Nuke (10.5.2)
   - ObjectMapper (3.5.3)
   - SkyFloatingLabelTextField (4.0.0)
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
-  - SPIndicator (1.4.1)
+  - SPIndicator (1.5.0)
   - Starscream (4.0.4)
-  - StreamChat (4.4.0):
+  - StreamChat (4.5.1):
     - Starscream (~> 4.0)
-  - StreamChatUI (4.4.0):
+  - StreamChatUI (4.5.1):
     - Nuke (~> 10.0)
-    - StreamChat (= 4.4.0)
-    - SwiftyGif (~> 5.0)
-  - SwiftyGif (5.4.0)
+    - StreamChat (= 4.5.1)
+    - SwiftyGif (~> 5.4)
+  - SwiftyGif (5.4.1)
   - TransitionButton (0.5.3)
 
 DEPENDENCIES:
   - AlamofireObjectMapper
+  - Former
   - SkyFloatingLabelTextField
   - Socket.IO-Client-Swift
   - SPIndicator
@@ -32,6 +34,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireObjectMapper
+    - Former
     - Nuke
     - ObjectMapper
     - SkyFloatingLabelTextField
@@ -46,17 +49,18 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
   AlamofireObjectMapper: 74d1440c92c42bbcc2b5f4dc81654ac095ec669f
-  Nuke: 6ae28db7d24c07d040bcc52f6957b32dac23e91b
+  Former: f36edb5c1ac03755f8d6d03b26044b62de8c0b2d
+  Nuke: 62d6d401e2b3ce553151a6f5e2f9332878710fbd
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
-  SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
+  SPIndicator: 838af916c34c6219cf0fc7a25b867dae6227c594
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
-  StreamChat: 1ccf1ec28eee551a35b1a75b99fc85abd2d21ab5
-  StreamChatUI: de73188e26defc1654ff7be23ab16db27b1915f8
-  SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
+  StreamChat: b5d0f93c3355a0d0211506be3da2c1c9680a2aa1
+  StreamChatUI: 4e8d01cb5d5f0f99faf2622c4870edbe65f6d95d
+  SwiftyGif: 6895c887f5551618a3c5dd3ecb512419105bacca
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: e738b463eac60cd1b29572617eed738ce049e4e7
+PODFILE CHECKSUM: a9f83cc4796b33624e334d94411e80cc1682e423
 
 COCOAPODS: 1.11.2

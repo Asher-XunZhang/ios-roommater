@@ -16,6 +16,7 @@ struct DormInfo{
     var residents : [RoommateInfo] = []
     var announcements : [Event] = []
     var bills : [Bill] = []
+    var affair : [Affair] = []
     
     init(data : [String:Any]) {
         if let value = data["roomID"] as? String{
@@ -65,7 +66,7 @@ struct Event {
     var title : String
     var Description : String
     var schedule : DateComponents
-    var participants : RoommateInfo
+    var participants : [RoommateInfo]
     var priority : EventPriority
 }
 
@@ -73,6 +74,6 @@ struct Affair {
     var title : String
     var Description : String
     var schedule : DateComponents
-    var participants : RoommateInfo
+    var participant : RoommateInfo
     var priority : EventPriority
 }

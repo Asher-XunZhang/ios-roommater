@@ -13,14 +13,14 @@ protocol UserDes : Hashable {
     var nickname: String { get }
     var uid: String { get set}
     var rating : Float {get set}
-    var avatar : UIImage? {get set}
+    var avatar : String {get set}
 }
 
 struct RoommateInfo : UserDes {
     var nickname: String = ""
     var uid: String = ""
     var rating: Float = 0.0
-    var avatar: UIImage?
+    var avatar: String = ""
     
     init(data: [String : Any]) {
         if let value = data["uid"] as? String{
@@ -32,13 +32,7 @@ struct RoommateInfo : UserDes {
         }
         
         if let value = data["avatar"] as? String{
-            var image : UIImage? = nil
-            AF.download(value).response { response in
-                if response.error == nil, let imagePath = response.fileURL?.path {
-                    image = UIImage(contentsOfFile: imagePath)
-                }
-            }
-            self.avatar = image
+            self.avatar = value
         }
         
         if let value = data["rating"] as? Float {
@@ -46,7 +40,7 @@ struct RoommateInfo : UserDes {
         }
     }
     
-    init(nickname : String, uid : String, rating : Float, avatar : UIImage?) {
+    init(nickname : String, uid : String, rating : Float, avatar : String) {
         self.nickname = nickname
         self.uid = uid
         self.rating = rating
@@ -57,11 +51,11 @@ struct RoommateInfo : UserDes {
 struct UserInfo : UserDes {
     var nickname: String = ""
     var uid: String = ""
-    
     var username : String = ""
     var email : String = ""
     var rating : Float = 0.0
-    var avatar : UIImage?
+    var avatar : String = ""
+    var avatarImage : UIImage? = nil
     
     var userDes : RoommateInfo!
     
@@ -83,13 +77,7 @@ struct UserInfo : UserDes {
         }
         
         if let value = data["avatar"] as? String{
-            var image : UIImage? = nil
-            AF.download(value).response { response in
-                if response.error == nil, let imagePath = response.fileURL?.path {
-                    image = UIImage(contentsOfFile: imagePath)
-                }
-            }
-            self.avatar = image
+            self.avatar = value
         }
         
         if let value = data["rating"] as? Float {
@@ -97,5 +85,17 @@ struct UserInfo : UserDes {
         }
         
         self.userDes = RoommateInfo(nickname: self.nickname, uid: self.uid, rating: self.rating, avatar: self.avatar)
+    }
+    
+    func getAvatar(callback: @escaping(UIImage?, Int) -> Void){
+        if avatarImage == nil {
+            //TODO: cache the avatar
+        }
+        
+        if avatarImage == nil {
+            callback(nil,1)
+        }else{
+            callback(avatarImage, 0)
+        }
     }
 }

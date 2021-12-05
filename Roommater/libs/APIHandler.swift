@@ -10,6 +10,7 @@ import AlamofireObjectMapper
 import Alamofire
 import ObjectMapper
 import StreamChat
+import UIKit
 
 enum Result {
     case Success(AnyObject?)
@@ -34,8 +35,8 @@ enum Result {
 
 enum AuthRoute: URLRequestConvertible {
     var baseURL: URL {
-//        return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
-        return URL(string: "http://localhost:1337/api/v1")!
+        return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
+//        return URL(string: "http://localhost:1337/api/v1")!
     }
     
     // cases
@@ -46,7 +47,8 @@ enum AuthRoute: URLRequestConvertible {
     case recover(email: String)
     case fetchUser(token: String)
     case fetchToken(username: String)
-    case updateInfo(update: [[String: Any]])
+    case updateInfo(update: [String: Any])
+    case updateAvatar
     case logout
     
     //dorm
@@ -121,6 +123,8 @@ enum AuthRoute: URLRequestConvertible {
             return .delete
         case .unbindDorm:
             return .delete
+        case .updateAvatar:
+            return .patch
         }
     }
     
@@ -176,6 +180,8 @@ enum AuthRoute: URLRequestConvertible {
             return "/bill/destroy"
         case .deleteAffair:
             return "/affair/destroy"
+        case .updateAvatar:
+            return "/user/updateAvatar"
         }
     }
 
@@ -199,7 +205,7 @@ enum AuthRoute: URLRequestConvertible {
             case .logout:
                 return (path, [:])
             case .updateInfo(update: let update):
-                return (path, [:])
+                return (path, update)
             case .bindDorm(code : let code):
                 return (path, ["inviteCode": code])
             case .unbindDorm:
@@ -232,6 +238,8 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["billID": bid])
             case .deleteAffair(aid: let aid):
                 return (path, ["affairID": aid])
+            case .updateAvatar:
+                return (path, [:])
             }
         }()
         
@@ -269,12 +277,13 @@ class APIAction {
                         case 200:
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
-                                    // TODO: Obj should be implemented in next version
-                                    
                                     if json["err"] as! Int == 0{
                                         UserDefaults.standard.set((json["res"] as? [String:Any])?["token"] as? String, forKey: "token")
                                         if let _id = (json["res"] as? [String:Any])?["uid"] as? String, let _name = (json["res"] as? [String:Any])?["nickname"] as? String{
                                             if initChat(id: _id, nickname: _name) {
+                                                if json["err"] as? Int ?? 600 == 0{
+                                                    SessionManager.instance.initUser(data: json["res"] as! [String:Any])
+                                                }
                                                 callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                             }else{
                                                 callback(.Error("Failed to init chat account!"))
@@ -304,9 +313,13 @@ class APIAction {
                         case 200:
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
-                                    // TODO: Obj should be implemented in next version
                                     if let _id = (json["res"] as? [String:Any])?["uid"] as? String, let _name = (json["res"] as? [String:Any])?["nickname"] as? String{
                                         if initChat(id: _id, nickname: _name) {
+                                            if json["err"] as? Int ?? 600 == 0{
+                                                SessionManager.instance.initUser(data: json["res"] as! [String:Any])
+                                            }
+                                            
+                                            
                                             callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                         }else{
                                             callback(.Error("Failed to init chat account!"))
@@ -376,6 +389,32 @@ class APIAction {
         DispatchQueue.global().async {
             AF.request(AuthRoute.fetchUser(token: token))
                 .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                DispatchQueue.main.async {
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil))
+                                }
+                            }
+                        default:
+                            print("Fail")
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
+                            }
+                    }
+                }
+        }
+    }
+    
+    static func updateAvatar(image: UIImage, callback: @escaping (Result) -> Void) {
+        DispatchQueue.global().async {
+            let request = AuthRoute.updateAvatar
+            AF.upload(
+                multipartFormData: { form in
+                form.append(image.jpegData(compressionQuality: 1)!, withName: "avatar", fileName: "new_avatar.jpg", mimeType: "image/jpg")},
+                to: request.baseURL.appendingPathComponent(request.path),
+                headers: request.urlRequest?.headers)
+                .responseJSON() {res in
                     switch (res.response?.statusCode) {
                         case 200:
                             if let json = res.value as? [String:Any] {
