@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import AlamofireImage
 
 protocol UserDes : Hashable {
     var nickname: String { get }
@@ -85,17 +86,5 @@ struct UserInfo : UserDes {
         }
         
         self.userDes = RoommateInfo(nickname: self.nickname, uid: self.uid, rating: self.rating, avatar: self.avatar)
-    }
-    
-    func getAvatar(callback: @escaping(UIImage?, Int) -> Void){
-        if avatarImage == nil {
-            //TODO: cache the avatar
-        }
-        
-        if avatarImage == nil {
-            callback(nil,1)
-        }else{
-            callback(avatarImage, 0)
-        }
     }
 }

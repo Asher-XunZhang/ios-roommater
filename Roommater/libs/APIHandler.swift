@@ -6,9 +6,7 @@
 //
 
 import Foundation
-import AlamofireObjectMapper
 import Alamofire
-import ObjectMapper
 import StreamChat
 import UIKit
 
@@ -419,7 +417,7 @@ class APIAction {
                         case 200:
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: nil))
+                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                 }
                             }
                         default:

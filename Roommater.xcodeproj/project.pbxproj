@@ -27,6 +27,10 @@
 		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
+		B6E435B0275D547700E56CD1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E435AF275D547700E56CD1 /* Utils.swift */; };
+		B6E435B2275D609400E56CD1 /* TextFieldWithHintCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E435B1275D609400E56CD1 /* TextFieldWithHintCell.xib */; };
+		B6E435B4275D77D700E56CD1 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E435B3275D77D700E56CD1 /* ButtonCell.xib */; };
+		B6E435B6275DD05700E56CD1 /* AvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E435B5275DD05700E56CD1 /* AvatarCell.xib */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
 /* End PBXBuildFile section */
@@ -58,6 +62,10 @@
 		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		B6E435AF275D547700E56CD1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B6E435B1275D609400E56CD1 /* TextFieldWithHintCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldWithHintCell.xib; sourceTree = "<group>"; };
+		B6E435B3275D77D700E56CD1 /* ButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
+		B6E435B5275DD05700E56CD1 /* AvatarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarCell.xib; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.debug.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +168,7 @@
 				B6EC25182715D7B500F55EBC /* APIHandler.swift */,
 				B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */,
 				B6980896275CA92F0043F94A /* Cells.swift */,
+				B6E435AF275D547700E56CD1 /* Utils.swift */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -167,6 +176,9 @@
 		B6980898275CA9A20043F94A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				B6E435B1275D609400E56CD1 /* TextFieldWithHintCell.xib */,
+				B6E435B3275D77D700E56CD1 /* ButtonCell.xib */,
+				B6E435B5275DD05700E56CD1 /* AvatarCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -248,9 +260,12 @@
 				B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */,
 				B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */,
 				B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */,
+				B6E435B2275D609400E56CD1 /* TextFieldWithHintCell.xib in Resources */,
 				B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */,
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
 				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
+				B6E435B4275D77D700E56CD1 /* ButtonCell.xib in Resources */,
+				B6E435B6275DD05700E56CD1 /* AvatarCell.xib in Resources */,
 				B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,
 			);
@@ -308,6 +323,7 @@
 				B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */,
 				5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */,
 				B6980897275CA92F0043F94A /* Cells.swift in Sources */,
+				B6E435B0275D547700E56CD1 /* Utils.swift in Sources */,
 				B6A2B1F12750BFCD009D8F2E /* Room.swift in Sources */,
 				B6A2B1EC2750B29C009D8F2E /* SessionManager.swift in Sources */,
 				B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */,

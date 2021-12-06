@@ -16,6 +16,7 @@ struct DormInfo{
     var residents : [RoommateInfo] = []
     var announcements : [Event] = []
     var bills : [Bill] = []
+    var roomChatId : String?
     var affair : [Affair] = []
     
     init(data : [String:Any]) {
@@ -38,6 +39,8 @@ struct DormInfo{
         if let value = data["owner"] as? [String:Any]{
             owner = RoommateInfo(data: value)
         }
+        
+        roomChatId = data["cid"] as? String
         
         if let residents = data["residents"] as? [[String:Any]]{
             for res in residents {

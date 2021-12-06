@@ -7,7 +7,9 @@ target 'Roommater' do
 
   # Pods for Roommater
   # Network Libraries
-  pod 'AlamofireObjectMapper'
+  pod 'CryptoSwift'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
   pod 'Socket.IO-Client-Swift'
 	
   # UI Libraries
