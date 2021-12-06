@@ -50,7 +50,7 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
         }
         SessionManager.instance.getAvatar(callback: {res, err in
             if err == 0 {
-                self.userAvatar.image = res
+                self.userAvatar.image = res!.af.imageAspectScaled(toFill: CGSize(width: self.userAvatar.bounds.width, height: self.userAvatar.bounds.height))
             }else{
                 SPIndicator.present(title: "Error", message: "Failed to get the avatar", preset: .error)
             }
@@ -81,7 +81,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
         title = "Edit Profile"
         avatar = CustomRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "AvatarCell")){
             if let avatar = SessionManager.instance.user?.avatarImage{
-                $0.iconView.setImage(avatar)
+                $0.iconView.setImage(avatar.af.imageAspectScaled(toFill: CGSize(width: $0.iconView.bounds.width, height: $0.iconView.bounds.height)))
             }
             $0.onClickImage = {
                 if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
@@ -162,7 +162,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
                         }
                         SessionManager.instance.updateAvatar(callback: {res, err in
                             if err == 0 {
-                                self.avatar?.cell.iconView.setImage(res.unsafelyUnwrapped)
+                                self.avatar?.cell.iconView.setImage(res!.af.imageAspectScaled(toFill: CGSize(width: self.avatar!.cell.iconView.bounds.width, height: self.avatar!.cell.iconView.bounds.height)))
                             }else{
                                 SPIndicator.present(title: "Error", message: "Failed to get the avatar", preset: .error)
                             }
