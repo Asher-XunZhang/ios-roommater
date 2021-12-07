@@ -8,6 +8,7 @@
 import Foundation
 
 struct DormInfo{
+    static var users : [String : RoommateInfo] = [:]
     var roomID : String = ""
     var inviteCode : String = ""
     var roomName : String = ""

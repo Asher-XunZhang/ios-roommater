@@ -7,10 +7,31 @@
 
 import UIKit
 import Former
+import Loady
 
 public final class ButtonRowFormer<T: UITableViewCell>: BaseRowFormer<T>, Formable {
     public required init(instantiateType: Former.InstantiateType = .Class, cellSetup: ((T) -> Void)? = nil) {
         super.init(instantiateType: instantiateType, cellSetup: cellSetup)
+    }
+}
+
+extension FormLabelFooterView  {
+    static var createFooter: ((String) -> ViewFormer) = { text in
+        return LabelViewFormer<FormLabelFooterView>()
+            .configure {
+                $0.text = text
+                $0.viewHeight = 60
+            }
+    }
+}
+
+extension FormLabelHeaderView  {
+    static var createHeader: ((String) -> ViewFormer) = { text in
+        return LabelViewFormer<FormLabelHeaderView>()
+            .configure {
+                $0.text = text
+                $0.viewHeight = 60
+            }
     }
 }
 
@@ -100,8 +121,8 @@ class TextFieldWithHintCell : UITableViewCell, TextFieldFormableRow {
 }
 
 class ButtonCell : UITableViewCell, FormableRow {
-    @IBOutlet weak var button : UIButton!
-    var buttonHandler : ((UIButton)->Void)?
+    @IBOutlet weak var button : LoadyButton!
+    var buttonHandler : ((LoadyButton)->Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -110,7 +131,7 @@ class ButtonCell : UITableViewCell, FormableRow {
     
     func updateWithRowFormer(_ rowFormer: RowFormer) {}
     
-    @objc func onBottonClicked(btn: UIButton){
+    @objc func onBottonClicked(btn: LoadyButton){
         if button.isEnabled {
             buttonHandler?(btn)
         }

@@ -10,6 +10,8 @@ import StreamChat
 import StreamChatUI
 
 class ChatNavigationVC : UINavigationController{
+    var channelVC : ChatViewController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if SessionManager.instance.dorm != nil {
@@ -18,9 +20,9 @@ class ChatNavigationVC : UINavigationController{
                     Appearance.default.colorPalette.background6 = .blue
                     Appearance.default.images.sendArrow = UIImage(systemName: "arrowshape.turn.up.right")!
                     Components.default.channelVC = ChatViewController.self
-                    let channelVC = ChatViewController()
-                    channelVC.channelController = ChatClient.shared.channelController(for: try .init(cid: cid))
-                    self.addChild(channelVC)
+                    channelVC = ChatViewController()
+                    channelVC!.channelController = ChatClient.shared.channelController(for: try .init(cid: cid))
+                    self.addChild(channelVC!)
                 }catch{
                     fatalError("Failed to init the chat view!")
                 }

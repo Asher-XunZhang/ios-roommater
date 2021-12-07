@@ -28,6 +28,7 @@ class NoNullTextField: UITextField{
 //       })
 //    }
 }
+
 class UsernameTextField: NoNullTextField{
 }
 class PasswordTextField: NoNullTextField{

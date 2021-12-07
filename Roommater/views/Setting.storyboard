@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Yw-9j-Ypa">
-                            <rect key="frame" x="0.0" y="505.5" width="414" height="76"/>
+                            <rect key="frame" x="0.0" y="522.5" width="414" height="76"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <buttonConfiguration key="configuration" style="plain" image="rectangle.portrait.and.arrow.right" catalog="system">
                                 <attributedString key="attributedTitle">
@@ -101,23 +101,38 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Room Setting" id="I3K-Mh-OnW">
+                            <tableViewSection id="I3K-Mh-OnW">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wne-rU-iuk">
-                                        <rect key="frame" x="0.0" y="233.5" width="414" height="43"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="wne-rU-iuk">
+                                        <rect key="frame" x="0.0" y="233.5" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wne-rU-iuk" id="TYy-NT-q2Y">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQe-EF-Siw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="tinted" title="Room Setting"/>
+                                                    <connections>
+                                                        <segue destination="wVA-3a-Cbe" kind="show" id="a3Z-GI-ThZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="fQe-EF-Siw" secondAttribute="trailing" id="J1K-tO-fFi"/>
+                                                <constraint firstItem="fQe-EF-Siw" firstAttribute="leading" secondItem="TYy-NT-q2Y" secondAttribute="leading" id="ane-Kz-wVZ"/>
+                                                <constraint firstItem="fQe-EF-Siw" firstAttribute="top" secondItem="TYy-NT-q2Y" secondAttribute="top" id="gYt-BN-Yfe"/>
+                                                <constraint firstAttribute="bottom" secondItem="fQe-EF-Siw" secondAttribute="bottom" id="lwC-St-HJ5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <listContentConfiguration key="contentConfiguration" style="sidebarHeader" text="Config"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Other" footerTitle="Roommater V1.0" id="5kx-HF-GDz">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LgG-3u-TO5">
-                                        <rect key="frame" x="0.0" y="343.5" width="414" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="360.5" width="414" height="46.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LgG-3u-TO5" id="LU5-oe-L9P">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="46.5"/>
@@ -142,7 +157,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="U26-Ry-jrG">
-                                        <rect key="frame" x="0.0" y="390" width="414" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="407" width="414" height="46.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U26-Ry-jrG" id="w0B-Rs-a7G">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="46.5"/>
@@ -164,7 +179,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sbb-VH-aPF">
-                                        <rect key="frame" x="0.0" y="436.5" width="414" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="453.5" width="414" height="46.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sbb-VH-aPF" id="S0U-Ee-ngi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="46.5"/>
@@ -204,6 +219,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEL-4W-3YK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2302.898550724638" y="2252.0089285714284"/>
+        </scene>
+        <!--Room-->
+        <scene sceneID="QLM-Ee-aSC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Room" id="wVA-3a-Cbe" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="WC8-mC-juu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ElW-qA-ohV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3293" y="2270"/>
         </scene>
         <!--Profile-->
         <scene sceneID="bMz-0m-jHy">

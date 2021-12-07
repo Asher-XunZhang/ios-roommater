@@ -11,8 +11,10 @@ target 'Roommater' do
   pod 'Alamofire'
   pod 'AlamofireImage'
   pod 'Socket.IO-Client-Swift'
+  pod 'SwiftEventBus', :tag => '5.1.0', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
 	
   # UI Libraries
+  pod 'loady'
   pod 'SPIndicator'
   pod 'SkyFloatingLabelTextField'
   pod 'TransitionButton'

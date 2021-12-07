@@ -15,7 +15,9 @@
 		B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E50FC270CA45B005F83EB /* Setup.storyboard */; };
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
+		B6463701275EB15400AE83BC /* Room.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6463700275EB15400AE83BC /* Room.storyboard */; };
 		B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67D8ECE2723F76900BEFB62 /* DashboardController.swift */; };
+		B68A59E6275EE476008C5FC7 /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68A59E5275EE476008C5FC7 /* RoomController.swift */; };
 		B6980897275CA92F0043F94A /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6980896275CA92F0043F94A /* Cells.swift */; };
 		B6A2B1EC2750B29C009D8F2E /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */; };
 		B6A2B1EF2750BFB0009D8F2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2B1EE2750BFB0009D8F2E /* User.swift */; };
@@ -48,8 +50,10 @@
 		B63E5107270CA45D005F83EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B63E5111270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Setup.strings"; sourceTree = "<group>"; };
 		B63E5112270CAC69005F83EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		B6463700275EB15400AE83BC /* Room.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Room.storyboard; sourceTree = "<group>"; };
 		B65C426C2718152300BBD581 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B67D8ECE2723F76900BEFB62 /* DashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
+		B68A59E5275EE476008C5FC7 /* RoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
 		B6980896275CA92F0043F94A /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B69DF8DC270E9FEE009F41C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Setup.strings; sourceTree = "<group>"; };
 		B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 				B6C05C2627251EA80047C0C8 /* Setting.storyboard */,
 				B6C05C2227251E8D0047C0C8 /* Pending.storyboard */,
 				B6C05C2027251E570047C0C8 /* Dashboard.storyboard */,
+				B6463700275EB15400AE83BC /* Room.storyboard */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 				B67D8ECE2723F76900BEFB62 /* DashboardController.swift */,
 				B6C05C0F2724D66A0047C0C8 /* SettingController.swift */,
 				B6D44953273CCA3600C9D0EC /* ChatController.swift */,
+				B68A59E5275EE476008C5FC7 /* RoomController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -260,6 +266,7 @@
 				B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */,
 				B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */,
 				B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */,
+				B6463701275EB15400AE83BC /* Room.storyboard in Resources */,
 				B6E435B2275D609400E56CD1 /* TextFieldWithHintCell.xib in Resources */,
 				B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */,
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
@@ -327,6 +334,7 @@
 				B6A2B1F12750BFCD009D8F2E /* Room.swift in Sources */,
 				B6A2B1EC2750B29C009D8F2E /* SessionManager.swift in Sources */,
 				B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */,
+				B68A59E6275EE476008C5FC7 /* RoomController.swift in Sources */,
 				B63E50FB270CA45B005F83EB /* SetupController.swift in Sources */,
 				B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */,
 				B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */,

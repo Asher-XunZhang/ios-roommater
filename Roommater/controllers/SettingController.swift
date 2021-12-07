@@ -10,16 +10,7 @@ import UIKit
 import SPIndicator
 import Alamofire
 import Former
-
-extension FormLabelFooterView  {
-    static var createFooter: ((String) -> ViewFormer) = { text in
-        return LabelViewFormer<FormLabelFooterView>()
-            .configure {
-                $0.text = text
-                $0.viewHeight = 100
-            }
-    }
-}
+import SwiftEventBus
 
 class SettingController : UITableViewController, UINavigationControllerDelegate {
     @IBOutlet var usernameLabel : UILabel!
@@ -29,6 +20,18 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SwiftEventBus.onMainThread(self, name: "updateAvatar") { res in
+            print("Update avatar")
+            if let image =  res?.object as? UIImage{
+                self.userAvatar.image = image.af.imageAspectScaled(toFill: CGSize(width: self.userAvatar.bounds.width, height: self.userAvatar.bounds.height))
+            }
+        }
+        
+        SwiftEventBus.onBackgroundThread(self, name: "updateUsername") { _ in
+            self.usernameLabel.text = SessionManager.instance.user?.nickname
+        }
+        
         usernameLabel.text = SessionManager.instance.user?.nickname
         ratingLable.text = String(format: "%.1f", SessionManager.instance.user?.rating ?? 0.0)
     
@@ -36,7 +39,7 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
         userAvatar.layer.borderColor = CGColor(red: 8, green: 8, blue: 8, alpha: 1)
         userAvatar.layer.borderWidth = 1
         
-        switch SessionManager.instance.user?.rating ?? -1{
+        switch SessionManager.instance.user?.rating ?? -1 {
             case 0...5:
                 ratingLable.textColor = .red
             case 6...8:
@@ -69,6 +72,11 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
                     SPIndicator.present(title: "Error", message: "Unknown Error", preset: .error)
             }
         })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SwiftEventBus.unregister(self)
     }
 }
 
@@ -130,6 +138,9 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
             row.text = SessionManager.instance.user?.nickname
         }.onTextChanged{
             SessionManager.instance.user?.nickname = $0
+        }.onReturn{ text in
+            
+            SwiftEventBus.postToMainThread("updateUsername")
         }
         
         let passwordFld = LabelRowFormer<FormLabelCell>()
@@ -162,6 +173,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
                         }
                         SessionManager.instance.updateAvatar(callback: {res, err in
                             if err == 0 {
+                                SwiftEventBus.post("updateAvatar", sender: res)
                                 self.avatar?.cell.iconView.setImage(res!.af.imageAspectScaled(toFill: CGSize(width: self.avatar!.cell.iconView.bounds.width, height: self.avatar!.cell.iconView.bounds.height)))
                             }else{
                                 SPIndicator.present(title: "Error", message: "Failed to get the avatar", preset: .error)
@@ -194,6 +206,7 @@ class PasswordChangeController : FormViewController {
         .configure{ row in
             row.cell.buttonHandler = { btn in
                 btn.isEnabled = false
+                
                 row.enabled = false
                 //TODO: update password
             }

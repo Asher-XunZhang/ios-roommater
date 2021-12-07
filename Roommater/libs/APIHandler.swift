@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 import StreamChat
 import UIKit
 
@@ -15,7 +16,7 @@ enum Result {
     case Fail(String)
     case Timeout(String)
     case Error(String)
-    case NONE
+    case NONE(String)
     
     static func handleCode(_ code: Int, msg: String, Obj: AnyObject?)-> Result {
         switch code{
@@ -26,12 +27,12 @@ enum Result {
             case 401...600:
                 return .Error(msg)
             default:
-                return .NONE
+                return .NONE("Unknown Error")
         }
     }
 }
 
-enum AuthRoute: URLRequestConvertible {
+enum Router : URLRequestConvertible {
     var baseURL: URL {
         return URL(string: "https://roommater-server.herokuapp.com/api/v1")!
 //        return URL(string: "http://localhost:1337/api/v1")!
@@ -52,7 +53,7 @@ enum AuthRoute: URLRequestConvertible {
     //dorm
     case bindDorm(code: String)
     case unbindDorm
-    case createDorm
+    case createDorm(roomName: String, max: Int)
     case deleteDorm(roomID: String)
     case fetchDormInfo
     case fetchEvent(roomID: String)
@@ -167,7 +168,7 @@ enum AuthRoute: URLRequestConvertible {
         case .unbindDorm:
             return "/room/unbind"
         case .createDorm:
-            return "/room/new"
+            return "/room/host"
         case .deleteDorm:
             return "/room/destroy"
         case .updateAffair:
@@ -208,8 +209,8 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["inviteCode": code])
             case .unbindDorm:
                 return (path, [:])
-            case .createDorm:
-                return (path, [:])
+            case .createDorm(roomName: let roomName, max: let max):
+                return (path, ["room": roomName, "max":max])
             case .deleteDorm(roomID: let roomID):
                 return (path, ["room": roomID])
             case .fetchEvent(roomID: let roomID):
@@ -253,6 +254,30 @@ enum AuthRoute: URLRequestConvertible {
 }
 
 class APIAction {
+    static func getDefaultURLSessionConfig()-> URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+        
+        configuration.headers = .default
+        if let token = UserDefaults.standard.string(forKey: "token") {
+            configuration.headers.add(name: "Access-Token", value: token)
+        }
+        
+        configuration.httpShouldSetCookies = true
+        configuration.httpShouldUsePipelining = false
+        
+        configuration.requestCachePolicy = .useProtocolCachePolicy
+        configuration.allowsCellularAccess = true
+        configuration.timeoutIntervalForRequest = 60
+        
+        configuration.urlCache = URLCache(
+            memoryCapacity: 20 * 1024 * 1024,
+            diskCapacity: 150 * 1024 * 1024,
+            diskPath: "com.pixmeow.roommater"
+        )
+        return configuration
+    }
+    
+    
     //login request with post
     @discardableResult private static func initChat(id: String, nickname: String) -> Bool{
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
@@ -269,7 +294,7 @@ class APIAction {
     
     static func login(username: String, pass: String, callback: @escaping (Result) -> Void) {
         DispatchQueue.global().async {
-            AF.request(AuthRoute.login(username: username, pass: pass))
+            AF.request(Router.login(username: username, pass: pass))
                 .responseJSON { res in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -305,7 +330,7 @@ class APIAction {
     
     static func login(token: String, callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(AuthRoute.loginWithToken(token: token))
+            AF.request(Router.loginWithToken(token: token))
                 .responseJSON { res  in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -316,8 +341,6 @@ class APIAction {
                                             if json["err"] as? Int ?? 600 == 0{
                                                 SessionManager.instance.initUser(data: json["res"] as! [String:Any])
                                             }
-                                            
-                                            
                                             callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["res"] as AnyObject?))
                                         }else{
                                             callback(.Error("Failed to init chat account!"))
@@ -339,7 +362,7 @@ class APIAction {
     //signuo request with put
     static func signup(username: String, pass: String, email: String, callback: @escaping (Result) -> Void) {
         DispatchQueue.global().async {
-            AF.request(AuthRoute.signup(username: username, pass: pass, email: email))
+            AF.request(Router.signup(username: username, pass: pass, email: email))
                 .responseJSON { res in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -362,7 +385,7 @@ class APIAction {
     //forgot request with post
     static func forgot(email: String, callback: @escaping (Result) -> Void) {
         DispatchQueue.global().async {
-            AF.request(AuthRoute.recover(email: email))
+            AF.request(Router.recover(email: email))
                 .responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -385,7 +408,7 @@ class APIAction {
     //fetch testuser with get
     static func fetchUser(token: String, callback: @escaping (Result) -> Void) {
         DispatchQueue.global().async {
-            AF.request(AuthRoute.fetchUser(token: token))
+            AF.request(Router.fetchUser(token: token))
                 .responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -406,7 +429,7 @@ class APIAction {
     
     static func updateAvatar(image: UIImage, callback: @escaping (Result) -> Void) {
         DispatchQueue.global().async {
-            let request = AuthRoute.updateAvatar
+            let request = Router.updateAvatar
             AF.upload(
                 multipartFormData: { form in
                 form.append(image.jpegData(compressionQuality: 1)!, withName: "avatar", fileName: "new_avatar.jpg", mimeType: "image/jpg")},
@@ -433,7 +456,7 @@ class APIAction {
     //fetch token with post
     static func fetchNewtoken(user: String, callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(AuthRoute.fetchToken(username: user))
+            AF.request(Router.fetchToken(username: user))
                 .responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
@@ -453,44 +476,20 @@ class APIAction {
     }
     
     //fetch dorm info
-    static func fetchDormInfo(callback: @escaping (Result) -> Void){
-        if let roomID = UserDefaults.standard.string(forKey: "room_id"){
-            DispatchQueue.global().async {
-                AF.request(AuthRoute.fetchDormInfo)
-                    .responseJSON() { res in
-                        switch (res.response?.statusCode) {
-                            case 200:
-                                if let json = res.value as? [String:Any] {
-                                    DispatchQueue.main.async {
-                                        callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["new-token"] as AnyObject))
-                                    }
-                                }
-                            default:
-                                DispatchQueue.main.async {
-                                    callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
-                                }
-                        }
-                    }
-            }
-        }
-        
-        
-    }
-    
-    //log out
-    static func logout(callback: @escaping (Result) -> Void){
+    static func hostDorm(roomName : String, max: Int, callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(AuthRoute.logout)
-                .responseJSON() { res in
+            AF.request(Router.createDorm(roomName: roomName, max: max)).responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
                             if let json = res.value as? [String:Any] {
-                                if json["err"] as! Int == 0 {
-                                    UserDefaults.standard.removeObject(forKey: "token")
-                                    ChatClient.shared.disconnect()
-                                }
                                 DispatchQueue.main.async {
-                                    callback(Result.handleCode(json["err"] as? Int ?? 600, msg: json["msg"] as? String ?? "Error Phase the data", Obj: json["new-token"] as AnyObject))
+                                    callback(
+                                        Result.handleCode(
+                                            json["err"] as? Int ?? 600,
+                                            msg: json["msg"] as? String ?? "Error Phase the data",
+                                            Obj: json["res"] as AnyObject
+                                        )
+                                    )
                                 }
                             }
                         default:
@@ -500,5 +499,89 @@ class APIAction {
                     }
                 }
         }
+    }
+    
+    static func fetchDormInfo(callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(Router.fetchDormInfo)
+                .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                DispatchQueue.main.async {
+                                    callback(
+                                        Result.handleCode(
+                                            json["err"] as? Int ?? 600,
+                                            msg: json["msg"] as? String ?? "Error Phase the data",
+                                            Obj: json["new-token"] as AnyObject
+                                        )
+                                    )
+                                }
+                            }
+                        default:
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
+                            }
+                    }
+                }
+        }
+    }
+    
+    //log out
+    static func logout(callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(Router.logout)
+                .responseJSON() { res in
+                    switch (res.response?.statusCode) {
+                        case 200:
+                            if let json = res.value as? [String:Any] {
+                                if json["err"] as! Int == 0 {
+                                    UserDefaults.standard.removeObject(forKey: "token")
+                                    ChatClient.shared.disconnect()
+                                }
+                                DispatchQueue.main.async {
+                                    callback(
+                                        Result.handleCode(
+                                            json["err"] as? Int ?? 600,
+                                            msg: json["msg"] as? String ?? "Error Phase the data",
+                                            Obj: json["new-token"] as AnyObject
+                                        )
+                                    )
+                                }
+                            }
+                        default:
+                            DispatchQueue.main.async {
+                                callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
+                            }
+                    }
+                }
+        }
+    }
+    
+    //update profile
+    static func updateUserInfo(data: [String: Any], callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(Router.updateInfo(update: data)).responseJSON() { res in
+                switch (res.response?.statusCode) {
+                    case 200:
+                        if let json = res.value as? [String:Any] {
+                            DispatchQueue.main.async {
+                                callback(
+                                    Result.handleCode(
+                                        json["err"] as? Int ?? 600,
+                                        msg: json["msg"] as? String ?? "Error Phase the data",
+                                        Obj: json["res"] as AnyObject
+                                    )
+                                )
+                            }
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            callback(.Fail("Error API Response code: \(res.response?.statusCode ?? 500)"))
+                        }
+                }
+            }
+        }
+        
     }
 }

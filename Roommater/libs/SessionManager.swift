@@ -8,8 +8,16 @@
 import Foundation
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class SessionManager{
+    private static let imageCache = AutoPurgingImageCache()
+    static let AvatarManager = ImageDownloader(
+        configuration: APIAction.getDefaultURLSessionConfig(),
+        downloadPrioritization: .fifo,
+        maximumActiveDownloads: 4,
+        imageCache: imageCache
+    )
     var user : UserInfo?
     var dorm : DormInfo?
     
@@ -25,16 +33,18 @@ class SessionManager{
     func getAvatar(callback: @escaping(UIImage?, Int) -> Void){
         if let thisUser = user {
             if thisUser.avatarImage == nil {
-                if let token = UserDefaults.standard.string(forKey: "token"), let avatar = user?.avatar, avatar != ""{
-                    AF.request(avatar, headers: ["Access-Token": token]).responseImage {[self] response in
+                if let req = user?.getAvatarRequest() {
+                    SessionManager.AvatarManager.download(req, completion: {[self] response in
                         if case .success(let image) = response.result {
-                            user?.avatarImage = image
+                            self.user?.avatarImage = image
                             callback(user?.avatarImage, 0)
                         }else{
                             callback(nil,1)
                         }
-                    }
+                    })
                 }
+            }else{
+                callback(self.user?.avatarImage, 0)
             }
         }else{
             callback(nil,2)
@@ -42,6 +52,9 @@ class SessionManager{
     }
     
     func updateAvatar(callback: @escaping(UIImage?, Int) -> Void){
+        if let req = user?.getAvatarRequest() {
+            SessionManager.imageCache.removeImages(matching: req)
+        }
         user?.avatarImage = nil
         getAvatar(callback: callback)
     }

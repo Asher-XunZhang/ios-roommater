@@ -87,6 +87,9 @@
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
                                     <color key="baseForegroundColor" systemColor="systemBlueColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ayd-Nm-nBT" kind="show" id="ti4-GD-lfZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LFh-DG-KaQ"/>
@@ -106,6 +109,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EUl-2s-ZtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2689.8550724637685" y="399.77678571428572"/>
+        </scene>
+        <!--Room-->
+        <scene sceneID="mpN-u5-rUb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Room" id="ayd-Nm-nBT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="2s3-l2-iHC"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ddK-r6-XTH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3549" y="402"/>
         </scene>
         <!--Pending-->
         <scene sceneID="8Ak-Cy-RKj">
