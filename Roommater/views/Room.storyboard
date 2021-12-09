@@ -93,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="691" y="163"/>
         </scene>
-        <!--Prototype View Controller-->
+        <!--Room BindVC-->
         <scene sceneID="oUa-6d-Kss">
             <objects>
-                <viewController id="Wa2-O9-stn" customClass="PrototypeViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wa2-O9-stn" customClass="RoomBindVC" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pCh-VQ-S90">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

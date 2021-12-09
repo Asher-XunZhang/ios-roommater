@@ -22,6 +22,10 @@ class RoomNavVC : UINavigationController{
     }
 }
 
+class RoomBindVC : PrototypeViewController {
+
+}
+
 class RoomController :UIViewController {
     @IBOutlet var inviteCode : UITextField!
     
@@ -120,16 +124,16 @@ class RoomHostController : PrototypeViewController {
 class AffairFormViewController: UIViewController {
     @IBOutlet var tableView : UITableView!
     var affairInfo: Affair?
-    
+
     private lazy var former: Former = Former(tableView: tableView)
-    
+
     // MARK: Public
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
-    
+
     @IBAction func buttonAction(_ sender: UIBarButtonItem){
         switch(sender.tag){
         case 1: // the save button
@@ -145,10 +149,10 @@ class AffairFormViewController: UIViewController {
             break
         }
     }
-    
-    
+
+
     // MARK: Private
-    
+
     private lazy var subRowFormers: [RowFormer] = {
         return (RoomInfo.users.values).map { user -> RowFormer in
             return CheckRowFormer<FormCheckCell>() {
@@ -172,14 +176,14 @@ class AffairFormViewController: UIViewController {
         }else{
             type = "Edit"
         }
-        
+
         title = type + " Affair"
         tableView.contentInset.top = 10
         tableView.contentInset.bottom = 30
         tableView.contentOffset.y = -10
-        
+
         // Create RowFomers
-        
+
         let titleRow = TextFieldRowFormer<FormTextFieldCell>() {
             $0.textField.textColor = .black
             $0.textField.font = .systemFont(ofSize: 15)
@@ -188,11 +192,11 @@ class AffairFormViewController: UIViewController {
             if type == "Edit"{
                 $0.cell.textField.text = self.affairInfo?.title
             }
-            
+
         }.onTextChanged{
             self.affairInfo?.title = $0
         }
-        
+
         let dateRow = InlineDatePickerRowFormer<FormInlineDatePickerCell>() {
             $0.titleLabel.text = "Date"
             $0.titleLabel.textColor = .black
@@ -204,15 +208,15 @@ class AffairFormViewController: UIViewController {
             if type == "Edit"{
                 if let date = self.affairInfo?.date{
                     $0.datePicker.date = date
-                    
+
                 }
             }
         }.onDateChanged{
             self.affairInfo?.date = $0
         }.displayTextFromDate(String.mediumDateShortTime)
-        
+
         let memeberRow = subRowFormers
-        
+
         let detailRow = TextViewRowFormer<FormTextViewCell>() {
             $0.textView.textColor = .gray
             $0.textView.font = .systemFont(ofSize: 15)
@@ -227,20 +231,20 @@ class AffairFormViewController: UIViewController {
         }.onTextChanged{
             self.affairInfo?.des = $0
         }
-        
-        
-        
+
+
+
         // Create Headers
-        
+
         let createHeader: (() -> ViewFormer) = {
             return CustomViewFormer<FormHeaderFooterView>()
                 .configure {
                     $0.viewHeight = 20
                 }
         }
-        
+
         // Create SectionFormers
-        
+
         let titleSection = SectionFormer(rowFormer: titleRow)
             .set(headerViewFormer: createHeader())
         let timeSection = SectionFormer(rowFormer: dateRow)
@@ -249,7 +253,7 @@ class AffairFormViewController: UIViewController {
             .set(headerViewFormer: createHeader())
         let noteSection = SectionFormer(rowFormer: detailRow)
             .set(headerViewFormer: createHeader())
-        
+
         former.append(sectionFormer: titleSection, timeSection, memberSection, noteSection)
     }
 }
@@ -261,5 +265,54 @@ class RoomManageController : FormViewController {
     }
     
     private func initFormer(){
+        let roomID = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.adjustsFontSizeToFitWidth = true
+        }
+        .configure { row in
+            row.text = "Room id"
+            row.subText = SessionManager.instance.dorm?.roomID
+            row.enabled = false
+            row.textDisabledColor = .black
+            row.subTextDisabledColor = .gray
+        }
+
+        let cid = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.adjustsFontSizeToFitWidth = true
+        }
+            .configure { row in
+                row.text = "Chat ID"
+                row.subText = SessionManager.instance.dorm?.roomChatId
+                row.enabled = false
+                row.textDisabledColor = .black
+                row.subTextDisabledColor = .gray
+            }
+
+        let owner = LabelRowFormer<FormLabelCell>()
+            .configure { row in
+                row.text = "Owner"
+                row.subText = SessionManager.instance.dorm?.owner.nickname
+                row.enabled = false
+                row.textDisabledColor = .black
+                row.subTextDisabledColor = .gray
+            }
+
+        let inviteCode = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.font = .preferredFont(forTextStyle: .title2)
+            $0.subTextLabel.textColor = .green
+        }
+        .configure { row in
+            row.text = "Incite Code"
+            row.subText = SessionManager.instance.dorm?.inviteCode
+            row.textDisabledColor = .black
+            row.subTextDisabledColor = .gray
+        }.onSelected{
+            self.former.deselect(animated: true)
+            UIPasteboard.general.string = $0.subText
+            SPIndicator.present(title: "Copied the invite code!", preset: .done)
+        }
+
+
+        former.append(sectionFormer: SectionFormer(rowFormer: roomID, cid, owner))
+        former.append(sectionFormer: SectionFormer(rowFormer: inviteCode))
     }
 }
