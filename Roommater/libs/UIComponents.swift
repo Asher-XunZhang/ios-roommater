@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 // classes
 class NoNullTextField: UITextField{
 //    func showToolTip() {

@@ -88,8 +88,8 @@ struct UserInfo : UserDes {
                 switch res {
                     case .Success(let data):
                         SessionManager.instance.initDorm(data: data as! [String : Any])
-                    default:
-                        break
+                    case .Timeout(let msg), .Fail(let msg), .Error(let msg), .NONE(let msg):
+                        print(msg)
                 }
             }
         }

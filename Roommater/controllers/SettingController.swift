@@ -136,11 +136,21 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
         }.configure { row in
             row.placeholder = "Your nickname"
             row.text = SessionManager.instance.user?.nickname
-        }.onTextChanged{
-            SessionManager.instance.user?.nickname = $0
         }.onReturn{ text in
-            
-            SwiftEventBus.postToMainThread("updateUsername")
+            if text != ""{
+                APIAction.updateUserInfo(data: ["nickname" : text]){ res in
+                    switch res {
+                        case .Success(_):
+                            SessionManager.instance.user?.nickname = text
+                            SwiftEventBus.postToMainThread("updateUsername")
+                        case .Fail(let msg),.Timeout(let msg),.Error(let msg),.NONE(let msg):
+                            SPIndicator.present(title: msg, preset: .error)
+                    }
+                }
+                
+            }else{
+                SPIndicator.present(title: "Empty Nickname!", preset: .error)
+            }
         }
         
         let passwordFld = LabelRowFormer<FormLabelCell>()
@@ -154,12 +164,6 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
             .set(footerViewFormer: FormLabelFooterView.createFooter(SessionManager.instance.user?.uid ?? ""))
         
         former.append(sectionFormer: section)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "passwordPage"{
-            
-        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -201,15 +205,6 @@ class PasswordChangeController : FormViewController {
     func initForm(){
         let updateBtn = CustomRowFormer<ButtonCell>(instantiateType: .Nib(nibName: "ButtonCell")){
             $0.button.setTitle("Update Password", for: .normal)
-            $0.button.isEnabled = false
-        }
-        .configure{ row in
-            row.cell.buttonHandler = { btn in
-                btn.isEnabled = false
-                
-                row.enabled = false
-                //TODO: update password
-            }
         }
         
         let repasswordRow = TextFieldRowFormer<TextFieldWithHintCell>(instantiateType: .Nib(nibName: "TextFieldWithHintCell")) {
@@ -260,6 +255,26 @@ class PasswordChangeController : FormViewController {
                 updateBtn.cell.button.isEnabled = false
             }else{
                 $0.cell.clear()
+            }
+        }
+        updateBtn.configure{ row in
+            row.cell.button.isEnabled = false
+            row.enabled = false
+            row.cell.buttonHandler = { btn in
+                row.enabled = false
+                passwordRow.enabled = false
+                repasswordRow.enabled = false
+                btn.startLoading()
+                //TODO: update password
+                APIAction.updateUserInfo(data: ["password":self.password ?? ""]){ res in
+                    switch res {
+                        case .Success(_):
+                            print("Updated!")
+                            self.navigationController?.popViewController(animated: true)
+                        case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                            SPIndicator.present(title: msg, preset: .error)
+                    }
+                }
             }
         }
         passwordRow.onTextChanged {_ in

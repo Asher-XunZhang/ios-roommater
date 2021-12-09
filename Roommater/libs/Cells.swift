@@ -9,12 +9,6 @@ import UIKit
 import Former
 import Loady
 
-public final class ButtonRowFormer<T: UITableViewCell>: BaseRowFormer<T>, Formable {
-    public required init(instantiateType: Former.InstantiateType = .Class, cellSetup: ((T) -> Void)? = nil) {
-        super.init(instantiateType: instantiateType, cellSetup: cellSetup)
-    }
-}
-
 extension FormLabelFooterView  {
     static var createFooter: ((String) -> ViewFormer) = { text in
         return LabelViewFormer<FormLabelFooterView>()
@@ -86,7 +80,6 @@ final class ProfileImageCell: UITableViewCell, LabelFormableRow {
     // MARK: Private
     private var iconViewColor: UIColor?
 }
-
 
 class TextFieldWithHintCell : UITableViewCell, TextFieldFormableRow {
     @IBOutlet weak var hint : UILabel!

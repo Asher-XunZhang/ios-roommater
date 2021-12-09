@@ -43,6 +43,26 @@ class SocketInstance {
                 // Handle error
                 print("[Socket Instance] Reconnecting...")
             }
+            
+            
+            client.on("user"){data, ack in
+                
+            }
+            client.on("dorm"){data, ack in
+                
+            }
+            client.on("event"){data, ack in
+                
+            }
+            client.on("bill"){data, ack in
+                
+            }
+            client.on("notice"){data, ack in
+                
+            }
+            client.on("affair"){data, ack in
+                
+            }
         }
     }
     
@@ -153,8 +173,6 @@ func initStreamUser(avatar: String){
                 token: token
             )
         }
-        catch {
-            print("Init token failed!")
-        }
+        catch {print("Init token failed!")}
     }
 }

@@ -17,7 +17,7 @@ class ChatNavigationVC : UINavigationController{
         if SessionManager.instance.dorm != nil {
             if let cid = SessionManager.instance.dorm?.roomChatId {
                 do{
-                    Appearance.default.colorPalette.background6 = .blue
+                    Appearance.default.colorPalette.background6 = .lightGray
                     Appearance.default.images.sendArrow = UIImage(systemName: "arrowshape.turn.up.right")!
                     Components.default.channelVC = ChatViewController.self
                     channelVC = ChatViewController()
