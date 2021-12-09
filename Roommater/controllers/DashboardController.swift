@@ -8,16 +8,30 @@ import UIKit
 import Foundation
 
 import FoldingCell
-//import TaggerKit
+import Former
+import TaggerKit
+
+final class DashboardNavVC : UINavigationController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if SessionManager.instance.dorm != nil {
+            performSegue(withIdentifier: "goToAffairs", sender:nil)
+            print("Go to affair")
+        }else{
+            performSegue(withIdentifier: "noRoom", sender: nil)
+            print("No room found")
+        }
+    }
+}
 
 
 class SegmentViewController: UIViewController{
+    
     @IBAction func ChangeMode(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex{
             case 0:
-                if SessionManager.instance.dorm != nil {
-                    performSegue(withIdentifier: "go_to_affairs", sender:nil)
-                }
+//                performSegue(withIdentifier: "goToAffairs", sender:nil)
+            break
             case 1:
                 break
 //                performSegue(withIdentifier: "go_to_billings", sender: nil)
@@ -33,7 +47,7 @@ class TableViewController: UITableViewController {
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 380
-        static let rowsCount = SessionManager.instance.dorm!.affair.count //TODO: change to the certain num of the tab bar type
+        static let rowsCount = 10//SessionManager.instance.dorm!.affair.count //TODO: change to the certain num of the tab bar type
     }
     
     var cellHeights: [CGFloat] = []
@@ -73,7 +87,7 @@ class TableViewController: UITableViewController {
 extension TableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return SessionManager.instance.dorm!.affair.count  //TODO: change to the certain num of the tab bar type
+        return 10//SessionManager.instance.dorm!.affair.count  //TODO: change to the certain num of the tab bar type
     }
 
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -169,5 +183,3 @@ extension EachCell{
         print("tap")
     }
 }
-
-
