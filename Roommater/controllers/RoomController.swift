@@ -136,10 +136,10 @@ class AffairFormViewController: UIViewController {
 
     @IBAction func buttonAction(_ sender: UIBarButtonItem){
         switch(sender.tag){
-        case 1: // the save button
+        case 2: // the save button
             //TODO: ADD THIS AFFAIR FROM LOCAL AND SERVER
             break
-        case 0: // the cancle button
+        case 1: // the cancle button
             self.dismiss(animated: true, completion: nil)
             break
         case 3: // the trash button
@@ -177,10 +177,10 @@ class AffairFormViewController: UIViewController {
             type = "Edit"
         }
 
-        title = type + " Affair"
-        tableView.contentInset.top = 10
-        tableView.contentInset.bottom = 30
-        tableView.contentOffset.y = -10
+        self.title = type + " Affair"
+        self.tableView.contentInset.top = 10
+        self.tableView.contentInset.bottom = 30
+        self.tableView.contentOffset.y = -10
 
         // Create RowFomers
 

@@ -51,7 +51,7 @@ class TableViewController: UITableViewController {
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 380
-        static let rowsCount = 10//SessionManager.instance.dorm!.affair.count //TODO: change to the certain num of the tab bar type
+        static let rowsCount = SessionManager.instance.dorm!.affairs.count //TODO: change to the certain num of the tab bar type
     }
     
     var cellHeights: [CGFloat] = []
@@ -91,7 +91,7 @@ class TableViewController: UITableViewController {
 extension TableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 10//SessionManager.instance.dorm!.affair.count  //TODO: change to the certain num of the tab bar type
+        return SessionManager.instance.dorm!.affairs.count  //TODO: change to the certain num of the tab bar type
     }
 
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -109,9 +109,8 @@ extension TableViewController {
 
         cell.number = indexPath.row
         cell.doneHandle = {
-            print("done")
+            SessionManager.instance.dorm?.affairs.remove(at: indexPath.row)
         }
-        
         cell.editHandle = {
             self.performSegue(withIdentifier: "edit", sender: SessionManager.instance.dorm?.affairs[indexPath.row])
         }
@@ -122,12 +121,31 @@ extension TableViewController {
             vc.affairInfo = data
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! EachCell
         let durations: [TimeInterval] = [0.26, 0.2, 0.2]
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
+        
+        
+        if let info = SessionManager.instance.dorm?.affairs[indexPath.row]{
+            cell.closeTitle.text = info.title
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "y, M d"
+            cell.closeDate.text = dateFormatter.string(from: info.date)
+            
+            cell.title.text = cell.closeTitle.text
+            cell.date.text = cell.closeDate.text
+            
+            cell.members.text = info.participant.reduce("", {
+                $0 + $1.nickname
+            })
+            
+            cell.detail.text = info.des
+        }
+        
         return cell
     }
 
@@ -173,6 +191,14 @@ class EachCell: FoldingCell {
     var editHandle : (()->Void)?
     @IBOutlet var closeNumberLabel: UILabel!
     @IBOutlet var openNumberLabel: UILabel!
+    
+    @IBOutlet var closeTitle: UILabel!
+    @IBOutlet var closeDate: UILabel!
+    
+    @IBOutlet var title: UILabel!
+    @IBOutlet var date: UILabel!
+    @IBOutlet var members: UILabel!
+    @IBOutlet var detail: UITextView!
     
     @IBAction func buttonHandler(_ sender: UIButton) {
         if sender.titleLabel?.text == "Done"{

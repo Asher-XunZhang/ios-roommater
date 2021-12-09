@@ -129,8 +129,16 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Title" id="KYS-pn-K15">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="dIs-wg-UoJ"/>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="o0D-Yy-Ejh"/>
+                                        <barButtonItem key="leftBarButtonItem" tag="1" style="plain" systemItem="cancel" id="dIs-wg-UoJ">
+                                            <connections>
+                                                <action selector="buttonAction:" destination="T0W-AD-xIx" id="eVG-Rb-K1C"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" tag="2" style="plain" systemItem="save" id="o0D-Yy-Ejh">
+                                            <connections>
+                                                <action selector="buttonAction:" destination="T0W-AD-xIx" id="xVb-fk-gSW"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -497,12 +505,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="closeDate" destination="Wt2-Qs-tE1" id="M6S-6M-WMl"/>
                                     <outlet property="closeNumberLabel" destination="DeI-cz-Uzc" id="hfY-wi-Nwv"/>
+                                    <outlet property="closeTitle" destination="8vf-7J-Owb" id="0BF-NY-O8F"/>
                                     <outlet property="containerView" destination="GTB-oh-alx" id="BeP-5x-ta3"/>
                                     <outlet property="containerViewTop" destination="Eei-dO-QAN" id="x0W-cU-Fhe"/>
+                                    <outlet property="date" destination="dmJ-ZS-uoH" id="GBI-jj-55O"/>
+                                    <outlet property="detail" destination="O4c-DB-GYb" id="Zof-nc-gsq"/>
                                     <outlet property="foregroundView" destination="36c-GT-vWu" id="lom-Ya-RMJ"/>
                                     <outlet property="foregroundViewTop" destination="22S-fj-qLG" id="NXl-V2-zlP"/>
+                                    <outlet property="members" destination="Zb7-Rg-6Zf" id="OwR-65-8yN"/>
                                     <outlet property="openNumberLabel" destination="xCW-kk-xE1" id="6wN-26-eOj"/>
+                                    <outlet property="title" destination="xCW-kk-xE1" id="PKm-us-yKu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -511,7 +525,6 @@
                             <outlet property="delegate" destination="ibX-bf-9ra" id="K6l-4i-niT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Boj-4d-5Da"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="601" height="820"/>
                     <connections>
