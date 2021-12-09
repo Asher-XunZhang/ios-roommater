@@ -223,6 +223,8 @@ enum Router : URLRequestConvertible {
                 return (path, ["affairID": aid])
             case .updateAvatar:
                 return (path, [:])
+            case .updateBill(update: let update):
+                return (path, [:])
             }
         }()
         

@@ -115,10 +115,7 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="tinted" title="Room Setting"/>
                                                     <connections>
-                                                        <segue destination="wVA-3a-Cbe" kind="show" id="a3Z-GI-ThZ">
-                                                            <segue key="commit" inheritsFrom="parent" id="QV0-MI-Lf9"/>
-                                                            <segue key="preview" inheritsFrom="commit" id="iTx-bf-8As"/>
-                                                        </segue>
+                                                        <segue destination="wVA-3a-Cbe" kind="show" id="a3Z-GI-ThZ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -410,9 +407,6 @@
             <point key="canvasLocation" x="1049" y="2254"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="a3Z-GI-ThZ"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Icon" width="417" height="417"/>
         <image name="Kamiku" width="200.5" height="200.5"/>

@@ -273,6 +273,38 @@
             <point key="canvasLocation" x="919" y="777"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="18r-9Z-xkn">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="2og-8d-AWW">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+        <designable name="COY-YP-avc">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="L4B-2T-rvh">
+            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
+        </designable>
+        <designable name="cdO-2W-Vnk">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="d8N-za-wjd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="dBv-VQ-kPl">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="iJo-OQ-R5P">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="uh5-7m-PFY">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="z7N-O8-efu">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Icon" width="417" height="417"/>
         <systemColor name="systemBackgroundColor">

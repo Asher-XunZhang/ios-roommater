@@ -125,7 +125,7 @@ class Bill : NSObject, NSSecureCoding {
     var isDone : Bool!
     
     func commit(){
-        APIAction
+        
     }
 }
 
@@ -135,17 +135,7 @@ class Affair : NSObject, NSSecureCoding {
         a.title = "Affair 1"
         a.des = "This is a test of affair"
         a.participant = [SessionManager.instance.user!]
-        let date = Date()
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents(
-            [.calendar,.timeZone,
-             .era, .quarter,
-             .year, .month, .day,
-             .hour, .minute,
-             .weekday, .weekdayOrdinal,
-             .weekOfMonth, .weekOfYear, .yearForWeekOfYear],
-            from: date)
-        a.date = dateComponents
+        a.date = Date()
         return [a]
     }
     
@@ -164,7 +154,7 @@ class Affair : NSObject, NSSecureCoding {
         title = coder.decodeObject(forKey: "Name") as? String
         des = coder.decodeObject(forKey: "Name") as? String
         participant = coder.decodeObject(forKey: "Participant") as? [RoommateInfo]
-        date = coder.decodeObject(forKey: "Date") as? DateComponents
+        date = coder.decodeObject(forKey: "Date") as? Date
     }
     
     init(data: [String:Any]) {
@@ -173,7 +163,7 @@ class Affair : NSObject, NSSecureCoding {
     
     var title : String!
     var des : String!
-    var date : DateComponents!
+    var date : Date!
     var participant : [RoommateInfo]!
     
     func commit(){

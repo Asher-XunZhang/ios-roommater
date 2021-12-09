@@ -22,6 +22,10 @@ class RoomNavVC : UINavigationController{
     }
 }
 
+class RoomBindVC : PrototypeViewController {
+    
+}
+
 class RoomController :UIViewController {
     @IBOutlet var inviteCode : UITextField!
     
@@ -303,8 +307,54 @@ class RoomManageController : FormViewController {
     }
     
     private func initFormer(){
-        let roomIDLabel : {
-            
+        let roomID = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.adjustsFontSizeToFitWidth = true
         }
+        .configure { row in
+            row.text = "Room id"
+            row.subText = SessionManager.instance.dorm?.roomID
+            row.enabled = false
+            row.textDisabledColor = .black
+            row.subTextDisabledColor = .gray
+        }
+        
+        let cid = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.adjustsFontSizeToFitWidth = true
+        }
+            .configure { row in
+                row.text = "Chat ID"
+                row.subText = SessionManager.instance.dorm?.roomChatId
+                row.enabled = false
+                row.textDisabledColor = .black
+                row.subTextDisabledColor = .gray
+            }
+        
+        let owner = LabelRowFormer<FormLabelCell>()
+            .configure { row in
+                row.text = "Owner"
+                row.subText = SessionManager.instance.dorm?.owner.nickname
+                row.enabled = false
+                row.textDisabledColor = .black
+                row.subTextDisabledColor = .gray
+            }
+        
+        let inviteCode = LabelRowFormer<FormLabelCell>(){
+            $0.subTextLabel.font = .preferredFont(forTextStyle: .title2)
+            $0.subTextLabel.textColor = .green
+        }
+        .configure { row in
+            row.text = "Incite Code"
+            row.subText = SessionManager.instance.dorm?.inviteCode
+            row.textDisabledColor = .black
+            row.subTextDisabledColor = .gray
+        }.onSelected{
+            self.former.deselect(animated: true)
+            UIPasteboard.general.string = $0.subText
+            SPIndicator.present(title: "Copied the invite code!", preset: .done)
+        }
+        
+        
+        former.append(sectionFormer: SectionFormer(rowFormer: roomID, cid, owner))
+        former.append(sectionFormer: SectionFormer(rowFormer: inviteCode))
     }
 }
