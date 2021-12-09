@@ -51,7 +51,6 @@ class TableViewController: UITableViewController {
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 380
-        static let rowsCount = SessionManager.instance.dorm!.affairs.count //TODO: change to the certain num of the tab bar type
     }
     
     var cellHeights: [CGFloat] = []
@@ -64,7 +63,8 @@ class TableViewController: UITableViewController {
 
     // MARK: Helpers
     private func setup() {
-        cellHeights = Array(repeating: Const.closeCellHeight, count: Const.rowsCount)
+        print(SessionManager.instance.dorm?.affairs)
+        cellHeights = Array(repeating: Const.closeCellHeight, count: SessionManager.instance.dorm?.affairs.count ?? 0)
         tableView.estimatedRowHeight = Const.closeCellHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .cyan
@@ -91,7 +91,7 @@ class TableViewController: UITableViewController {
 extension TableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return SessionManager.instance.dorm!.affairs.count  //TODO: change to the certain num of the tab bar type
+        return SessionManager.instance.dorm?.affairs.count ?? 0
     }
 
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

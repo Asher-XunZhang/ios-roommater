@@ -10,6 +10,7 @@ import UIKit
 import Former
 import Loady
 import SPIndicator
+import SwiftEventBus
 
 class RoomNavVC : UINavigationController{
     override func viewDidLoad() {
@@ -137,6 +138,7 @@ class RoomHostController : PrototypeViewController {
 class AffairFormViewController: UIViewController {
     @IBOutlet var tableView : UITableView!
     var affairInfo: Affair?
+    var selectedUser : [RoommateInfo] = []
 
     private lazy var former: Former = Former(tableView: tableView)
 
@@ -151,6 +153,22 @@ class AffairFormViewController: UIViewController {
         switch(sender.tag){
         case 2: // the save button
             //TODO: ADD THIS AFFAIR FROM LOCAL AND SERVER
+                if let a = affairInfo {
+                    APIAction.postAffiar(data: [
+                        "what": a.title ?? "New Affair",
+                        "when" : a.date.timeIntervalSince1970,
+                        "who" : [selectedUser.map({ $0.uid })],
+                        "desciption" : a.des ?? ""
+                    ]){ res in
+                        switch res {
+                            case .Success(let data):
+                                SwiftEventBus.post("new_affair", sender: data)
+                            case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                                SPIndicator.present(title: msg, preset: .error)
+                        }
+                    }
+                }
+                
             break
         case 1: // the cancle button
             self.dismiss(animated: true, completion: nil)
@@ -177,7 +195,15 @@ class AffairFormViewController: UIViewController {
                     $0.isSelected = true
                 }
             }.onCheckChanged{
-                print($0) //TODO: CHANGE THIS TO ADD($0==TRUE) TO/REMOVE FROM THIS OBJECT TO THE MEMBER LIST
+                if $0 {
+                    if !self.selectedUser.contains(user) {
+                        self.selectedUser.append(user)
+                    }
+                }else{
+                    if let index = self.selectedUser.firstIndex(of: user) {
+                        self.selectedUser.remove(at: index)
+                    }
+                }
             }
         }
         }()

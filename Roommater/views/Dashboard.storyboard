@@ -32,7 +32,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="4We-i0-0hf" kind="presentation" identifier="goToAffairs" modalPresentationStyle="currentContext" id="uLc-np-GTJ"/>
+                        <segue destination="4We-i0-0hf" kind="show" identifier="goToAffairs" id="uLc-np-GTJ"/>
                         <segue destination="6Ca-RZ-vQ9" kind="presentation" identifier="noRoom" modalPresentationStyle="fullScreen" id="jyq-x8-UEd"/>
                     </connections>
                 </navigationController>
@@ -55,11 +55,11 @@
             <objects>
                 <viewController id="4We-i0-0hf" customClass="SegmentViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hSG-vb-yaJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gd0-wt-aeU">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <items>
                                     <navigationItem title="Title" id="6Mp-Ve-hMc">
                                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="chG-9T-rNJ">
@@ -71,13 +71,13 @@
                                 </items>
                             </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abK-dw-7Bx">
-                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <rect key="frame" x="0.0" y="87" width="375" height="560"/>
                                 <connections>
                                     <segue destination="ibX-bf-9ra" kind="embed" identifier="" id="DJi-Wv-UrM"/>
                                 </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pph-d6-bGw">
-                                <rect key="frame" x="0.0" y="44" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="Hwd-FH-k3x"/>
                                 </constraints>
@@ -173,7 +173,7 @@
             <objects>
                 <viewController id="u16-FB-bac" customClass="AffairFormViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pQh-ss-7Ym">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="592"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="560"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-MI-gGb">
@@ -204,7 +204,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RCC-ha-7gf">
-                                <rect key="frame" x="0.0" y="50" width="375" height="542"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="510"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>

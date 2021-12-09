@@ -62,7 +62,7 @@ enum Router : URLRequestConvertible {
     case fetchAffair(roomID: String)
     case updateDormInfo(update: [String: Any])
     case postBill
-    case postAffair
+    case postAffair(data : [String: Any])
     case updateAffair(update: [String: Any])
     case updateBill(update: [String: Any])
     case deleteBill(bid: String)
@@ -152,7 +152,7 @@ enum Router : URLRequestConvertible {
         case .postBill:
             return "/bill/new"
         case .postAffair:
-            return "/affair/new"
+            return "/affair/add"
         case .bindDorm:
             return "/room/bind"
         case .unbindDorm:
@@ -213,8 +213,8 @@ enum Router : URLRequestConvertible {
                 return (path, update)
             case .postBill:
                 return (path, [:])
-            case .postAffair:
-                return (path, [:])
+            case .postAffair(data: let data):
+                return (path, data)
             case .updateAffair:
                 return (path, [:])
             case .deleteBill(bid: let bid):

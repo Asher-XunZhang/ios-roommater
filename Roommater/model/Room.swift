@@ -32,7 +32,7 @@ class RoomInfo : NSObject, NSSecureCoding {
         maxMemeber = coder.decodeObject(forKey: "Max") as? Int
         owner = coder.decodeObject(forKey: "Owner") as? RoommateInfo
         roomChatId = coder.decodeObject(forKey: "CID") as? String
-        affairs = coder.decodeObject(forKey: "Affairs") as? [Affair]
+        affairs = coder.decodeObject(forKey: "Affairs") as? [Affair] ?? []
         bills = coder.decodeObject(forKey: "Bills") as? [Bill]
     }
     
@@ -44,8 +44,8 @@ class RoomInfo : NSObject, NSSecureCoding {
     var owner : RoommateInfo!
     var residents : [RoommateInfo]!
     var bills : [Bill]!
-    var roomChatId : String?
-    var affairs : [Affair]!
+    var roomChatId : String? = ""
+    var affairs : [Affair] = []
     
     init(data : [String:Any]) {
         super.init()
@@ -133,15 +133,6 @@ class Bill : NSObject, NSSecureCoding {
 }
 
 class Affair : NSObject, NSSecureCoding {
-    var testData : [Affair] {
-        let a = Affair(data: [:])
-        a.title = "Affair 1"
-        a.des = "This is a test of affair"
-        a.participant = [SessionManager.instance.user!]
-        a.date = Date()
-        return [a]
-    }
-    
     static var supportsSecureCoding: Bool{
         return true
     }
@@ -151,6 +142,7 @@ class Affair : NSObject, NSSecureCoding {
         coder.encode(des, forKey: "Description")
         coder.encode(date, forKey: "Date")
         coder.encode(participant, forKey: "Participant")
+        coder.encode(aid, forKey: "AID")
     }
     
     required init?(coder: NSCoder) {
@@ -158,12 +150,19 @@ class Affair : NSObject, NSSecureCoding {
         des = coder.decodeObject(forKey: "Name") as? String
         participant = coder.decodeObject(forKey: "Participant") as? [RoommateInfo]
         date = coder.decodeObject(forKey: "Date") as? Date
+        aid = coder.decodeObject(forKey: "AID") as? String
     }
     
     init(data: [String:Any]) {
-        
+        if let value = data["what"] as? String {title = value}
+        if let value = data["description"] as? String {des = value}
+        if let value = data["when"] as? Double {date = Date(timeIntervalSince1970: value)}
+        if let users = data["who"] as? [String] {
+            participant = users.map({ RoomInfo.users[$0]!})
+        }
     }
     
+    var aid : String!
     var title : String!
     var des : String!
     var date : Date!
