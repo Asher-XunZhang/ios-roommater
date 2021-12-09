@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import Alamofire
 import AlamofireImage
+import SwiftEventBus
 
 class RoommateInfo : NSObject, NSSecureCoding {
     static var supportsSecureCoding: Bool { return true }
@@ -28,17 +29,15 @@ class RoommateInfo : NSObject, NSSecureCoding {
         avatar = coder.decodeObject(forKey: "Avatar") as? String
     }
     
-    static func == (lhs: RoommateInfo, rhs: RoommateInfo) -> Bool {
-        return lhs.uid == rhs.uid
-    }
-    
     var nickname: String!
     var uid: String!
     var rating: Float!
     var avatar: String!
     var avatarImage : UIImage?
     
-    override init() {super.init()}
+    override init() {
+        super.init()
+    }
     
     @discardableResult init(data: [String : Any]) {
         super.init()
@@ -56,20 +55,23 @@ class RoommateInfo : NSObject, NSSecureCoding {
         self.avatar = avatar
     }
     
-    func update(data: [String : Any]){
+    func update(data: [String : Any], r : Bool){
         if let value = data["uid"] as? String{uid = value}
         if let value = data["nickname"] as? String{nickname = value}
         if let value = data["avatar"] as? String{self.avatar = value}
         if let value = data["rating"] as? Float {rating = value}
-        do{
-            let user_encoded = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
-            try user_encoded.write(to: SessionManager.ObjectPath.user.path)
-            if uid != SessionManager.instance.user?.uid {
-                RoomInfo.users[uid] = self
+        
+        if r {
+            do{
+                let user_encoded = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+                try user_encoded.write(to: SessionManager.ObjectPath.user.path)
+                if uid != SessionManager.instance.user?.uid {
+                    RoomInfo.users[uid] = self
+                }
+            }catch (let e){
+                print(e)
+                print("[Session Manager]Update roommate info failed")
             }
-        }catch (let e){
-            print(e)
-            print("[Session Manager]Update roommate info failed")
         }
     }
 }
@@ -79,6 +81,7 @@ class UserInfo : RoommateInfo {
         super.encode(with: coder)
         coder.encode(username, forKey: "Username")
         coder.encode(email, forKey: "Email")
+        SwiftEventBus.unregister(self)
     }
     
     required convenience init?(coder: NSCoder) {
@@ -87,10 +90,17 @@ class UserInfo : RoommateInfo {
         email = coder.decodeObject(forKey: "Email") as? String
     }
     
-    override init() {super.init()}
-    
-    static func == (lhs: UserInfo, rhs: UserInfo) -> Bool {
-        return lhs.uid == rhs.uid
+    override init() {
+        super.init()
+        SwiftEventBus.onBackgroundThread(self, name: "update"){ res in
+            if let update : [String: Any] = res?.object as? [String: Any] {
+                self.update(data: update, r: false)
+            }
+        }
+        
+        SwiftEventBus.onBackgroundThread(self, name: "destroy"){ res in
+            
+        }
     }
     
     var username : String!
@@ -114,8 +124,8 @@ class UserInfo : RoommateInfo {
         }
     }
     
-    override func update(data: [String : Any]){
-        super.update(data: data)
+    override func update(data: [String : Any], r: Bool){
+        super.update(data: data, r: r)
         if let value = data["email"] as? String{self.email = value}
         if let value = data["username"] as? String{self.nickname = value}
         do{
