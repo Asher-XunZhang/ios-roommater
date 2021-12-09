@@ -11,12 +11,29 @@ import FoldingCell
 //import TaggerKit
 
 
+class SegmentViewController: UIViewController{
+    @IBAction func ChangeMode(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+            case 0:
+                if SessionManager.instance.dorm != nil {
+                    performSegue(withIdentifier: "go_to_affairs", sender:nil)
+                }
+            case 1:
+                break
+//                performSegue(withIdentifier: "go_to_billings", sender: nil)
+            default:
+                break
+        }
+    }
+}
+
+
 class TableViewController: UITableViewController {
 
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 380
-        static let rowsCount = 2 //TODO: change to the certain num of the tab bar type
+        static let rowsCount = SessionManager.instance.dorm!.affair.count //TODO: change to the certain num of the tab bar type
     }
     
     var cellHeights: [CGFloat] = []
@@ -56,7 +73,7 @@ class TableViewController: UITableViewController {
 extension TableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 2  //TODO: change to the certain num of the tab bar type
+        return SessionManager.instance.dorm!.affair.count  //TODO: change to the certain num of the tab bar type
     }
 
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

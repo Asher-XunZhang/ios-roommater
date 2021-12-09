@@ -4,6 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -30,12 +32,55 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ibX-bf-9ra" kind="relationship" relationship="rootViewController" id="Jlr-L5-BL0"/>
+                        <segue destination="4We-i0-0hf" kind="relationship" relationship="rootViewController" id="lVU-Aa-iSg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0uD-Xo-ghu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1048" y="139"/>
+        </scene>
+        <!--Segment View Controller-->
+        <scene sceneID="G9t-4b-IKe">
+            <objects>
+                <viewController restorationIdentifier="dashboardPage" storyboardIdentifier="dashboardPage" id="4We-i0-0hf" customClass="SegmentViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hSG-vb-yaJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pph-d6-bGw">
+                                <rect key="frame" x="10" y="64" width="355" height="32"/>
+                                <segments>
+                                    <segment title="Affaris"/>
+                                    <segment title="Billings"/>
+                                </segments>
+                                <connections>
+                                    <action selector="ChangeMode:" destination="4We-i0-0hf" eventType="valueChanged" id="Arl-F6-phM"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abK-dw-7Bx">
+                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
+                                <connections>
+                                    <segue destination="ibX-bf-9ra" kind="embed" identifier="go_to_affairs" id="DJi-Wv-UrM"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DaI-ah-cRm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DaI-ah-cRm" firstAttribute="trailing" secondItem="Pph-d6-bGw" secondAttribute="trailing" constant="10" id="5BL-Mj-3v8"/>
+                            <constraint firstItem="DaI-ah-cRm" firstAttribute="bottom" secondItem="abK-dw-7Bx" secondAttribute="bottom" id="7qo-Yo-umI"/>
+                            <constraint firstItem="Pph-d6-bGw" firstAttribute="top" secondItem="DaI-ah-cRm" secondAttribute="top" constant="20" id="Ba8-Bt-4eW"/>
+                            <constraint firstItem="abK-dw-7Bx" firstAttribute="top" secondItem="Pph-d6-bGw" secondAttribute="bottom" constant="10" id="GWe-RY-OUR"/>
+                            <constraint firstItem="Pph-d6-bGw" firstAttribute="leading" secondItem="DaI-ah-cRm" secondAttribute="leading" constant="10" id="Jtp-bd-7K4"/>
+                            <constraint firstItem="DaI-ah-cRm" firstAttribute="trailing" secondItem="abK-dw-7Bx" secondAttribute="trailing" id="KfG-y3-uAw"/>
+                            <constraint firstItem="abK-dw-7Bx" firstAttribute="leading" secondItem="DaI-ah-cRm" secondAttribute="leading" id="Pv6-63-W6l"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="OZU-bi-U8v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lKn-Rf-XsU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="907"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="ZXg-Cn-EJq">
@@ -451,10 +496,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPs-js-szU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644.8000000000002" y="138.53073463268368"/>
+            <point key="canvasLocation" x="2821" y="364"/>
         </scene>
     </scenes>
     <resources>
         <image name="house" catalog="system" width="128" height="106"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

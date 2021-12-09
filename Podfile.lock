@@ -3,6 +3,7 @@ PODS:
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
   - CryptoSwift (1.4.2)
+  - FoldingCell (5.0.2)
   - Former (1.8.1)
   - loady (1.0.7)
   - Nuke (10.5.2)
@@ -19,12 +20,14 @@ PODS:
     - SwiftyGif (~> 5.4)
   - SwiftEventBus (5.0.0)
   - SwiftyGif (5.4.1)
+  - TaggerKit (0.6.1)
   - TransitionButton (0.5.3)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - CryptoSwift
+  - FoldingCell
   - Former
   - loady
   - SkyFloatingLabelTextField
@@ -33,6 +36,7 @@ DEPENDENCIES:
   - StreamChat
   - StreamChatUI
   - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
+  - TaggerKit
   - TransitionButton
 
 SPEC REPOS:
@@ -40,6 +44,7 @@ SPEC REPOS:
     - Alamofire
     - AlamofireImage
     - CryptoSwift
+    - FoldingCell
     - Former
     - loady
     - Nuke
@@ -50,6 +55,7 @@ SPEC REPOS:
     - StreamChat
     - StreamChatUI
     - SwiftyGif
+    - TaggerKit
     - TransitionButton
 
 EXTERNAL SOURCES:
@@ -66,6 +72,7 @@ SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   CryptoSwift: a532e74ed010f8c95f611d00b8bbae42e9fe7c17
+  FoldingCell: f92eb5fb9842319e7cd08c71533c98408b785099
   Former: f36edb5c1ac03755f8d6d03b26044b62de8c0b2d
   loady: f2acbcbd53bdeb55425e478304da2f7ff3ec706e
   Nuke: 62d6d401e2b3ce553151a6f5e2f9332878710fbd
@@ -77,8 +84,9 @@ SPEC CHECKSUMS:
   StreamChatUI: 4e8d01cb5d5f0f99faf2622c4870edbe65f6d95d
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
   SwiftyGif: 6895c887f5551618a3c5dd3ecb512419105bacca
+  TaggerKit: e88422048a006b409a37b37f24785dfcca69b5b2
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 6a1a781729ed6874e3ad4dd0f752dd77c8f313a8
+PODFILE CHECKSUM: 9895c3a6bc527a07c1f8923211294dc207474aba
 
 COCOAPODS: 1.11.2
