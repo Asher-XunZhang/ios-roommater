@@ -16,35 +16,23 @@ final class DashboardNavVC : UINavigationController {
         super.viewDidLoad()
         if SessionManager.instance.dorm != nil {
             performSegue(withIdentifier: "goToAffairs", sender:nil)
-            print("Go to affair")
         }else{
             performSegue(withIdentifier: "noRoom", sender: nil)
-            print("No room found")
         }
     }
 }
-
 
 class SegmentViewController: UIViewController{
+    @IBAction func AddNewAffair(_ sender: UIBarButtonItem){
+        performSegue(withIdentifier: "addAffair", sender: Affair())
+    }
     
-    @IBAction func ChangeMode(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex{
-            case 0:
-//                performSegue(withIdentifier: "goToAffairs", sender:nil)
-            break
-            case 1:
-                break
-//                performSegue(withIdentifier: "go_to_billings", sender: nil)
-            default:
-                break
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addAffair", let vc = segue.destination as? AffairFormViewController, let v = sender as? Affair{
+            vc.affairInfo = v
         }
     }
-    @IBAction func AddNewAffair(_ sender: UIBarButtonItem){
-        performSegue(withIdentifier: "addAffair", sender: nil)
-    }
-    
 }
-
 
 class TableViewController: UITableViewController {
 
@@ -63,7 +51,6 @@ class TableViewController: UITableViewController {
 
     // MARK: Helpers
     private func setup() {
-        print(SessionManager.instance.dorm?.affairs)
         cellHeights = Array(repeating: Const.closeCellHeight, count: SessionManager.instance.dorm?.affairs.count ?? 0)
         tableView.estimatedRowHeight = Const.closeCellHeight
         tableView.rowHeight = UITableView.automaticDimension
@@ -184,7 +171,6 @@ extension TableViewController {
         }, completion: nil)
     }
 }
-
 
 class EachCell: FoldingCell {
     var doneHandle : (()->Void)?

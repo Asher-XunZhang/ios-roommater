@@ -23,17 +23,19 @@
         <!--Dashboard-->
         <scene sceneID="Zcx-rd-NZz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JZC-8X-LvC" customClass="DashboardNavVC" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="JZC-8X-LvC" customClass="DashboardNavVC" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Dashboard" image="house" catalog="system" id="TnQ-q9-O11"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xc-Q8-EOO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Di3-k2-Y5h">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
-                        <segue destination="4We-i0-0hf" kind="show" identifier="goToAffairs" id="uLc-np-GTJ"/>
                         <segue destination="6Ca-RZ-vQ9" kind="presentation" identifier="noRoom" modalPresentationStyle="fullScreen" id="jyq-x8-UEd"/>
+                        <segue destination="4We-i0-0hf" kind="show" identifier="goToAffairs" id="Ket-Nz-VWE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0uD-Xo-ghu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -71,24 +73,11 @@
                                 </items>
                             </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abK-dw-7Bx">
-                                <rect key="frame" x="0.0" y="87" width="375" height="560"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="591"/>
                                 <connections>
-                                    <segue destination="ibX-bf-9ra" kind="embed" identifier="" id="DJi-Wv-UrM"/>
+                                    <segue destination="ibX-bf-9ra" kind="embed" id="OEe-Er-HQG"/>
                                 </connections>
                             </containerView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pph-d6-bGw">
-                                <rect key="frame" x="0.0" y="56" width="375" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="Hwd-FH-k3x"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Affaris"/>
-                                    <segment title="Billings"/>
-                                </segments>
-                                <connections>
-                                    <action selector="ChangeMode:" destination="4We-i0-0hf" eventType="valueChanged" id="Arl-F6-phM"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DaI-ah-cRm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -97,12 +86,9 @@
                             <constraint firstItem="DaI-ah-cRm" firstAttribute="trailing" secondItem="abK-dw-7Bx" secondAttribute="trailing" id="Hd3-8L-uBi"/>
                             <constraint firstItem="Gd0-wt-aeU" firstAttribute="leading" secondItem="DaI-ah-cRm" secondAttribute="leading" id="Hos-qZ-swk"/>
                             <constraint firstItem="abK-dw-7Bx" firstAttribute="bottom" secondItem="DaI-ah-cRm" secondAttribute="bottom" id="MRC-9Q-P7B"/>
-                            <constraint firstItem="Pph-d6-bGw" firstAttribute="leading" secondItem="DaI-ah-cRm" secondAttribute="leading" id="aig-H0-BjN"/>
-                            <constraint firstItem="abK-dw-7Bx" firstAttribute="top" secondItem="Pph-d6-bGw" secondAttribute="bottom" id="nNZ-rz-fPW"/>
-                            <constraint firstItem="Pph-d6-bGw" firstAttribute="top" secondItem="Gd0-wt-aeU" secondAttribute="bottom" id="nlL-LG-gf4"/>
+                            <constraint firstItem="abK-dw-7Bx" firstAttribute="top" secondItem="Gd0-wt-aeU" secondAttribute="bottom" id="ZX6-YU-l50"/>
                             <constraint firstItem="Gd0-wt-aeU" firstAttribute="trailing" secondItem="DaI-ah-cRm" secondAttribute="trailing" id="phA-TD-9Sv"/>
                             <constraint firstItem="Gd0-wt-aeU" firstAttribute="top" secondItem="DaI-ah-cRm" secondAttribute="top" id="wDl-sv-pLf"/>
-                            <constraint firstItem="DaI-ah-cRm" firstAttribute="trailing" secondItem="Pph-d6-bGw" secondAttribute="trailing" id="zRW-dB-8BC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Test" id="OZU-bi-U8v"/>
@@ -173,7 +159,7 @@
             <objects>
                 <viewController id="u16-FB-bac" customClass="AffairFormViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pQh-ss-7Ym">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="560"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="591"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-MI-gGb">
@@ -204,7 +190,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RCC-ha-7gf">
-                                <rect key="frame" x="0.0" y="50" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="541"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -231,9 +217,9 @@
         <!--Table View Controller-->
         <scene sceneID="ZXg-Cn-EJq">
             <objects>
-                <tableViewController storyboardIdentifier="MainTableViewController" id="ibX-bf-9ra" customClass="TableViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainTableViewController" modalPresentationStyle="fullScreen" id="ibX-bf-9ra" customClass="TableViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="552" sectionHeaderHeight="28" sectionFooterHeight="28" id="trl-AZ-755">
-                        <rect key="frame" x="0.0" y="0.0" width="601" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="601" height="869"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -525,15 +511,15 @@
                             <outlet property="delegate" destination="ibX-bf-9ra" id="K6l-4i-niT"/>
                         </connections>
                     </tableView>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="601" height="820"/>
+                    <navigationItem key="navigationItem" id="LQe-fK-FsI"/>
+                    <size key="freeformSize" width="601" height="869"/>
                     <connections>
                         <segue destination="u16-FB-bac" kind="presentation" identifier="edit" modalPresentationStyle="fullScreen" id="QuC-e7-RkM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPs-js-szU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2821.5999999999999" y="363.41829085457272"/>
+            <point key="canvasLocation" x="2817" y="599"/>
         </scene>
     </scenes>
     <resources>

@@ -100,7 +100,6 @@ class UserInfo : RoommateInfo {
         super.init(data: data)
         if let value = data["username"] as? String{self.username = value}
         if let value = data["email"] as? String{self.email = value}
-        
         RoomInfo.users[uid] = RoommateInfo(nickname: self.nickname, uid: self.uid, rating: self.rating, avatar: self.avatar)
 
         if let value = data["dorm"] as? Int, value > 0 {

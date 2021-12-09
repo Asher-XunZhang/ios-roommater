@@ -137,13 +137,11 @@ class RoomHostController : PrototypeViewController {
 
 class AffairFormViewController: UIViewController {
     @IBOutlet var tableView : UITableView!
-    var affairInfo: Affair?
-    var selectedUser : [RoommateInfo] = []
+    var affairInfo : Affair!
 
     private lazy var former: Former = Former(tableView: tableView)
 
     // MARK: Public
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -153,26 +151,24 @@ class AffairFormViewController: UIViewController {
         switch(sender.tag){
         case 2: // the save button
             //TODO: ADD THIS AFFAIR FROM LOCAL AND SERVER
-                if let a = affairInfo {
-                    APIAction.postAffiar(data: [
-                        "what": a.title ?? "New Affair",
-                        "when" : a.date.timeIntervalSince1970,
-                        "who" : [selectedUser.map({ $0.uid })],
-                        "desciption" : a.des ?? ""
-                    ]){ res in
-                        switch res {
-                            case .Success(let data):
-                                SwiftEventBus.post("new_affair", sender: data)
-                            case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
-                                SPIndicator.present(title: msg, preset: .error)
-                        }
-                    }
+            if affairInfo.aid == "" {
+                APIAction.postAffiar(data: [
+                    "what": affairInfo.title ?? "New Affair",
+                    "when" : affairInfo.date.timeIntervalSince1970,
+                    "who" : [affairInfo.participant.map({ $0.uid })],
+                    "desciption" : affairInfo!.des ?? ""
+                ]){ res in switch res {
+                    case .Success(let data):
+                        print(data)
+                        SPIndicator.present(title: "Success", preset: .done)
+                        self.navigationController?.popViewController(animated: true)
+                    case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                        SPIndicator.present(title: msg, preset: .error)
                 }
-                
-            break
+                }
+            }
         case 1: // the cancle button
-            self.dismiss(animated: true, completion: nil)
-            break
+                self.navigationController?.popViewController(animated: true)
         case 3: // the trash button
             //TODO: REMOVE THIS AFFAIR FROM LOCAL AND SERVER
             break
@@ -191,17 +187,17 @@ class AffairFormViewController: UIViewController {
                 $0.titleLabel.textColor = .black
                 $0.titleLabel.font = .boldSystemFont(ofSize: 16)
                 $0.tintColor = .black
-                if self.affairInfo != nil, self.affairInfo!.participant.contains(where: {$0.uid == user.uid}){
+                if self.affairInfo.participant.contains(where: {$0.uid == user.uid}){
                     $0.isSelected = true
                 }
             }.onCheckChanged{
                 if $0 {
-                    if !self.selectedUser.contains(user) {
-                        self.selectedUser.append(user)
+                    if !self.affairInfo.participant.contains(user) {
+                        self.affairInfo.participant.append(user)
                     }
                 }else{
-                    if let index = self.selectedUser.firstIndex(of: user) {
-                        self.selectedUser.remove(at: index)
+                    if let index = self.affairInfo.participant.firstIndex(of: user) {
+                        self.affairInfo.participant.remove(at: index)
                     }
                 }
             }
@@ -210,7 +206,7 @@ class AffairFormViewController: UIViewController {
 
     private func configure() {
         var type = ""
-        if affairInfo == nil {
+        if affairInfo.aid == "" {
             type = "Add"
         }else{
             type = "Edit"
@@ -231,7 +227,6 @@ class AffairFormViewController: UIViewController {
             if type == "Edit"{
                 $0.cell.textField.text = self.affairInfo?.title
             }
-
         }.onTextChanged{
             self.affairInfo?.title = $0
         }
@@ -270,8 +265,6 @@ class AffairFormViewController: UIViewController {
         }.onTextChanged{
             self.affairInfo?.des = $0
         }
-
-
 
         // Create Headers
 

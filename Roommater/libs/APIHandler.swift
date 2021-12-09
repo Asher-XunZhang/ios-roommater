@@ -61,11 +61,8 @@ enum Router : URLRequestConvertible {
     case fetchBill(roomID: String)
     case fetchAffair(roomID: String)
     case updateDormInfo(update: [String: Any])
-    case postBill
     case postAffair(data : [String: Any])
     case updateAffair(update: [String: Any])
-    case updateBill(update: [String: Any])
-    case deleteBill(bid: String)
     case deleteAffair(aid: String)
     
     var method: HTTPMethod {
@@ -96,8 +93,6 @@ enum Router : URLRequestConvertible {
             return .get
         case .updateDormInfo:
             return .patch
-        case .postBill:
-            return .post
         case .postAffair:
             return .post
         case .updateAffair:
@@ -108,15 +103,11 @@ enum Router : URLRequestConvertible {
             return .post
         case .deleteDorm:
             return .delete
-        case .deleteBill:
-            return .delete
         case .deleteAffair:
             return .delete
         case .unbindDorm:
             return .delete
         case .updateAvatar:
-            return .patch
-        case .updateBill:
             return .patch
         }
     }
@@ -149,8 +140,6 @@ enum Router : URLRequestConvertible {
             return "/dorm/affairs"
         case .updateDormInfo:
             return "/affair/update"
-        case .postBill:
-            return "/bill/new"
         case .postAffair:
             return "/affair/add"
         case .bindDorm:
@@ -163,14 +152,10 @@ enum Router : URLRequestConvertible {
             return "/room/destroy"
         case .updateAffair:
             return "/affair/update"
-        case .deleteBill:
-            return "/bill/destroy"
         case .deleteAffair:
             return "/affair/destroy"
         case .updateAvatar:
             return "/user/updateAvatar"
-        case .updateBill:
-            return "/bill/update"
         }
     }
 
@@ -211,19 +196,13 @@ enum Router : URLRequestConvertible {
                 return (path, ["room": roomID])
             case .updateDormInfo(update: let update):
                 return (path, update)
-            case .postBill:
-                return (path, [:])
             case .postAffair(data: let data):
                 return (path, data)
             case .updateAffair:
                 return (path, [:])
-            case .deleteBill(bid: let bid):
-                return (path, ["billID": bid])
             case .deleteAffair(aid: let aid):
                 return (path, ["affairID": aid])
             case .updateAvatar:
-                return (path, [:])
-            case .updateBill(update: let update):
                 return (path, [:])
             }
         }()
@@ -265,7 +244,7 @@ class APIAction {
     }
     
     //MARK: StreamChat Init
-    @discardableResult private static func initChat() -> Bool{
+    @discardableResult static func initChat() -> Bool{
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
         ChatClient.shared = ChatClient(config: config)
         var res = true
@@ -286,6 +265,7 @@ class APIAction {
                     switch (res.response?.statusCode) {
                         case 200: if let json = res.value as? [String:Any] {
                             DispatchQueue.main.async {
+                                print(json)
                                 if json["err"] as! Int == 0 , let data = json["res"] as? [String:Any] {
                                     UserDefaults.standard.set(data["token"] as? String, forKey: "token")
                                     SwiftEventBus.post("login")
@@ -316,8 +296,7 @@ class APIAction {
                             DispatchQueue.main.async {
                                 if json["err"] as! Int == 0 , let data = json["res"] as? [String:Any] {
                                     UserDefaults.standard.set(data["token"] as? String, forKey: "token")
-                                    SwiftEventBus.post("login")
-                                    SessionManager.instance.initUser(data: data)
+                                    SessionManager.instance.user?.update(data: data)
                                     if initChat() {
                                         callback(
                                             Result.handleCode(
@@ -574,7 +553,22 @@ class APIAction {
     
     static func deleteBill(bid: String, callback: @escaping (Result) -> Void){}
     
-    static func postAffiar(data: [String: Any], callback: @escaping (Result) -> Void){}
+    static func postAffiar(data: [String: Any], callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(Router.postAffair(data: data)).responseJSON { res in
+                switch (res.response?.statusCode) {
+                    case 200: if let json = res.value as? [String:Any] {
+                        DispatchQueue.main.async {
+                            if json["err"] as! Int == 0 , let data = json["res"] as? [String:Any] {
+                                callback(.Success(data as AnyObject))
+                            }else { callback(.Error("Failed to init account!")) }
+                        }
+                    }
+                    default: DispatchQueue.main.async {callback(.Fail("Error API request: \(res.response?.statusCode ?? 500)!"))}
+                }
+            }
+        }
+    }
     
     static func updateAffiar(aid: String, updates: [String: Any], callback: @escaping (Result) -> Void){}
     

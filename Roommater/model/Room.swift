@@ -20,7 +20,6 @@ class RoomInfo : NSObject, NSSecureCoding {
         coder.encode(roomChatId, forKey: "CID")
         coder.encode(residents, forKey: "Residents")
         coder.encode(owner, forKey: "Owner")
-        coder.encode(bills, forKey: "Bills")
         coder.encode(affairs, forKey: "Affairs")
     }
     
@@ -33,7 +32,6 @@ class RoomInfo : NSObject, NSSecureCoding {
         owner = coder.decodeObject(forKey: "Owner") as? RoommateInfo
         roomChatId = coder.decodeObject(forKey: "CID") as? String
         affairs = coder.decodeObject(forKey: "Affairs") as? [Affair] ?? []
-        bills = coder.decodeObject(forKey: "Bills") as? [Bill]
     }
     
     static var users : [String : RoommateInfo] = [:]
@@ -43,7 +41,6 @@ class RoomInfo : NSObject, NSSecureCoding {
     var maxMemeber : Int!
     var owner : RoommateInfo!
     var residents : [RoommateInfo]!
-    var bills : [Bill]!
     var roomChatId : String? = ""
     var affairs : [Affair] = []
     
@@ -87,51 +84,6 @@ class RoomInfo : NSObject, NSSecureCoding {
     }
 }
 
-class Bill : NSObject, NSSecureCoding {
-    static var supportsSecureCoding: Bool{
-        return true
-    }
-    
-    func encode(with coder: NSCoder) {
-        coder.encode(name, forKey: "Name")
-        coder.encode(due, forKey: "Due")
-        coder.encode(des, forKey: "Description")
-        coder.encode(spread, forKey: "Spread")
-        coder.encode(amount, forKey: "Amount")
-        coder.encode(isDone, forKey: "Done")
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init()
-        name = coder.decodeObject(forKey: "Name") as? String
-        due  = coder.decodeObject(forKey: "Due") as? Date
-        des  = coder.decodeObject(forKey: "Description") as? String
-        amount  = coder.decodeDouble(forKey: "Amount")
-        isDone  = coder.decodeBool(forKey: "Done")
-        spread = coder.decodeObject(forKey: "Spread") as? Dictionary
-    }
-    
-    init(data: [String:Any]) {
-        if let value = data["name"] as? String{name = value}
-        if let value = data["des"] as? String{des = value}
-        if let value = data["isDone"] as? Bool{isDone = value}
-        if let value = data["amount"] as? Double{amount = value}
-        if let value = data["due"] as? Double{amount = value}
-        
-    }
-    
-    var name: String!
-    var due : Date!
-    var des : String!
-    var spread : [RoommateInfo : Double]!
-    var amount : Double!
-    var isDone : Bool!
-    
-    func commit(){
-        
-    }
-}
-
 class Affair : NSObject, NSSecureCoding {
     static var supportsSecureCoding: Bool{
         return true
@@ -146,14 +98,16 @@ class Affair : NSObject, NSSecureCoding {
     }
     
     required init?(coder: NSCoder) {
+        super.init()
         title = coder.decodeObject(forKey: "Name") as? String
         des = coder.decodeObject(forKey: "Name") as? String
         participant = coder.decodeObject(forKey: "Participant") as? [RoommateInfo]
         date = coder.decodeObject(forKey: "Date") as? Date
-        aid = coder.decodeObject(forKey: "AID") as? String
+        aid = coder.decodeObject(forKey: "AID") as? String ?? ""
     }
     
     init(data: [String:Any]) {
+        super.init()
         if let value = data["what"] as? String {title = value}
         if let value = data["description"] as? String {des = value}
         if let value = data["when"] as? Double {date = Date(timeIntervalSince1970: value)}
@@ -162,10 +116,15 @@ class Affair : NSObject, NSSecureCoding {
         }
     }
     
-    var aid : String!
+    override init() {
+        super.init()
+        participant = [SessionManager.instance.user!]
+    }
+    
+    var aid : String = ""
     var title : String!
     var des : String!
-    var date : Date!
+    var date : Date! = Date()
     var participant : [RoommateInfo]!
     
     func commit(){

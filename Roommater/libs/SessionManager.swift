@@ -29,21 +29,6 @@ class SessionManager{
     var user : UserInfo?
     var dorm : RoomInfo?
     
-    init() {
-        SwiftEventBus.onBackgroundThread(self, name: "login"){ _ in
-            ImageDownloader.instance = ImageDownloader(
-                configuration: APIAction.getDefaultURLSessionConfig(),
-                downloadPrioritization: .fifo,
-                maximumActiveDownloads: 4,
-                imageCache: SessionManager.imageCache
-            )
-        }
-        
-        SwiftEventBus.onBackgroundThread(self, name: "logout"){ _ in
-            ImageDownloader.instance = nil
-        }
-    }
-    
     func userPreCheck() -> Bool {
         if UserDefaults.standard.string(forKey: "token") != nil, FileManager.default.fileExists(atPath: ObjectPath.user.path.path){
             if let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.user.path.path) as? UserInfo {

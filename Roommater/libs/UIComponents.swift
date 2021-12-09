@@ -9,34 +9,6 @@ import Foundation
 import UIKit
 
 // classes
-class NoNullTextField: UITextField{
-//    func showToolTip() {
-//        let tipWidth: CGFloat = 200
-//        let tipHeight: CGFloat = 80
-//        let tipX = self.frame.midX - tipWidth / 2
-//        let tipY: CGFloat = self.frame.minY - tipHeight
-//        let tipView = ToolTipView(frame: CGRect(x: tipX, y: tipY, width: tipWidth, height: tipHeight), text: "Hello User! This is a sample tool tip", tipPos: .middle)
-//       UIApplication.shared.keyWindow?.addSubview(tipView)
-//        UIApplication.shared.keyWindow?.removeFromSuperview()
-//       performShow(tipView)
-//    }
-//    func performShow(_ v: UIView?) {
-//       v?.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-//       UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
-//         v?.transform = .identity
-//       })
-//    }
-}
-
-class UsernameTextField: NoNullTextField{
-}
-class PasswordTextField: NoNullTextField{
-}
-class RePasswordTextField: NoNullTextField{
-}
-class EmailTextField: NoNullTextField{
-}
-
 class PrototypeViewController: UIViewController, UITextViewDelegate{
     var keyboardMarginY:CGFloat = 0
     var keyboardAnimitionDuration: TimeInterval = 0
@@ -54,9 +26,6 @@ class PrototypeViewController: UIViewController, UITextViewDelegate{
     deinit{
         NotificationCenter.default.removeObserver(self)
     }
-//}
-//
-//extension PrototypeViewController: UITextFieldDelegate{
     
     @objc func textFieldDone(_ textField: UITextField){}
     
@@ -126,8 +95,6 @@ class PrototypeViewController: UIViewController, UITextViewDelegate{
     }
 }
     
-    
-    
 class PrototypeButton:UIButton{
     func notAvailableAction(){
         notAvailableUI()
@@ -165,71 +132,3 @@ struct MyRegex {
         }
     }
 }
-
-//enum ToolTipPosition: Int {
-//     case left
-//     case right
-//     case middle
-//}
-//class ToolTipView: UIView {
-//
-//    var roundRect:CGRect!
-//    let toolTipWidth : CGFloat = 20.0
-//    let toolTipHeight : CGFloat = 12.0
-//    let tipOffset : CGFloat = 20.0
-//    var tipPosition : ToolTipPosition = .middle
-//
-//    convenience init(frame: CGRect, text : String, tipPos: ToolTipPosition){
-//       self.init(frame: frame)
-//       self.tipPosition = tipPos
-//       createLabel(text)
-//    }
-//
-//    func createLabel(_ text : String){
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: self.frame.height - self.toolTipHeight))
-//        label.text = text
-//        label.textColor = .white
-//        label.textAlignment = .center
-//        label.numberOfLines = 0
-//        label.lineBreakMode = .byWordWrapping
-//        addSubview(label)
-//    }
-//
-//    func createTipPath() -> UIBezierPath{
-//        let tooltipRect = CGRect(x: roundRect.midX, y: roundRect.maxY, width: toolTipWidth, height: toolTipHeight)
-//       let trianglePath = UIBezierPath()
-//       trianglePath.move(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
-//       trianglePath.addLine(to: CGPoint(x: tooltipRect.maxX, y: tooltipRect.minY))
-//       trianglePath.addLine(to: CGPoint(x: tooltipRect.midX, y: tooltipRect.maxY))
-//       trianglePath.addLine(to: CGPoint(x: tooltipRect.minX, y: tooltipRect.minY))
-//       trianglePath.close()
-//       return trianglePath
-//    }
-//
-//    func drawToolTip(_ rect : CGRect){
-//        roundRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: rect.height - self.toolTipHeight)
-//       let roundRectBez = UIBezierPath(roundedRect: roundRect, cornerRadius: 5.0)
-//       let trianglePath = createTipPath()
-//       roundRectBez.append(trianglePath)
-//       let shape = createShapeLayer(roundRectBez.cgPath)
-//       self.layer.insertSublayer(shape, at: 0)
-//    }
-//
-//    func createShapeLayer(_ path : CGPath) -> CAShapeLayer{
-//       let shape = CAShapeLayer()
-//       shape.path = path
-//       shape.fillColor = UIColor.darkGray.cgColor
-//       shape.shadowColor = UIColor.black.withAlphaComponent(0.60).cgColor
-//       shape.shadowOffset = CGSize(width: 0, height: 2)
-//       shape.shadowRadius = 5.0
-//       shape.shadowOpacity = 0.8
-//       return shape
-//    }
-//
-//    override func draw(_ rect: CGRect) {
-//       super.draw(rect)
-//       drawToolTip(rect)
-//    }
-//}
-
-

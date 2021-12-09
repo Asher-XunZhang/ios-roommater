@@ -20,7 +20,7 @@ class AuthNavVC : UINavigationController {
                         SPIndicator.present(title: "Welcome Back!", preset: .done)
                     case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
                         SPIndicator.present(title: msg, preset: .error)
-                        UserDefaults.standard.removeObject(forKey: "token")
+                        SessionManager.instance.close()    
                         self.popViewController(animated: true)
                 }
             })
