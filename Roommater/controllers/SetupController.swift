@@ -12,7 +12,7 @@ import TransitionButton
 
 class AuthNavVC : UINavigationController {
     override func viewDidLoad() {
-        if SessionManager.instance.preCheck() {
+        if SessionManager.instance.userPreCheck() {
             self.performSegue(withIdentifier: "dashboardPage", sender: nil)
             APIAction.loginToken(callback: {res in
                 switch res {
