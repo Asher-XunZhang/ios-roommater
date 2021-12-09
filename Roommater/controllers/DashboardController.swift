@@ -39,6 +39,10 @@ class SegmentViewController: UIViewController{
                 break
         }
     }
+    @IBAction func AddNewAffair(_ sender: UIBarButtonItem){
+        performSegue(withIdentifier: "addAffair", sender: nil)
+    }
+    
 }
 
 
@@ -104,6 +108,19 @@ extension TableViewController {
         }
 
         cell.number = indexPath.row
+        cell.doneHandle = {
+            print("done")
+        }
+        
+        cell.editHandle = {
+            self.performSegue(withIdentifier: "edit", sender: SessionManager.instance.dorm?.affairs[indexPath.row])
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "edit", let data = sender as? Affair, let vc = segue.destination as? AffairFormViewController{
+            vc.affairInfo = data
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,10 +169,19 @@ extension TableViewController {
 
 
 class EachCell: FoldingCell {
-
+    var doneHandle : (()->Void)?
+    var editHandle : (()->Void)?
     @IBOutlet var closeNumberLabel: UILabel!
     @IBOutlet var openNumberLabel: UILabel!
-
+    
+    @IBAction func buttonHandler(_ sender: UIButton) {
+        if sender.titleLabel?.text == "Done"{
+            doneHandle?()
+        }else if sender.titleLabel?.text == "Edit"{
+            editHandle?()
+        }
+    }
+    
     var number: Int = 0 {
         didSet {
             closeNumberLabel.text = String(number)
@@ -172,14 +198,5 @@ class EachCell: FoldingCell {
     override func animationDuration(_ itemIndex: NSInteger, type _: FoldingCell.AnimationType) -> TimeInterval {
         let durations = [0.26, 0.2, 0.2]
         return durations[itemIndex]
-    }
-}
-
-// MARK: - Actions ⚡️
-
-extension EachCell{
-
-    @IBAction func buttonHandler(_: AnyObject) {
-        print("tap")
     }
 }

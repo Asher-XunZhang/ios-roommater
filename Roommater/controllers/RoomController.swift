@@ -115,48 +115,63 @@ class RoomHostController : PrototypeViewController {
     }
 }
 
-class AffairFormViewController: FormViewController {
-
+class AffairFormViewController: UIViewController {
+    @IBOutlet var tableView : UITableView!
+    var affairInfo: Affair?
+    
+    private lazy var former: Former = Former(tableView: tableView)
+    
     // MARK: Public
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
-
-    // MARK: Private
-
-    private enum Repeat {
-        case Never, Daily, Weekly, Monthly, Yearly
-        func title() -> String {
-            switch self {
-                case .Never: return "Never"
-                case .Daily: return "Daily"
-                case .Weekly: return "Weekly"
-                case .Monthly: return "Monthly"
-                case .Yearly: return "Yearly"
-            }
-        }
-        static func values() -> [Repeat] {
-            return [Daily, Weekly, Monthly, Yearly]
+    
+    @IBAction func buttonAction(_ sender: UIBarButtonItem){
+        switch(sender.tag){
+        case 1: // the save button
+            //TODO: ADD THIS AFFAIR FROM LOCAL AND SERVER
+            break
+        case 0: // the cancle button
+            self.dismiss(animated: true, completion: nil)
+            break
+        case 3: // the trash button
+            //TODO: REMOVE THIS AFFAIR FROM LOCAL AND SERVER
+            break
+        default:
+            break
         }
     }
     
+    
+    // MARK: Private
+    
     private lazy var subRowFormers: [RowFormer] = {
-        return (["A", "B" , "C"]).map { index -> RowFormer in
+        return (RoomInfo.users.values).map { user -> RowFormer in
             return CheckRowFormer<FormCheckCell>() {
-                $0.titleLabel.text = "Check\(index)"
+                $0.titleLabel.text = (user.nickname)!
                 $0.titleLabel.textColor = .black
                 $0.titleLabel.font = .boldSystemFont(ofSize: 16)
                 $0.tintColor = .black
-            }.onSelected{ row in
-                print(index)
+                if self.affairInfo != nil, self.affairInfo!.participant.contains(where: {$0.uid == user.uid}){
+                    $0.isSelected = true
+                }
+            }.onCheckChanged{
+                print($0) //TODO: CHANGE THIS TO ADD($0==TRUE) TO/REMOVE FROM THIS OBJECT TO THE MEMBER LIST
             }
         }
         }()
 
     private func configure() {
-        title = "Add Event"
+        var type = ""
+        if affairInfo == nil {
+            type = "Add"
+        }else{
+            type = "Edit"
+        }
+        
+        title = type + " Affair"
         tableView.contentInset.top = 10
         tableView.contentInset.bottom = 30
         tableView.contentOffset.y = -10
@@ -167,38 +182,34 @@ class AffairFormViewController: FormViewController {
             $0.textField.textColor = .black
             $0.textField.font = .systemFont(ofSize: 15)
         }.configure {
-            $0.placeholder = "Affairs title"
+            $0.placeholder = "Affair's Title"
+            if type == "Edit"{
+                $0.cell.textField.text = self.affairInfo?.title
+            }
+            
+        }.onTextChanged{
+            self.affairInfo?.title = $0
         }
         
         let dateRow = InlineDatePickerRowFormer<FormInlineDatePickerCell>() {
-            $0.titleLabel.text = "Start"
+            $0.titleLabel.text = "Date"
             $0.titleLabel.textColor = .black
             $0.titleLabel.font = .boldSystemFont(ofSize: 15)
             $0.displayLabel.textColor = .gray
             $0.displayLabel.font = .systemFont(ofSize: 15)
         }.inlineCellSetup {
             $0.datePicker.datePickerMode = .date
+            if type == "Edit"{
+                if let date = self.affairInfo?.date{
+                    $0.datePicker.date = date
+                    
+                }
+            }
+        }.onDateChanged{
+            self.affairInfo?.date = $0
         }.displayTextFromDate(String.mediumDateShortTime)
         
-        let repeatRow = InlinePickerRowFormer<FormInlinePickerCell, Repeat>() {
-            $0.titleLabel.text = "Repeat"
-            $0.titleLabel.textColor = .black
-            $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-            $0.displayLabel.textColor = .gray
-            $0.displayLabel.font = .systemFont(ofSize: 15)
-        }.configure {
-            let never = Repeat.Never
-            $0.pickerItems.append(
-                InlinePickerItem(title: never.title(),
-                                    displayTitle: NSAttributedString(string: never.title(), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]),
-                                    value: never)
-            )
-            $0.pickerItems += Repeat.values().map {
-                InlinePickerItem(title: $0.title(), value: $0)
-            }
-        }
-        
-        
+        let memeberRow = subRowFormers
         
         let detailRow = TextViewRowFormer<FormTextViewCell>() {
             $0.textView.textColor = .gray
@@ -206,6 +217,13 @@ class AffairFormViewController: FormViewController {
         }.configure {
             $0.placeholder = "Note"
             $0.rowHeight = 150
+            if type == "Edit"{
+                if let detail = affairInfo?.des {
+                    $0.cell.textView.text = detail
+                }
+            }
+        }.onTextChanged{
+            self.affairInfo?.des = $0
         }
         
         
@@ -223,9 +241,9 @@ class AffairFormViewController: FormViewController {
         
         let titleSection = SectionFormer(rowFormer: titleRow)
             .set(headerViewFormer: createHeader())
-        let timeSection = SectionFormer(rowFormer: dateRow, repeatRow)
+        let timeSection = SectionFormer(rowFormer: dateRow)
             .set(headerViewFormer: createHeader())
-        let memberSection = SectionFormer(rowFormers: subRowFormers)
+        let memberSection = SectionFormer(rowFormers: memeberRow)
             .set(headerViewFormer: createHeader())
         let noteSection = SectionFormer(rowFormer: detailRow)
             .set(headerViewFormer: createHeader())
