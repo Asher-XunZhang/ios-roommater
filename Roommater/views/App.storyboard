@@ -21,7 +21,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="X1b-qV-1ig" kind="relationship" relationship="viewControllers" id="B9a-mi-09i"/>
-                        <segue destination="gfH-c9-ilu" kind="relationship" relationship="viewControllers" id="Ucd-wl-eSh"/>
                         <segue destination="opo-Bn-xsW" kind="relationship" relationship="viewControllers" id="STn-Fr-F5P"/>
                         <segue destination="6Ic-dV-Wzo" kind="relationship" relationship="viewControllers" id="2qF-sV-NQr"/>
                     </connections>
@@ -83,7 +82,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecs-sH-Qag">
                                 <rect key="frame" x="92.5" y="470" width="229" height="44"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Join or host a room">
+                                <buttonConfiguration key="configuration" style="tinted" title="Join or host a room">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
                                     <color key="baseForegroundColor" systemColor="systemBlueColor"/>
                                 </buttonConfiguration>
@@ -120,16 +119,6 @@
             </objects>
             <point key="canvasLocation" x="3549" y="402"/>
         </scene>
-        <!--Pending-->
-        <scene sceneID="8Ak-Cy-RKj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Pending" id="gfH-c9-ilu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pending" image="bell" catalog="system" id="Nz5-R5-7em"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V1H-fW-hOA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1036" y="177"/>
-        </scene>
         <!--Setting-->
         <scene sceneID="s1m-4e-7Xb">
             <objects>
@@ -138,12 +127,11 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WxE-zd-bE2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1030" y="225"/>
+            <point key="canvasLocation" x="1032" y="190"/>
         </scene>
     </scenes>
     <resources>
         <image name="Error" width="32" height="32"/>
-        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="gear.circle" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="message" catalog="system" width="128" height="113"/>

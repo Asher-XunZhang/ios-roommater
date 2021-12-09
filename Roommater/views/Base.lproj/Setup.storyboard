@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="deT-Uk-ePT" kind="show" id="ajc-KH-ES5"/>
-                        <segue destination="deT-Uk-ePT" kind="relationship" relationship="rootViewController" id="sgh-tQ-dob"/>
+                        <segue destination="deT-Uk-ePT" kind="show" identifier="dashboardPage" id="ajc-KH-ES5"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2Gb-od-WMx"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOg-Kx-40f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -124,7 +124,7 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
@@ -206,7 +206,7 @@
             <objects>
                 <viewController id="WbT-Np-JLj" customClass="ForgotPasswordViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWk-E5-svw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter the email address for receiving the verification email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-au-w5n">
@@ -296,9 +296,6 @@
             <size key="intrinsicContentSize" width="288" height="42.80078125"/>
         </designable>
     </designables>
-    <inferredMetricsTieBreakers>
-        <segue reference="sgh-tQ-dob"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Icon" width="417" height="417"/>
         <systemColor name="systemBackgroundColor">

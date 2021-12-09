@@ -255,6 +255,7 @@ enum Router : URLRequestConvertible {
 }
 
 class APIAction {
+    
     static func getDefaultURLSessionConfig()-> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
         
@@ -322,9 +323,9 @@ class APIAction {
         }
     }
     
-    static func login(token: String, callback: @escaping (Result) -> Void){
+    static func loginToken(callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(Router.loginWithToken(token: token)).responseJSON { res  in
+            AF.request(Router.loginWithToken(token: UserDefaults.standard.string(forKey: "token") ?? "")).responseJSON { res  in
                     switch (res.response?.statusCode) {
                         case 200: if let json = res.value as? [String:Any] {
                             DispatchQueue.main.async {

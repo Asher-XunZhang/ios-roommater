@@ -26,7 +26,6 @@
 		B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C05C0F2724D66A0047C0C8 /* SettingController.swift */; };
 		B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C1E2724E76A0047C0C8 /* App.storyboard */; };
 		B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2027251E570047C0C8 /* Dashboard.storyboard */; };
-		B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2227251E8D0047C0C8 /* Pending.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
 		B6E435B0275D547700E56CD1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E435AF275D547700E56CD1 /* Utils.swift */; };
@@ -63,7 +62,6 @@
 		B6C05C0F2724D66A0047C0C8 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		B6C05C1E2724E76A0047C0C8 /* App.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = App.storyboard; sourceTree = "<group>"; };
 		B6C05C2027251E570047C0C8 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
-		B6C05C2227251E8D0047C0C8 /* Pending.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pending.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B6E435AF275D547700E56CD1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				B63E50FC270CA45B005F83EB /* Setup.storyboard */,
 				B6C05C1E2724E76A0047C0C8 /* App.storyboard */,
 				B6C05C2627251EA80047C0C8 /* Setting.storyboard */,
-				B6C05C2227251E8D0047C0C8 /* Pending.storyboard */,
 				B6C05C2027251E570047C0C8 /* Dashboard.storyboard */,
 				B6463700275EB15400AE83BC /* Room.storyboard */,
 			);
@@ -273,7 +270,6 @@
 				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
 				B6E435B4275D77D700E56CD1 /* ButtonCell.xib in Resources */,
 				B6E435B6275DD05700E56CD1 /* AvatarCell.xib in Resources */,
-				B6C05C2327251E8D0047C0C8 /* Pending.storyboard in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -55,7 +55,7 @@ struct Bill {
     var name: String
     var due : Date
     var des : String
-    var spread : [RoommateInfo : Double]
+    var spread : [String : Double]
     var amount : Double
     var isDone : Bool
 }
