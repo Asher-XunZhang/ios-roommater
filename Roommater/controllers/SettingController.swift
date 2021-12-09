@@ -66,13 +66,14 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
         APIAction.logout(callback: {res in
             switch res {
                 case .Success(_):
-                    self.navigationController?.navigationController?.popViewController(animated: true);
+                    SPIndicator.present(title: "You have logged out", preset: .done)
                 case .Fail(let msg), .Timeout(let msg), .Error(let msg):
                     SPIndicator.present(title: "Error", message: msg, preset: .error)
                 case .NONE:
                     SPIndicator.present(title: "Error", message: "Unknown Error", preset: .error)
             }
         })
+        self.navigationController?.navigationController?.popViewController(animated: true);
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -145,7 +145,7 @@ enum Router : URLRequestConvertible {
         case .bindDorm:
             return "/room/bind"
         case .unbindDorm:
-            return "/room/unbind"
+            return "/room/quit"
         case .createDorm:
             return "/room/host"
         case .deleteDorm:
@@ -268,7 +268,6 @@ class APIAction {
                                 print(json)
                                 if json["err"] as! Int == 0 , let data = json["res"] as? [String:Any] {
                                     UserDefaults.standard.set(data["token"] as? String, forKey: "token")
-                                    SwiftEventBus.post("login")
                                     SessionManager.instance.initUser(data: data)
                                     if initChat() {
                                             callback(
@@ -296,7 +295,7 @@ class APIAction {
                             DispatchQueue.main.async {
                                 if json["err"] as! Int == 0 , let data = json["res"] as? [String:Any] {
                                     UserDefaults.standard.set(data["token"] as? String, forKey: "token")
-                                    SessionManager.instance.user?.update(data: data)
+                                    SessionManager.instance.initUser(data: data)
                                     if initChat() {
                                         callback(
                                             Result.handleCode(
@@ -344,7 +343,6 @@ class APIAction {
                         case 200:
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
-                                    // TODO: Obj should be implemented in next version
                                     callback(
                                         Result.handleCode(
                                             json["err"] as? Int ?? 600,
@@ -372,7 +370,6 @@ class APIAction {
                         case 200:
                             if let json = res.value as? [String:Any] {
                                 DispatchQueue.main.async {
-                                    
                                     
                                     callback(
                                         Result.handleCode(
@@ -526,24 +523,45 @@ class APIAction {
     
     static func joinDrom(code: String, callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(Router.bindDorm(code: code))
-                .responseJSON() { res in
-                    switch (res.response?.statusCode) {
-                        case 200:
-                            if let json = res.value as? [String:Any] {
-                                DispatchQueue.main.async {
-                                    callback(
-                                        Result.handleCode(
-                                            json["err"] as? Int ?? 600,
-                                            msg: json["msg"] as? String ?? "Error Phase the data",
-                                            Obj: json["res"] as AnyObject
-                                        )
+            AF.request(Router.bindDorm(code: code)).responseJSON() { res in
+                switch (res.response?.statusCode) {
+                    case 200:
+                        if let json = res.value as? [String:Any] {
+                            DispatchQueue.main.async {
+                                callback(
+                                    Result.handleCode(
+                                        json["err"] as? Int ?? 600,
+                                        msg: json["msg"] as? String ?? "Error Phase the data",
+                                        Obj: json["res"] as AnyObject
                                     )
-                                }
+                                )
                             }
-                        default: DispatchQueue.main.async {callback(.Fail("Error API request: \(res.response?.statusCode ?? 500)!"))}
-                    }
+                        }
+                    default: DispatchQueue.main.async {callback(.Fail("Error API request: \(res.response?.statusCode ?? 500)!"))}
                 }
+                }
+        }
+    }
+    
+    static func quitDorm(callback: @escaping (Result) -> Void){
+        DispatchQueue.global().async {
+            AF.request(Router.unbindDorm).responseJSON() { res in
+                switch (res.response?.statusCode) {
+                    case 200:
+                        if let json = res.value as? [String:Any] {
+                            DispatchQueue.main.async {
+                                callback(
+                                    Result.handleCode(
+                                        json["err"] as? Int ?? 600,
+                                        msg: json["msg"] as? String ?? "Error Phase the data",
+                                        Obj: json["res"] as AnyObject
+                                    )
+                                )
+                            }
+                        }
+                    default: DispatchQueue.main.async {callback(.Fail("Error API request: \(res.response?.statusCode ?? 500)!"))}
+                }
+            }
         }
     }
     

@@ -30,13 +30,27 @@ class RoomBindVC : PrototypeViewController {
         if let code = codeFld.text, code != ""{
             APIAction.joinDrom(code: code){ res in
                 switch res {
-                    case .Success(_):
+                    case .Success(let data):
+                        if SessionManager.instance.dorm == nil {SessionManager.instance.initDorm(data: data as! [String :Any])}
                         self.performSegue(withIdentifier: "join", sender: nil)
                     case .Error(let msg), .NONE(let msg), .Fail(let msg), .Timeout(let msg):
                         SPIndicator.present(title: msg, preset: .error)
                 }
             }
         }
+    }
+    
+    @IBAction func quit(){
+        APIAction.logout(callback: {res in
+            switch res {
+                case .Success(_):
+                    self.dismiss(animated: true);
+                case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+                    SPIndicator.present(title: "Error", message: msg, preset: .error)
+                case .NONE:
+                    SPIndicator.present(title: "Error", message: "Unknown Error", preset: .error)
+            }
+        })
     }
 }
 
@@ -159,7 +173,6 @@ class AffairFormViewController: UIViewController {
                     "desciption" : affairInfo!.des ?? ""
                 ]){ res in switch res {
                     case .Success(let data):
-                        print(data)
                         SPIndicator.present(title: "Success", preset: .done)
                         self.navigationController?.popViewController(animated: true)
                     case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
@@ -176,7 +189,6 @@ class AffairFormViewController: UIViewController {
             break
         }
     }
-
 
     // MARK: Private
 
@@ -242,7 +254,6 @@ class AffairFormViewController: UIViewController {
             if type == "Edit"{
                 if let date = self.affairInfo?.date{
                     $0.datePicker.date = date
-
                 }
             }
         }.onDateChanged{
@@ -267,7 +278,6 @@ class AffairFormViewController: UIViewController {
         }
 
         // Create Headers
-
         let createHeader: (() -> ViewFormer) = {
             return CustomViewFormer<FormHeaderFooterView>()
                 .configure {
@@ -276,7 +286,6 @@ class AffairFormViewController: UIViewController {
         }
 
         // Create SectionFormers
-
         let titleSection = SectionFormer(rowFormer: titleRow)
             .set(headerViewFormer: createHeader())
         let timeSection = SectionFormer(rowFormer: dateRow)
@@ -285,7 +294,6 @@ class AffairFormViewController: UIViewController {
             .set(headerViewFormer: createHeader())
         let noteSection = SectionFormer(rowFormer: detailRow)
             .set(headerViewFormer: createHeader())
-
         former.append(sectionFormer: titleSection, timeSection, memberSection, noteSection)
     }
 }
@@ -333,7 +341,7 @@ class RoomManageController : FormViewController {
             $0.subTextLabel.textColor = .green
         }
         .configure { row in
-            row.text = "Incite Code"
+            row.text = "Invite Code"
             row.subText = SessionManager.instance.dorm?.inviteCode
             row.textDisabledColor = .black
             row.subTextDisabledColor = .gray
@@ -346,5 +354,23 @@ class RoomManageController : FormViewController {
 
         former.append(sectionFormer: SectionFormer(rowFormer: roomID, cid, owner))
         former.append(sectionFormer: SectionFormer(rowFormer: inviteCode))
+        
+        let quit = CustomRowFormer<ButtonCell>(instantiateType: .Nib(nibName: "ButtonCell")){
+            $0.button.setTitle("Quit The Room", for: .normal)
+        }.configure{ row in
+            row.cell.buttonHandler = { btn in
+                APIAction.quitDorm{ res in
+                    btn.startLoading()
+                    switch res {
+                        case .Success(_):
+                            SPIndicator.present(title: "Success Quit the Room", preset: .done)
+                        case .Fail(let msg),.Timeout(let msg),.Error(let msg),.NONE(let msg):
+                            SPIndicator.present(title: msg, preset: .error)
+                            btn.stopLoading()
+                    }
+                }
+            }
+        }
+        former.append(sectionFormer: SectionFormer(rowFormer: quit))
     }
 }
