@@ -36,6 +36,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                 <rect key="frame" x="63" y="245.66666666666663" width="288" height="43"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="bWa-xb-RaK"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="gf3-BD-hks"/>
                                 </connections>
@@ -43,12 +46,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                 <rect key="frame" x="63" y="380.66666666666669" width="288" height="42.666666666666686"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42.670000000000002" id="A3J-8A-72E"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="OYB-J8-Xxb"/>
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
-                                <rect key="frame" x="203" y="330.66666666666669" width="148" height="31"/>
+                                <rect key="frame" x="63" y="330.66666666666669" width="288" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="IOj-ib-8xT"/>
                                 </constraints>
@@ -59,8 +65,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18r-9Z-xkn" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="111" y="502" width="192" height="34"/>
+                                <rect key="frame" x="111" y="482" width="192" height="54"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="iNx-w9-ZSE"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
                                 <rect key="frame" x="20" y="544" width="374" height="73"/>
@@ -88,7 +97,7 @@
                             <constraint firstItem="vwK-CI-N37" firstAttribute="bottom" secondItem="OSF-tJ-Lpf" secondAttribute="bottom" constant="75" id="7il-8F-dmb"/>
                             <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="18r-9Z-xkn" secondAttribute="centerX" id="FCE-51-GBO"/>
                             <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="csj-BB-hVO" secondAttribute="trailing" constant="117" id="GhV-Ny-nX9"/>
-                            <constraint firstItem="ouM-h3-mbC" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="203" id="K61-Vi-BXq"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="63" id="K61-Vi-BXq"/>
                             <constraint firstItem="ouM-h3-mbC" firstAttribute="top" secondItem="2og-8d-AWW" secondAttribute="bottom" constant="42" id="KtN-bI-KlP"/>
                             <constraint firstItem="OSF-tJ-Lpf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="RL2-7B-eBn"/>
                             <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="2og-8d-AWW" secondAttribute="centerX" id="RWq-SU-ZtV"/>
@@ -264,38 +273,6 @@
             <point key="canvasLocation" x="919" y="777"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="18r-9Z-xkn">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="2og-8d-AWW">
-            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
-        </designable>
-        <designable name="COY-YP-avc">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="L4B-2T-rvh">
-            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
-        </designable>
-        <designable name="cdO-2W-Vnk">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="d8N-za-wjd">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="dBv-VQ-kPl">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="iJo-OQ-R5P">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="uh5-7m-PFY">
-            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
-        </designable>
-        <designable name="z7N-O8-efu">
-            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Icon" width="417" height="417"/>
         <systemColor name="systemBackgroundColor">

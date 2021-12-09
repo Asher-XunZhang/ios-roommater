@@ -132,10 +132,7 @@ class UserInfo : RoommateInfo {
     
     func getAvatarRequest()->URLRequest?{
         let token = UserDefaults.standard.string(forKey: "token")
-        if avatar == "" || token == nil {
-            print("Find Avatar: \(avatar)")
-            return nil
-        }
+        if avatar == "" || token == nil {return nil}
         return URLRequest(url: URL(string: avatar)!)
     }
 }
