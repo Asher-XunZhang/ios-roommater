@@ -40,7 +40,7 @@
         <!--Table View Controller-->
         <scene sceneID="ZXg-Cn-EJq">
             <objects>
-                <tableViewController storyboardIdentifier="MainTableViewController" id="ibX-bf-9ra" customClass="TableViewController" customModule="FoldingCell_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainTableViewController" id="ibX-bf-9ra" customClass="TableViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="548" sectionHeaderHeight="28" sectionFooterHeight="28" id="trl-AZ-755">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
