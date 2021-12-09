@@ -4,6 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,6 +21,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="X1b-qV-1ig" kind="relationship" relationship="viewControllers" id="B9a-mi-09i"/>
+                        <segue destination="gfH-c9-ilu" kind="relationship" relationship="viewControllers" id="Ucd-wl-eSh"/>
                         <segue destination="opo-Bn-xsW" kind="relationship" relationship="viewControllers" id="STn-Fr-F5P"/>
                         <segue destination="6Ic-dV-Wzo" kind="relationship" relationship="viewControllers" id="2qF-sV-NQr"/>
                     </connections>
@@ -46,10 +49,86 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="CPw-9S-rX9" kind="relationship" relationship="rootViewController" id="96F-Qd-Otj"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tL7-CN-xn4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1555" y="402"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="pF0-dS-ycM">
+            <objects>
+                <viewController id="CPw-9S-rX9" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zMV-CF-X1l">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Error" translatesAutoresizingMaskIntoConstraints="NO" id="qZM-af-x38">
+                                <rect key="frame" x="143" y="165" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qZM-af-x38" secondAttribute="height" multiplier="1:1" id="SW8-gK-JpV"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't bind a dorm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPq-C3-rcM">
+                                <rect key="frame" x="85" y="356" width="244" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="jZB-Xv-9GG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecs-sH-Qag">
+                                <rect key="frame" x="92.5" y="470" width="229" height="44"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Join or host a room">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
+                                    <color key="baseForegroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ayd-Nm-nBT" kind="show" id="ti4-GD-lfZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LFh-DG-KaQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qZM-af-x38" firstAttribute="centerX" secondItem="zMV-CF-X1l" secondAttribute="centerX" id="5cK-ij-NQH"/>
+                            <constraint firstItem="qZM-af-x38" firstAttribute="top" secondItem="LFh-DG-KaQ" secondAttribute="top" constant="77" id="6Wh-4G-3uQ"/>
+                            <constraint firstItem="Ecs-sH-Qag" firstAttribute="top" secondItem="HPq-C3-rcM" secondAttribute="bottom" constant="58" id="9m6-4o-FKZ"/>
+                            <constraint firstItem="Ecs-sH-Qag" firstAttribute="centerX" secondItem="zMV-CF-X1l" secondAttribute="centerX" id="lAj-lg-TFq"/>
+                            <constraint firstItem="HPq-C3-rcM" firstAttribute="top" secondItem="qZM-af-x38" secondAttribute="bottom" constant="63" id="maD-if-exr"/>
+                            <constraint firstItem="LFh-DG-KaQ" firstAttribute="bottom" secondItem="qZM-af-x38" secondAttribute="bottom" constant="520" id="oSZ-bp-f5I"/>
+                            <constraint firstItem="HPq-C3-rcM" firstAttribute="centerX" secondItem="zMV-CF-X1l" secondAttribute="centerX" id="uv5-QQ-PSg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6FG-Nc-Jde"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EUl-2s-ZtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2689.8550724637685" y="399.77678571428572"/>
+        </scene>
+        <!--Room-->
+        <scene sceneID="mpN-u5-rUb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Room" id="ayd-Nm-nBT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="2s3-l2-iHC"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ddK-r6-XTH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3549" y="402"/>
+        </scene>
+        <!--Pending-->
+        <scene sceneID="8Ak-Cy-RKj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Pending" id="gfH-c9-ilu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pending" image="bell" catalog="system" id="Nz5-R5-7em"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V1H-fW-hOA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1036" y="177"/>
         </scene>
         <!--Setting-->
         <scene sceneID="s1m-4e-7Xb">
@@ -63,8 +142,19 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Error" width="32" height="32"/>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="gear.circle" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="message" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

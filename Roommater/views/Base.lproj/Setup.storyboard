@@ -33,48 +33,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="234" width="288" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="63" y="245.66666666666663" width="288" height="43"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="gf3-BD-hks"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="381" width="288" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="63" y="380.66666666666669" width="288" height="42.666666666666686"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="OYB-J8-Xxb"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
-                                <rect key="frame" x="203" y="331" width="148" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
+                                <rect key="frame" x="203" y="330.66666666666669" width="148" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="IOj-ib-8xT"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Forgot password?"/>
                                 <connections>
                                     <segue destination="WbT-Np-JLj" kind="show" id="9pB-QL-N8w"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18r-9Z-xkn" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="111" y="474" width="192" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18r-9Z-xkn" customClass="TransitionButton" customModule="TransitionButton">
+                                <rect key="frame" x="111" y="502" width="192" height="34"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
                                 <rect key="frame" x="20" y="544" width="374" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="vlU-Dd-xsy"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Don't have an account? Click here to signup!"/>
                                 <connections>
                                     <segue destination="M1R-gG-2lp" kind="show" id="XRB-4h-0eQ"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="csj-BB-hVO">
+                                <rect key="frame" x="117" y="20" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="csj-BB-hVO" secondAttribute="height" multiplier="1:1" id="8t9-MS-AJ6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vwK-CI-N37"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="z7N-O8-efu" secondAttribute="centerX" id="2fi-4z-2ld"/>
+                            <constraint firstItem="z7N-O8-efu" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="63" id="3a0-DO-F0w"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="bottom" secondItem="OSF-tJ-Lpf" secondAttribute="bottom" constant="75" id="7il-8F-dmb"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="18r-9Z-xkn" secondAttribute="centerX" id="FCE-51-GBO"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="csj-BB-hVO" secondAttribute="trailing" constant="117" id="GhV-Ny-nX9"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="203" id="K61-Vi-BXq"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="top" secondItem="2og-8d-AWW" secondAttribute="bottom" constant="42" id="KtN-bI-KlP"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="RL2-7B-eBn"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="2og-8d-AWW" secondAttribute="centerX" id="RWq-SU-ZtV"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="SP2-Xs-o1m"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="top" secondItem="18r-9Z-xkn" secondAttribute="bottom" constant="8" id="Uss-pl-hH7"/>
+                            <constraint firstItem="z7N-O8-efu" firstAttribute="top" secondItem="ouM-h3-mbC" secondAttribute="bottom" constant="19" id="VV5-2d-OX9"/>
+                            <constraint firstItem="csj-BB-hVO" firstAttribute="top" secondItem="vwK-CI-N37" secondAttribute="top" constant="20" id="Wx1-k4-p8C"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="trailing" secondItem="2og-8d-AWW" secondAttribute="trailing" id="ZFV-7x-0cJ"/>
+                            <constraint firstItem="18r-9Z-xkn" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="111" id="aay-8Z-vpz"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="trailing" secondItem="z7N-O8-efu" secondAttribute="trailing" id="blA-nd-aFA"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="ouM-h3-mbC" secondAttribute="trailing" constant="63" id="jLK-RK-WgP"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="18r-9Z-xkn" secondAttribute="trailing" constant="111" id="jPA-yf-yV3"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="z7N-O8-efu" secondAttribute="trailing" constant="63" id="kyP-F9-FRp"/>
+                            <constraint firstItem="csj-BB-hVO" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="117" id="ms5-L5-Xqd"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hPC-NK-kjV"/>
                     <size key="freeformSize" width="414" height="692"/>
@@ -271,6 +300,7 @@
         <segue reference="sgh-tQ-dob"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="Icon" width="417" height="417"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

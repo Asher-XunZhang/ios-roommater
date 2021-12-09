@@ -204,8 +204,19 @@ class SignupViewController: PrototypeViewController{
     
     func exec(){
         self.disableAllTextField()
-        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!, callback: handle)
+        APIAction.signup(username: usernameTextField.text!, pass: passwordTextField.text!,email: emailTextField.text!){ res in
+            switch res{
+                case .Success(_):
+                    self.signup.stopAnimation(animationStyle: .expand, completion: {
+                        self.navigationController?.popViewController(animated: true)
+                        SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
+                    })
+                case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                    self.signup.stopAnimation(animationStyle: .shake, completion: {SPIndicator.present(title: msg, preset: .error)})
+            }
+        }
     }
+    
     @IBAction func buttonAction(_ button: TransitionButton) {
         signup.startAnimation()
         exec()
@@ -245,8 +256,6 @@ class SignupViewController: PrototypeViewController{
         return false
         
     }
-    
-    
     
     private func checkUsernameStr()->String{
         if !(usernameMatcher.match(input: usernameTextField.text!)){
@@ -385,23 +394,6 @@ class SignupViewController: PrototypeViewController{
     override func textFieldDone(_ textField: UITextField) {
         textField.resignFirstResponder()
 //        buttonAction(signup)
-    }
-
-    func handle(res: Result){
-        switch res{
-        case .Success(_):
-            self.signup.stopAnimation(animationStyle: .expand, completion: {
-                self.navigationController?.popViewController(animated: true)
-                SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
-            })
-        case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-            print(msg)
-            self.signup.stopAnimation(animationStyle: .shake, completion: {
-                SPIndicator.present(title: "Error", message: msg, preset: .error)
-            })
-        case .NONE:
-            print("None")
-        }
     }
 }
 
