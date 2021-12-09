@@ -261,8 +261,5 @@ class RoomManageController : FormViewController {
     }
     
     private func initFormer(){
-        let roomIDLabel : {
-            
-        }
     }
 }
