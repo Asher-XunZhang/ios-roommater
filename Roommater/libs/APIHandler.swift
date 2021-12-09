@@ -38,15 +38,36 @@ enum AuthRoute: URLRequestConvertible {
         return URL(string: "http://localhost:1337/api/v1")!
     }
     
-    // case
+    // cases
+    // user
     case login(username: String, pass: String)
     case loginWithToken(token: String)
     case signup(username: String, pass: String, email: String)
     case recover(email: String)
     case fetchUser(token: String)
     case fetchToken(username: String)
-    case fetchDormInfo(roomID: String)
+    case updateInfo(update: [[String: Any]])
     case logout
+    
+    //dorm
+    case bindDorm
+    case unbindDorm
+    case createDorm
+    case deleteDorm(roomID: String)
+    case fetchDormInfo
+    case fetchEvent(roomID: String)
+    case fetchBill(roomID: String)
+    case fetchAffair(roomID: String)
+    case updateDormInfo(update: [[String: Any]])
+    case postEvent
+    case postBill
+    case postAffair
+    case updateEvent
+    case updateAffair
+    case deleteEvent(eid: String)
+    case deleteBill(bid: String)
+    case deleteAffair(aid: String)
+    
     
     var method: HTTPMethod {
         switch self {
@@ -55,7 +76,7 @@ enum AuthRoute: URLRequestConvertible {
         case .loginWithToken:
             return .post
         case .signup:
-            return .put
+            return .post
         case .recover:
             return .post
         case .fetchUser:
@@ -66,6 +87,40 @@ enum AuthRoute: URLRequestConvertible {
             return .post
         case .logout:
             return .post
+        case .updateInfo:
+            return .patch
+        case .fetchEvent:
+            return .get
+        case .fetchBill:
+            return .get
+        case .fetchAffair:
+            return .get
+        case .updateDormInfo:
+            return .patch
+        case .postEvent:
+            return .post
+        case .postBill:
+            return .post
+        case .postAffair:
+            return .post
+        case .updateEvent:
+            return .patch
+        case .updateAffair:
+            return .patch
+        case .bindDorm:
+            return .put
+        case .createDorm:
+            return .post
+        case .deleteDorm:
+            return .delete
+        case .deleteEvent:
+            return .delete
+        case .deleteBill:
+            return .delete
+        case .deleteAffair:
+            return .delete
+        case .unbindDorm:
+            return .delete
         }
     }
     
@@ -87,6 +142,40 @@ enum AuthRoute: URLRequestConvertible {
             return "/room/fetch"
         case .logout:
             return "/user/logout"
+        case .updateInfo:
+            return "/user/update"
+        case .fetchEvent:
+            return "/dorm/events"
+        case .fetchBill:
+            return "/dorm/bills"
+        case .fetchAffair:
+            return "/dorm/affairs"
+        case .updateDormInfo:
+            return "/affair/update"
+        case .postEvent:
+            return "/event/new"
+        case .postBill:
+            return "/bill/new"
+        case .postAffair:
+            return "/affair/new"
+        case .updateEvent:
+            return "/event/update"
+        case .bindDorm:
+            return "/room/bind"
+        case .unbindDorm:
+            return "/room/unbind"
+        case .createDorm:
+            return "/room/new"
+        case .deleteDorm:
+            return "/room/destroy"
+        case .updateAffair:
+            return "/affair/update"
+        case .deleteEvent:
+            return "/event/destroy"
+        case .deleteBill:
+            return "/bill/destroy"
+        case .deleteAffair:
+            return "/affair/destroy"
         }
     }
 
@@ -103,14 +192,49 @@ enum AuthRoute: URLRequestConvertible {
                 return (path, ["token": token])
             case .fetchToken(username: let username):
                 return (path, ["user": username])
-            case .fetchDormInfo(roomID: let roomID):
-                return (path, ["room": roomID])
+            case .fetchDormInfo:
+                return (path, [:])
             case .loginWithToken:
                 return (path, [:])
             case .logout:
                 return (path, [:])
+            case .updateInfo(update: let update):
+                <#code#>
+            case .bindDorm:
+                <#code#>
+            case .unbindDorm:
+                <#code#>
+            case .createDorm:
+                <#code#>
+            case .deleteDorm(roomID: let roomID):
+                <#code#>
+            case .fetchEvent(roomID: let roomID):
+                <#code#>
+            case .fetchBill(roomID: let roomID):
+                <#code#>
+            case .fetchAffair(roomID: let roomID):
+                <#code#>
+            case .updateDormInfo(update: let update):
+                <#code#>
+            case .postEvent:
+                <#code#>
+            case .postBill:
+                <#code#>
+            case .postAffair:
+                <#code#>
+            case .updateEvent:
+                <#code#>
+            case .updateAffair:
+                <#code#>
+            case .deleteEvent(eid: let eid):
+                <#code#>
+            case .deleteBill(bid: let bid):
+                <#code#>
+            case .deleteAffair(aid: let aid):
+                <#code#>
             }
         }()
+        
         var req = URLRequest(url: baseURL.appendingPathComponent(result.path))
         req.httpMethod = method.rawValue
         let token = UserDefaults.standard.string(forKey: "token")
@@ -295,7 +419,7 @@ class APIAction {
     static func fetchDormInfo(callback: @escaping (Result) -> Void){
         if let roomID = UserDefaults.standard.string(forKey: "room_id"){
             DispatchQueue.global().async {
-                AF.request(AuthRoute.fetchDormInfo(roomID: roomID))
+                AF.request(AuthRoute.fetchDormInfo)
                     .responseJSON() { res in
                         switch (res.response?.statusCode) {
                             case 200:

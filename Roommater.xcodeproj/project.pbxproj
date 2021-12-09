@@ -16,15 +16,16 @@
 		B63E5103270CA45D005F83EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63E5102270CA45D005F83EB /* Assets.xcassets */; };
 		B63E5106270CA45D005F83EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63E5104270CA45D005F83EB /* LaunchScreen.storyboard */; };
 		B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67D8ECE2723F76900BEFB62 /* DashboardController.swift */; };
+		B6A2B1EC2750B29C009D8F2E /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */; };
+		B6A2B1EF2750BFB0009D8F2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2B1EE2750BFB0009D8F2E /* User.swift */; };
+		B6A2B1F12750BFCD009D8F2E /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A2B1F02750BFCD009D8F2E /* Room.swift */; };
 		B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FE92710C6490032DEF2 /* SocketKit.swift */; };
-		B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AF3FED2710D8DA0032DEF2 /* User.swift */; };
 		B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C05C0F2724D66A0047C0C8 /* SettingController.swift */; };
 		B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C1E2724E76A0047C0C8 /* App.storyboard */; };
 		B6C05C2127251E570047C0C8 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2027251E570047C0C8 /* Dashboard.storyboard */; };
 		B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C05C2627251EA80047C0C8 /* Setting.storyboard */; };
 		B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D44953273CCA3600C9D0EC /* ChatController.swift */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
-		B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC251D2715D99600F55EBC /* Dorm.swift */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -44,15 +45,16 @@
 		B65C426C2718152300BBD581 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B67D8ECE2723F76900BEFB62 /* DashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		B69DF8DC270E9FEE009F41C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Setup.strings; sourceTree = "<group>"; };
+		B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		B6A2B1EE2750BFB0009D8F2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B6A2B1F02750BFCD009D8F2E /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		B6AF3FE92710C6490032DEF2 /* SocketKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketKit.swift; sourceTree = "<group>"; };
-		B6AF3FED2710D8DA0032DEF2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B6C05C0F2724D66A0047C0C8 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		B6C05C1E2724E76A0047C0C8 /* App.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = App.storyboard; sourceTree = "<group>"; };
 		B6C05C2027251E570047C0C8 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		B6C05C2627251EA80047C0C8 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		B6D44953273CCA3600C9D0EC /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
-		B6EC251D2715D99600F55EBC /* Dorm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dorm.swift; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.debug.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BDE161B3CDA89DF39A6B23 /* Pods-Roommater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.release.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,9 +123,9 @@
 		B63E50F5270CA45A005F83EB /* Roommater */ = {
 			isa = PBXGroup;
 			children = (
+				B6A2B1ED2750BF9C009D8F2E /* model */,
 				B628A1492724317D008E5B23 /* views */,
 				B67D8ECD2723F3B300BEFB62 /* libs */,
-				B67D8ECA2723F36C00BEFB62 /* models */,
 				B67D8EC92723F34600BEFB62 /* controllers */,
 				B63E50F6270CA45A005F83EB /* AppDelegate.swift */,
 				B63E50F8270CA45B005F83EB /* SceneDelegate.swift */,
@@ -144,23 +146,24 @@
 			path = controllers;
 			sourceTree = "<group>";
 		};
-		B67D8ECA2723F36C00BEFB62 /* models */ = {
-			isa = PBXGroup;
-			children = (
-				B6AF3FED2710D8DA0032DEF2 /* User.swift */,
-				B6EC251D2715D99600F55EBC /* Dorm.swift */,
-			);
-			path = models;
-			sourceTree = "<group>";
-		};
 		B67D8ECD2723F3B300BEFB62 /* libs */ = {
 			isa = PBXGroup;
 			children = (
 				5B5F684C2717F48C00B0DD6E /* UIComponents.swift */,
 				B6AF3FE92710C6490032DEF2 /* SocketKit.swift */,
 				B6EC25182715D7B500F55EBC /* APIHandler.swift */,
+				B6A2B1EB2750B29C009D8F2E /* SessionManager.swift */,
 			);
 			path = libs;
+			sourceTree = "<group>";
+		};
+		B6A2B1ED2750BF9C009D8F2E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B6A2B1EE2750BFB0009D8F2E /* User.swift */,
+				B6A2B1F02750BFCD009D8F2E /* Room.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,15 +292,16 @@
 			files = (
 				B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */,
 				5B5F684D2717F48C00B0DD6E /* UIComponents.swift in Sources */,
+				B6A2B1F12750BFCD009D8F2E /* Room.swift in Sources */,
+				B6A2B1EC2750B29C009D8F2E /* SessionManager.swift in Sources */,
 				B67D8ECF2723F76900BEFB62 /* DashboardController.swift in Sources */,
 				B63E50FB270CA45B005F83EB /* SetupController.swift in Sources */,
-				B6AF3FEE2710D8DA0032DEF2 /* User.swift in Sources */,
 				B63E50F7270CA45B005F83EB /* AppDelegate.swift in Sources */,
 				B63E50F9270CA45B005F83EB /* SceneDelegate.swift in Sources */,
 				B6C05C102724D66A0047C0C8 /* SettingController.swift in Sources */,
 				B6AF3FEA2710C6490032DEF2 /* SocketKit.swift in Sources */,
-				B6EC251E2715D99600F55EBC /* Dorm.swift in Sources */,
 				B6D44954273CCA3600C9D0EC /* ChatController.swift in Sources */,
+				B6A2B1EF2750BFB0009D8F2E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
