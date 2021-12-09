@@ -134,183 +134,141 @@ class RoomHostController : PrototypeViewController {
     }
 }
 
-class AddEventViewController: FormViewController {
+class AffairFormViewController: UIViewController {
+    @IBOutlet var tableView : UITableView!
+    var affairInfo: Affair?
 
-// MARK: Public
+    private lazy var former: Former = Former(tableView: tableView)
 
-override func viewDidLoad() {
-    super.viewDidLoad()
-    configure()
-}
+    // MARK: Public
 
-// MARK: Private
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+    }
 
-private enum Repeat {
-    case Never, Daily, Weekly, Monthly, Yearly
-    func title() -> String {
-        switch self {
-            case .Never: return "Never"
-            case .Daily: return "Daily"
-            case .Weekly: return "Weekly"
-            case .Monthly: return "Monthly"
-            case .Yearly: return "Yearly"
+    @IBAction func buttonAction(_ sender: UIBarButtonItem){
+        switch(sender.tag){
+        case 2: // the save button
+            //TODO: ADD THIS AFFAIR FROM LOCAL AND SERVER
+            break
+        case 1: // the cancle button
+            self.dismiss(animated: true, completion: nil)
+            break
+        case 3: // the trash button
+            //TODO: REMOVE THIS AFFAIR FROM LOCAL AND SERVER
+            break
+        default:
+            break
         }
     }
-    static func values() -> [Repeat] {
-        return [Daily, Weekly, Monthly, Yearly]
-    }
-}
 
-private enum Alert {
-    case None, AtTime, Five, Thirty, Hour, Day, Week
-    func title() -> String {
-        switch self {
-            case .None: return "None"
-            case .AtTime: return "At time of event"
-            case .Five: return "5 minutes before"
-            case .Thirty: return "30 minutes before"
-            case .Hour: return "1 hour before"
-            case .Day: return "1 day before"
-            case .Week: return "1 week before"
-        }
-    }
-    static func values() -> [Alert] {
-        return [AtTime, Five, Thirty, Hour, Day, Week]
-    }
-}
 
-private func configure() {
-    title = "Add Event"
-    tableView.contentInset.top = 10
-    tableView.contentInset.bottom = 30
-    tableView.contentOffset.y = -10
-    
-    // Create RowFomers
-    
-    let titleRow = TextFieldRowFormer<FormTextFieldCell>() {
-        $0.textField.textColor = .black
-        $0.textField.font = .systemFont(ofSize: 15)
-    }.configure {
-        $0.placeholder = "Event title"
-    }
-    let locationRow = TextFieldRowFormer<FormTextFieldCell>() {
-        $0.textField.textColor = .black
-        $0.textField.font = .systemFont(ofSize: 15)
-    }.configure {
-        $0.placeholder = "Location"
-    }
-    let startRow = InlineDatePickerRowFormer<FormInlineDatePickerCell>() {
-        $0.titleLabel.text = "Start"
-        $0.titleLabel.textColor = .black
-        $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-        $0.displayLabel.textColor = .gray
-        $0.displayLabel.font = .systemFont(ofSize: 15)
-    }.inlineCellSetup {
-        $0.datePicker.datePickerMode = .dateAndTime
-    }.displayTextFromDate(String.mediumDateShortTime)
-    let endRow = InlineDatePickerRowFormer<FormInlineDatePickerCell>() {
-        $0.titleLabel.text = "End"
-        $0.titleLabel.textColor = .black
-        $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-        $0.displayLabel.textColor = .gray
-        $0.displayLabel.font = .systemFont(ofSize: 15)
-    }.inlineCellSetup {
-        $0.datePicker.datePickerMode = .dateAndTime
-    }.displayTextFromDate(String.mediumDateShortTime)
-    let allDayRow = SwitchRowFormer<FormSwitchCell>() {
-        $0.titleLabel.text = "All-day"
-        $0.titleLabel.textColor = .black
-        $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-        $0.switchButton.onTintColor = .gray
-    }.onSwitchChanged { on in
-        startRow.update {
-            $0.displayTextFromDate(
-                on ? String.mediumDateNoTime : String.mediumDateShortTime
-            )
-        }
-        startRow.inlineCellUpdate {
-            $0.datePicker.datePickerMode = on ? .date : .dateAndTime
-        }
-        endRow.update {
-            $0.displayTextFromDate(
-                on ? String.mediumDateNoTime : String.mediumDateShortTime
-            )
-        }
-        endRow.inlineCellUpdate {
-            $0.datePicker.datePickerMode = on ? .date : .dateAndTime
-        }
-    }
-    let repeatRow = InlinePickerRowFormer<FormInlinePickerCell, Repeat>() {
-        $0.titleLabel.text = "Repeat"
-        $0.titleLabel.textColor = .black
-        $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-        $0.displayLabel.textColor = .gray
-        $0.displayLabel.font = .systemFont(ofSize: 15)
-    }.configure {
-        let never = Repeat.Never
-        $0.pickerItems.append(
-            InlinePickerItem(title: never.title(),
-                                displayTitle: NSAttributedString(string: never.title(), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]),
-                                value: never)
-        )
-        $0.pickerItems += Repeat.values().map {
-            InlinePickerItem(title: $0.title(), value: $0)
-        }
-    }
-    let alertRow = InlinePickerRowFormer<FormInlinePickerCell, Alert>() {
-        $0.titleLabel.text = "Alert"
-        $0.titleLabel.textColor = .black
-        $0.titleLabel.font = .boldSystemFont(ofSize: 15)
-        $0.displayLabel.textColor = .gray
-        $0.displayLabel.font = .systemFont(ofSize: 15)
-    }.configure {
-        let none = Alert.None
-        $0.pickerItems.append(
-            InlinePickerItem(title: none.title(),
-                                displayTitle: NSAttributedString(string: none.title(), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]),
-                                value: none)
-        )
-        $0.pickerItems += Alert.values().map {
-            InlinePickerItem(title: $0.title(), value: $0)
-        }
-    }
-    let urlRow = TextFieldRowFormer<FormTextFieldCell>() {
-        $0.textField.textColor = .gray
-        $0.textField.font = .systemFont(ofSize: 15)
-        $0.textField.keyboardType = .alphabet
-    }.configure {
-        $0.placeholder = "URL"
-    }
-    let noteRow = TextViewRowFormer<FormTextViewCell>() {
-        $0.textView.textColor = .gray
-        $0.textView.font = .systemFont(ofSize: 15)
-    }.configure {
-        $0.placeholder = "Note"
-        $0.rowHeight = 150
-    }
-    
-    // Create Headers
-    
-    let createHeader: (() -> ViewFormer) = {
-        return CustomViewFormer<FormHeaderFooterView>()
-            .configure {
-                $0.viewHeight = 20
+    // MARK: Private
+
+    private lazy var subRowFormers: [RowFormer] = {
+        return (RoomInfo.users.values).map { user -> RowFormer in
+            return CheckRowFormer<FormCheckCell>() {
+                $0.titleLabel.text = (user.nickname)!
+                $0.titleLabel.textColor = .black
+                $0.titleLabel.font = .boldSystemFont(ofSize: 16)
+                $0.tintColor = .black
+                if self.affairInfo != nil, self.affairInfo!.participant.contains(where: {$0.uid == user.uid}){
+                    $0.isSelected = true
+                }
+            }.onCheckChanged{
+                print($0) //TODO: CHANGE THIS TO ADD($0==TRUE) TO/REMOVE FROM THIS OBJECT TO THE MEMBER LIST
             }
+        }
+        }()
+
+    private func configure() {
+        var type = ""
+        if affairInfo == nil {
+            type = "Add"
+        }else{
+            type = "Edit"
+        }
+
+        self.title = type + " Affair"
+        self.tableView.contentInset.top = 10
+        self.tableView.contentInset.bottom = 30
+        self.tableView.contentOffset.y = -10
+
+        // Create RowFomers
+
+        let titleRow = TextFieldRowFormer<FormTextFieldCell>() {
+            $0.textField.textColor = .black
+            $0.textField.font = .systemFont(ofSize: 15)
+        }.configure {
+            $0.placeholder = "Affair's Title"
+            if type == "Edit"{
+                $0.cell.textField.text = self.affairInfo?.title
+            }
+
+        }.onTextChanged{
+            self.affairInfo?.title = $0
+        }
+
+        let dateRow = InlineDatePickerRowFormer<FormInlineDatePickerCell>() {
+            $0.titleLabel.text = "Date"
+            $0.titleLabel.textColor = .black
+            $0.titleLabel.font = .boldSystemFont(ofSize: 15)
+            $0.displayLabel.textColor = .gray
+            $0.displayLabel.font = .systemFont(ofSize: 15)
+        }.inlineCellSetup {
+            $0.datePicker.datePickerMode = .date
+            if type == "Edit"{
+                if let date = self.affairInfo?.date{
+                    $0.datePicker.date = date
+
+                }
+            }
+        }.onDateChanged{
+            self.affairInfo?.date = $0
+        }.displayTextFromDate(String.mediumDateShortTime)
+
+        let memeberRow = subRowFormers
+
+        let detailRow = TextViewRowFormer<FormTextViewCell>() {
+            $0.textView.textColor = .gray
+            $0.textView.font = .systemFont(ofSize: 15)
+        }.configure {
+            $0.placeholder = "Note"
+            $0.rowHeight = 150
+            if type == "Edit"{
+                if let detail = affairInfo?.des {
+                    $0.cell.textView.text = detail
+                }
+            }
+        }.onTextChanged{
+            self.affairInfo?.des = $0
+        }
+
+
+
+        // Create Headers
+
+        let createHeader: (() -> ViewFormer) = {
+            return CustomViewFormer<FormHeaderFooterView>()
+                .configure {
+                    $0.viewHeight = 20
+                }
+        }
+
+        // Create SectionFormers
+
+        let titleSection = SectionFormer(rowFormer: titleRow)
+            .set(headerViewFormer: createHeader())
+        let timeSection = SectionFormer(rowFormer: dateRow)
+            .set(headerViewFormer: createHeader())
+        let memberSection = SectionFormer(rowFormers: memeberRow)
+            .set(headerViewFormer: createHeader())
+        let noteSection = SectionFormer(rowFormer: detailRow)
+            .set(headerViewFormer: createHeader())
+
+        former.append(sectionFormer: titleSection, timeSection, memberSection, noteSection)
     }
-    
-    // Create SectionFormers
-    
-    let titleSection = SectionFormer(rowFormer: titleRow, locationRow)
-        .set(headerViewFormer: createHeader())
-    let dateSection = SectionFormer(rowFormer: allDayRow, startRow, endRow)
-        .set(headerViewFormer: createHeader())
-    let repeatSection = SectionFormer(rowFormer: repeatRow, alertRow)
-        .set(headerViewFormer: createHeader())
-    let noteSection = SectionFormer(rowFormer: urlRow, noteRow)
-        .set(headerViewFormer: createHeader())
-    
-    former.append(sectionFormer: titleSection, dateSection, repeatSection, noteSection)
-}
 }
 
 class RoomManageController : FormViewController {
@@ -330,7 +288,7 @@ class RoomManageController : FormViewController {
             row.textDisabledColor = .black
             row.subTextDisabledColor = .gray
         }
-        
+
         let cid = LabelRowFormer<FormLabelCell>(){
             $0.subTextLabel.adjustsFontSizeToFitWidth = true
         }
@@ -341,7 +299,7 @@ class RoomManageController : FormViewController {
                 row.textDisabledColor = .black
                 row.subTextDisabledColor = .gray
             }
-        
+
         let owner = LabelRowFormer<FormLabelCell>()
             .configure { row in
                 row.text = "Owner"
@@ -350,7 +308,7 @@ class RoomManageController : FormViewController {
                 row.textDisabledColor = .black
                 row.subTextDisabledColor = .gray
             }
-        
+
         let inviteCode = LabelRowFormer<FormLabelCell>(){
             $0.subTextLabel.font = .preferredFont(forTextStyle: .title2)
             $0.subTextLabel.textColor = .green
@@ -365,8 +323,8 @@ class RoomManageController : FormViewController {
             UIPasteboard.general.string = $0.subText
             SPIndicator.present(title: "Copied the invite code!", preset: .done)
         }
-        
-        
+
+
         former.append(sectionFormer: SectionFormer(rowFormer: roomID, cid, owner))
         former.append(sectionFormer: SectionFormer(rowFormer: inviteCode))
     }

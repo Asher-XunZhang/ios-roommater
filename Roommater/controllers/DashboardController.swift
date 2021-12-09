@@ -8,7 +8,42 @@ import UIKit
 import Foundation
 
 import FoldingCell
-//import TaggerKit
+import Former
+import TaggerKit
+
+final class DashboardNavVC : UINavigationController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if SessionManager.instance.dorm != nil {
+            performSegue(withIdentifier: "goToAffairs", sender:nil)
+            print("Go to affair")
+        }else{
+            performSegue(withIdentifier: "noRoom", sender: nil)
+            print("No room found")
+        }
+    }
+}
+
+
+class SegmentViewController: UIViewController{
+    
+    @IBAction func ChangeMode(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+            case 0:
+//                performSegue(withIdentifier: "goToAffairs", sender:nil)
+            break
+            case 1:
+                break
+//                performSegue(withIdentifier: "go_to_billings", sender: nil)
+            default:
+                break
+        }
+    }
+    @IBAction func AddNewAffair(_ sender: UIBarButtonItem){
+        performSegue(withIdentifier: "addAffair", sender: nil)
+    }
+    
+}
 
 
 class TableViewController: UITableViewController {
@@ -16,7 +51,7 @@ class TableViewController: UITableViewController {
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 380
-        static let rowsCount = 2 //TODO: change to the certain num of the tab bar type
+        static let rowsCount = SessionManager.instance.dorm!.affairs.count //TODO: change to the certain num of the tab bar type
     }
     
     var cellHeights: [CGFloat] = []
@@ -56,7 +91,7 @@ class TableViewController: UITableViewController {
 extension TableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 2  //TODO: change to the certain num of the tab bar type
+        return SessionManager.instance.dorm!.affairs.count  //TODO: change to the certain num of the tab bar type
     }
 
     override func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -73,13 +108,44 @@ extension TableViewController {
         }
 
         cell.number = indexPath.row
+        cell.doneHandle = {
+            SessionManager.instance.dorm?.affairs.remove(at: indexPath.row)
+        }
+        cell.editHandle = {
+            self.performSegue(withIdentifier: "edit", sender: SessionManager.instance.dorm?.affairs[indexPath.row])
+        }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "edit", let data = sender as? Affair, let vc = segue.destination as? AffairFormViewController{
+            vc.affairInfo = data
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! EachCell
         let durations: [TimeInterval] = [0.26, 0.2, 0.2]
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
+        
+        
+        if let info = SessionManager.instance.dorm?.affairs[indexPath.row]{
+            cell.closeTitle.text = info.title
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "y, M d"
+            cell.closeDate.text = dateFormatter.string(from: info.date)
+            
+            cell.title.text = cell.closeTitle.text
+            cell.date.text = cell.closeDate.text
+            
+            cell.members.text = info.participant.reduce("", {
+                $0 + $1.nickname
+            })
+            
+            cell.detail.text = info.des
+        }
+        
         return cell
     }
 
@@ -121,10 +187,27 @@ extension TableViewController {
 
 
 class EachCell: FoldingCell {
-
+    var doneHandle : (()->Void)?
+    var editHandle : (()->Void)?
     @IBOutlet var closeNumberLabel: UILabel!
     @IBOutlet var openNumberLabel: UILabel!
-
+    
+    @IBOutlet var closeTitle: UILabel!
+    @IBOutlet var closeDate: UILabel!
+    
+    @IBOutlet var title: UILabel!
+    @IBOutlet var date: UILabel!
+    @IBOutlet var members: UILabel!
+    @IBOutlet var detail: UITextView!
+    
+    @IBAction func buttonHandler(_ sender: UIButton) {
+        if sender.titleLabel?.text == "Done"{
+            doneHandle?()
+        }else if sender.titleLabel?.text == "Edit"{
+            editHandle?()
+        }
+    }
+    
     var number: Int = 0 {
         didSet {
             closeNumberLabel.text = String(number)
@@ -143,14 +226,3 @@ class EachCell: FoldingCell {
         return durations[itemIndex]
     }
 }
-
-// MARK: - Actions ⚡️
-
-extension EachCell{
-
-    @IBAction func buttonHandler(_: AnyObject) {
-        print("tap")
-    }
-}
-
-
