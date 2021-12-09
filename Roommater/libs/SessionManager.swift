@@ -12,19 +12,28 @@ import AlamofireImage
 import SwiftEventBus
 
 class SessionManager{
-    private static var userData : String {
-        let manager = FileManager.default
-        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        return url.appendingPathComponent("userdata")!.path
+    fileprivate enum ObjectPath {
+        case user
+        case rooom
+        
+        fileprivate static var data = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        
+        var path : URL {
+            switch self {
+                case .user:
+                    return SessionManager.ObjectPath.data.appendingPathComponent("userdata")!
+                case .rooom:
+                    return SessionManager.ObjectPath.data.appendingPathComponent("roomdata")!
+            }
+        }
     }
-    private static let imageCache = AutoPurgingImageCache()
-    static var AvatarManager : ImageDownloader?
+    fileprivate static let imageCache = AutoPurgingImageCache()
     var user : UserInfo?
     var dorm : DormInfo?
     
     init() {
         SwiftEventBus.onBackgroundThread(self, name: "login"){ _ in
-            SessionManager.AvatarManager = ImageDownloader(
+            ImageDownloader.instance = ImageDownloader(
                 configuration: APIAction.getDefaultURLSessionConfig(),
                 downloadPrioritization: .fifo,
                 maximumActiveDownloads: 4,
@@ -33,16 +42,21 @@ class SessionManager{
         }
         
         SwiftEventBus.onBackgroundThread(self, name: "logout"){ _ in
-            SessionManager.AvatarManager = nil
+            ImageDownloader.instance = nil
         }
     }
     
     func preCheck() -> Bool {
-        if FileManager.default.fileExists(atPath: SessionManager.userData){
-            do {
-                // storage the user data locally
-            }catch {
-                // logout
+        if UserDefaults.standard.string(forKey: "token") != nil, FileManager.default.fileExists(atPath: ObjectPath.user.path.path){
+            if let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.user.path.path) as? UserInfo {
+                ImageDownloader.instance = ImageDownloader(
+                    configuration: APIAction.getDefaultURLSessionConfig(),
+                    downloadPrioritization: .fifo,
+                    maximumActiveDownloads: 4,
+                    imageCache: SessionManager.imageCache
+                )
+                self.user = value
+                return true
             }
         }
         return false
@@ -51,6 +65,16 @@ class SessionManager{
     func initUser(data: [String : Any]){
         user = UserInfo(data: data)
         print("[Session Manager]Successfully Init User")
+        if user != nil {
+            do{
+                let user_encoded = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)
+                try user_encoded.write(to: ObjectPath.user.path)
+                DormInfo.users[user!.uid] = user
+            }catch (let e){
+                print(e)
+                print("Save User failed Failed")
+            }
+        }
     }
     
     func initDorm(data: [String : Any]){
@@ -62,8 +86,11 @@ class SessionManager{
         if let thisUser = user {
             if thisUser.avatarImage == nil {
                 if let req = user?.getAvatarRequest() {
-                    if SessionManager.AvatarManager == nil {callback(nil,2);return}
-                    SessionManager.AvatarManager?.download(req, completion: {[self] response in
+                    if ImageDownloader.instance == nil {
+                        print("Image down")
+                        callback(nil,2)
+                        return}
+                    ImageDownloader.instance?.download(req, completion: {[self] response in
                         if case .success(let image) = response.result {
                             self.user?.avatarImage = image
                             callback(user?.avatarImage, 0)
@@ -86,3 +113,5 @@ class SessionManager{
 extension SessionManager {
     static var instance = SessionManager()
 }
+
+

@@ -51,11 +51,12 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
             default:
                 ratingLable.textColor = .gray
         }
+        
         SessionManager.instance.getAvatar(callback: {res, err in
             if err == 0 {
                 self.userAvatar.image = res!.af.imageAspectScaled(toFill: CGSize(width: self.userAvatar.bounds.width, height: self.userAvatar.bounds.height))
             }else{
-                SPIndicator.present(title: "Error", message: "Failed to get the avatar", preset: .error)
+                SPIndicator.present(title: "Failed to get the avatar", preset: .error)
             }
         })
     }

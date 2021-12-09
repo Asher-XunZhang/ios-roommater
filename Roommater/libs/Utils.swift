@@ -105,3 +105,7 @@ extension String {
         return dateFormatter.string(from: date)
     }
 }
+
+extension ImageDownloader {
+    static var instance : ImageDownloader? = nil
+}

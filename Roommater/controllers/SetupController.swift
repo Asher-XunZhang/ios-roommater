@@ -12,27 +12,18 @@ import TransitionButton
 
 class AuthNavVC : UINavigationController {
     override func viewDidLoad() {
-        if let token = UserDefaults.standard.string(forKey: "token") {
+        if SessionManager.instance.preCheck() {
             self.performSegue(withIdentifier: "dashboardPage", sender: nil)
-            APIAction.login(token: token, callback: {res in
+            APIAction.loginToken(callback: {res in
                 switch res {
                     case .Success:
-                        break
-                    case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                        SPIndicator.present(title: "Session Out", message: msg, preset: .done)
-                        UserDefaults.standard.removeObject(forKey: "token")
-                        self.popViewController(animated: true)
-                    case .NONE:
+                        SPIndicator.present(title: "Welcome Back!", preset: .done)
+                    case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                        SPIndicator.present(title: msg, preset: .error)
                         UserDefaults.standard.removeObject(forKey: "token")
                         self.popViewController(animated: true)
                 }
             })
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "dashboardPage"{
-            
         }
     }
 }
@@ -44,33 +35,22 @@ class LoginViewController: PrototypeViewController {
     @IBOutlet var forgotPassword: UIButton!
     @IBOutlet var jumpToSignUp: UIButton!
     @IBOutlet var login: TransitionButton!
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "dashboardPage" {
-            
-        }
-    }
-    
-
-    func handle(res: Result){
-        switch res{
-            case .Success(let data):
-                // redirect to another storyboard with name is "App"
-                login.stopAnimation(animationStyle: .expand, completion: {
-                    self.navigationController?.performSegue(withIdentifier: "dashboardPage", sender: data)})
-            case .Fail(let msg), .Timeout(let msg), .Error(let msg):
-                login.stopAnimation(animationStyle: .shake, completion: {
-                    SPIndicator.present(title: "Error", message: msg, preset: .error)
-                    self.enableAllTextField()
-                })
-            case .NONE:
-                print("None")
-        }
-    }
 
     func exec(){
         self.disableAllTextField()
-        APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!, callback: handle)
+        APIAction.login(username: usernameTextField.text!, pass: passwordTextField.text!){ res in
+            switch res{
+                case .Success(let data):
+                    // redirect to another storyboard with name is "App"
+                    self.login.stopAnimation(animationStyle: .expand, completion: {
+                        self.navigationController?.performSegue(withIdentifier: "dashboardPage", sender: data)})
+                case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
+                    self.login.stopAnimation(animationStyle: .shake, completion: {
+                        SPIndicator.present(title: msg, preset: .error)
+                        self.enableAllTextField()
+                    })
+            }
+        }
     }
     
     override func viewLoadAction() {
@@ -133,6 +113,7 @@ class LoginViewController: PrototypeViewController {
         login.isUserInteractionEnabled = false
         login.spinnerColor = .systemGray3
     }
+    
     func enableLoginButton(){
         login.backgroundColor = overcastBlueColor
         login.isUserInteractionEnabled = true
@@ -309,7 +290,6 @@ class SignupViewController: PrototypeViewController{
         return emailMatcher.match(input: emailTextField.text!)
     }
     
-
     override func viewLoadAction() {
         let buttonHeight =  backLogin.frame.height
         let textFieldHeight = usernameTextField.frame.height
@@ -416,13 +396,11 @@ class ForgotPasswordViewController: PrototypeViewController{
                 self.navigationController?.popViewController(animated: true)
                 SPIndicator.present(title: "Success", message: "Successfully send! Please check your email!", preset: .done)
             })
-        case .Fail(let msg), .Timeout(let msg), .Error(let msg):
+            case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
             self.resetButton.stopAnimation(animationStyle: .shake, completion: {
                 SPIndicator.present(title: "Error", message: msg, preset: .error)
                 self.enableAllTextField()
             })
-        case .NONE:
-            print("None")
         }
     }
 
