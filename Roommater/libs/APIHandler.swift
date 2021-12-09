@@ -258,9 +258,9 @@ class APIAction {
     
     static func getDefaultURLSessionConfig()-> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
-        
         configuration.headers = .default
         if let token = UserDefaults.standard.string(forKey: "token") {
+            print("Found Token: \(token)")
             configuration.headers.add(name: "Access-Token", value: token)
         }
         
@@ -284,8 +284,8 @@ class APIAction {
         let config = ChatClientConfig(apiKey: .init("pp5v5t8hksh7"))
         ChatClient.shared = ChatClient(config: config)
         var res = true
-        guard let uid = SessionManager.instance.user?.uid, let name = SessionManager.instance.user?.nickname else {return false}
-        ChatClient.shared.connectUser(userInfo: .init(id: uid, name: name), token: .development(userId: uid)){err in
+        guard let user = SessionManager.instance.user else {return false}
+        ChatClient.shared.connectUser(userInfo: .init(id: user.uid, name: user.nickname, imageURL: URL.init(string: user.avatar)), token: .development(userId: user.uid)){err in
             if ChatClient.shared.connectionStatus != .connected {
                 print("Failed to connected to the chat service!")
                 res = false
@@ -540,8 +540,7 @@ class APIAction {
     
     static func fetchDormInfo(callback: @escaping (Result) -> Void){
         DispatchQueue.global().async {
-            AF.request(Router.fetchDormInfo)
-                .responseJSON() { res in
+            AF.request(Router.fetchDormInfo).responseJSON() { res in
                     switch (res.response?.statusCode) {
                         case 200:
                             if let json = res.value as? [String:Any] {

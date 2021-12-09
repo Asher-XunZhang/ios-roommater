@@ -7,77 +7,139 @@
 
 import Foundation
 
-struct DormInfo{
+class RoomInfo : NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool{
+        return true
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(roomID, forKey: "RoomID")
+        coder.encode(roomName, forKey: "RoomName")
+        coder.encode(inviteCode, forKey: "InviteCode")
+        coder.encode(maxMemeber, forKey: "Max")
+        coder.encode(roomChatId, forKey: "CID")
+        coder.encode(residents, forKey: "Residents")
+        coder.encode(owner, forKey: "Owner")
+        coder.encode(bills, forKey: "Bills")
+        coder.encode(affairs, forKey: "Affairs")
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init()
+        roomID = coder.decodeObject(forKey: "RoomID") as? String
+        inviteCode = coder.decodeObject(forKey: "RoomName") as? String
+        roomName = coder.decodeObject(forKey: "InviteCode") as? String
+        maxMemeber = coder.decodeObject(forKey: "Max") as? Int
+        owner = coder.decodeObject(forKey: "Owner") as? RoommateInfo
+        roomChatId = coder.decodeObject(forKey: "CID") as? String
+        affairs = coder.decodeObject(forKey: "Affairs") as? [Affair]
+        bills = coder.decodeObject(forKey: "Bills") as? [Bill]
+    }
+    
     static var users : [String : RoommateInfo] = [:]
-    var roomID : String = ""
-    var inviteCode : String = ""
-    var roomName : String = ""
-    var maxMemeber : Int = 1
+    var roomID : String!
+    var inviteCode : String!
+    var roomName : String!
+    var maxMemeber : Int!
     var owner : RoommateInfo!
-    var residents : [RoommateInfo] = []
-    var announcements : [Event] = []
-    var bills : [Bill] = []
+    var residents : [RoommateInfo]!
+    var bills : [Bill]!
     var roomChatId : String?
-    var affair : [Affair] = []
+    var affairs : [Affair]!
     
     init(data : [String:Any]) {
-        if let value = data["roomID"] as? String{
-            roomID = value
-        }
-        
-        if let value = data["inviteCode"] as? String{
-            inviteCode = value
-        }
-        
-        if let value = data["roomName"] as? String{
-            roomName = value
-        }
-        
-        if let value = data["maxRsidents"] as? Int{
-            maxMemeber = value
-        }
-        
-        if let value = data["owner"] as? [String:Any]{
-            owner = RoommateInfo(data: value)
-        }
-        
+        super.init()
+        if let value = data["roomID"] as? String{roomID = value}
+        if let value = data["inviteCode"] as? String{inviteCode = value}
+        if let value = data["roomName"] as? String{roomName = value}
+        if let value = data["maxRsidents"] as? Int{maxMemeber = value}
+        if let value = data["owner"] as? [String:Any]{owner = RoommateInfo(data: value)}
         roomChatId = data["cid"] as? String
-        
         if let residents = data["residents"] as? [[String:Any]]{
             for res in residents {
                 self.residents.append(RoommateInfo(data: res))
             }
         }
     }
+    
+    func update(data : [String:Any]){
+        if let value = data["roomID"] as? String{roomID = value}
+        if let value = data["inviteCode"] as? String{inviteCode = value}
+        if let value = data["roomName"] as? String{roomName = value}
+        if let value = data["maxRsidents"] as? Int{maxMemeber = value}
+        if let value = data["owner"] as? [String:Any]{owner = RoommateInfo(data: value)}
+        residents = []
+        if let residents = data["residents"] as? [[String:Any]]{
+            for res in residents {
+                self.residents.append(RoommateInfo(data: res))
+            }
+        }
+        do{
+            let room_encoded = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+            try room_encoded.write(to: SessionManager.ObjectPath.room.path)
+        }catch (let e){
+            print(e)
+            print("[Session Manager]Update room info failed")
+        }
+    }
 }
 
-struct Bill {
-    var name: String
-    var due : Date
-    var des : String
-    var spread : [String : Double]
-    var amount : Double
-    var isDone : Bool
+class Bill : NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool{
+        return true
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "Name")
+        coder.encode(due, forKey: "Due")
+        coder.encode(des, forKey: "Description")
+        coder.encode(spread, forKey: "Spread")
+        coder.encode(amount, forKey: "Amount")
+        coder.encode(isDone, forKey: "Done")
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init()
+        name = coder.decodeObject(forKey: "Name") as? String
+        due  = coder.decodeObject(forKey: "Due") as? Date
+        des  = coder.decodeObject(forKey: "Description") as? String
+        amount  = coder.decodeDouble(forKey: "Amount")
+        isDone  = coder.decodeBool(forKey: "Done")
+        spread = coder.decodeObject(forKey: "Spread") as? Dictionary
+    }
+    
+    var name: String!
+    var due : Date!
+    var des : String!
+    var spread : [RoommateInfo : Double]!
+    var amount : Double!
+    var isDone : Bool!
 }
 
-enum EventPriority : Int{
-    case Low = 0
-    case Normal = 1
-    case High = 2
-}
-
-struct Event {
-    var title : String
-    var Description : String
-    var schedule : DateComponents
-    var participants : [RoommateInfo]
-    var priority : EventPriority
-}
-
-struct Affair {
-    var title : String
-    var Description : String
-    var schedule : DateComponents
-    var participant : RoommateInfo
-    var priority : EventPriority
+class Affair : NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool{
+        return true
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(title, forKey: "Name")
+        coder.encode(des, forKey: "Description")
+        coder.encode(date, forKey: "Date")
+        coder.encode(participant, forKey: "Participant")
+        coder.encode(priority, forKey: "Priority")
+    }
+    
+    required init?(coder: NSCoder) {
+        title = coder.decodeObject(forKey: "Name") as? String
+        des = coder.decodeObject(forKey: "Name") as? String
+        participant = coder.decodeObject(forKey: "Participant") as? [RoommateInfo]
+        priority = coder.decodeInteger(forKey: "Priority")
+        date = coder.decodeObject(forKey: "Date") as? Date
+    }
+    
+    var title : String!
+    var des : String!
+    var date : Date!
+    var participant : [RoommateInfo]!
+    var priority : Int!
 }
