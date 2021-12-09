@@ -37,7 +37,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mIP-UG-xQC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048" y="139"/>
+            <point key="canvasLocation" x="1048" y="-52"/>
         </scene>
         <!--Chat-->
         <scene sceneID="LXo-b1-Fej">
@@ -127,7 +127,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WxE-zd-bE2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1032" y="190"/>
+            <point key="canvasLocation" x="1032" y="139"/>
         </scene>
     </scenes>
     <resources>

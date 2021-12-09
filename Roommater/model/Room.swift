@@ -108,15 +108,47 @@ class Bill : NSObject, NSSecureCoding {
         spread = coder.decodeObject(forKey: "Spread") as? Dictionary
     }
     
+    init(data: [String:Any]) {
+        if let value = data["name"] as? String{name = value}
+        if let value = data["des"] as? String{des = value}
+        if let value = data["isDone"] as? Bool{isDone = value}
+        if let value = data["amount"] as? Double{amount = value}
+        if let value = data["due"] as? Double{amount = value}
+        
+    }
+    
     var name: String!
     var due : Date!
     var des : String!
     var spread : [RoommateInfo : Double]!
     var amount : Double!
     var isDone : Bool!
+    
+    func commit(){
+        APIAction
+    }
 }
 
 class Affair : NSObject, NSSecureCoding {
+    var testData : [Affair] {
+        let a = Affair(data: [:])
+        a.title = "Affair 1"
+        a.des = "This is a test of affair"
+        a.participant = [SessionManager.instance.user!]
+        let date = Date()
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents(
+            [.calendar,.timeZone,
+             .era, .quarter,
+             .year, .month, .day,
+             .hour, .minute,
+             .weekday, .weekdayOrdinal,
+             .weekOfMonth, .weekOfYear, .yearForWeekOfYear],
+            from: date)
+        a.date = dateComponents
+        return [a]
+    }
+    
     static var supportsSecureCoding: Bool{
         return true
     }
@@ -126,20 +158,25 @@ class Affair : NSObject, NSSecureCoding {
         coder.encode(des, forKey: "Description")
         coder.encode(date, forKey: "Date")
         coder.encode(participant, forKey: "Participant")
-        coder.encode(priority, forKey: "Priority")
     }
     
     required init?(coder: NSCoder) {
         title = coder.decodeObject(forKey: "Name") as? String
         des = coder.decodeObject(forKey: "Name") as? String
         participant = coder.decodeObject(forKey: "Participant") as? [RoommateInfo]
-        priority = coder.decodeInteger(forKey: "Priority")
-        date = coder.decodeObject(forKey: "Date") as? Date
+        date = coder.decodeObject(forKey: "Date") as? DateComponents
+    }
+    
+    init(data: [String:Any]) {
+        
     }
     
     var title : String!
     var des : String!
-    var date : Date!
+    var date : DateComponents!
     var participant : [RoommateInfo]!
-    var priority : Int!
+    
+    func commit(){
+        
+    }
 }

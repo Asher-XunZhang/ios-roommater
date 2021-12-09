@@ -61,15 +61,12 @@ enum Router : URLRequestConvertible {
     case fetchBill(roomID: String)
     case fetchAffair(roomID: String)
     case updateDormInfo(update: [String: Any])
-    case postEvent
     case postBill
     case postAffair
-    case updateEvent(update: [String: Any])
     case updateAffair(update: [String: Any])
-    case deleteEvent(eid: String)
+    case updateBill(update: [String: Any])
     case deleteBill(bid: String)
     case deleteAffair(aid: String)
-    
     
     var method: HTTPMethod {
         switch self {
@@ -99,14 +96,10 @@ enum Router : URLRequestConvertible {
             return .get
         case .updateDormInfo:
             return .patch
-        case .postEvent:
-            return .post
         case .postBill:
             return .post
         case .postAffair:
             return .post
-        case .updateEvent:
-            return .patch
         case .updateAffair:
             return .patch
         case .bindDorm:
@@ -115,8 +108,6 @@ enum Router : URLRequestConvertible {
             return .post
         case .deleteDorm:
             return .delete
-        case .deleteEvent:
-            return .delete
         case .deleteBill:
             return .delete
         case .deleteAffair:
@@ -124,6 +115,8 @@ enum Router : URLRequestConvertible {
         case .unbindDorm:
             return .delete
         case .updateAvatar:
+            return .patch
+        case .updateBill:
             return .patch
         }
     }
@@ -156,14 +149,10 @@ enum Router : URLRequestConvertible {
             return "/dorm/affairs"
         case .updateDormInfo:
             return "/affair/update"
-        case .postEvent:
-            return "/event/new"
         case .postBill:
             return "/bill/new"
         case .postAffair:
             return "/affair/new"
-        case .updateEvent:
-            return "/event/update"
         case .bindDorm:
             return "/room/bind"
         case .unbindDorm:
@@ -174,14 +163,14 @@ enum Router : URLRequestConvertible {
             return "/room/destroy"
         case .updateAffair:
             return "/affair/update"
-        case .deleteEvent:
-            return "/event/destroy"
         case .deleteBill:
             return "/bill/destroy"
         case .deleteAffair:
             return "/affair/destroy"
         case .updateAvatar:
             return "/user/updateAvatar"
+        case .updateBill:
+            return "/bill/update"
         }
     }
 
@@ -222,18 +211,12 @@ enum Router : URLRequestConvertible {
                 return (path, ["room": roomID])
             case .updateDormInfo(update: let update):
                 return (path, update)
-            case .postEvent:
-                return (path, [:])
             case .postBill:
                 return (path, [:])
             case .postAffair:
                 return (path, [:])
-            case .updateEvent:
-                return (path, [:])
             case .updateAffair:
                 return (path, [:])
-            case .deleteEvent(eid: let eid):
-                return (path, ["eventID": eid])
             case .deleteBill(bid: let bid):
                 return (path, ["billID": bid])
             case .deleteAffair(aid: let aid):

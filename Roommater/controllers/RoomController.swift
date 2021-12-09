@@ -15,7 +15,9 @@ class RoomNavVC : UINavigationController{
     override func viewDidLoad() {
         super.viewDidLoad()
         if SessionManager.instance.dorm != nil {
-            performSegue(withIdentifier: "room_detail", sender: nil)
+            performSegue(withIdentifier: "detail", sender: nil)
+        }else{
+            performSegue(withIdentifier: "bind", sender: nil)
         }
     }
 }
@@ -301,6 +303,8 @@ class RoomManageController : FormViewController {
     }
     
     private func initFormer(){
-        
+        let roomIDLabel : {
+            
+        }
     }
 }
