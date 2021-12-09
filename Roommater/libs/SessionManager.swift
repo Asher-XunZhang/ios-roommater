@@ -127,4 +127,24 @@ class SessionManager{
 
 extension SessionManager {
     static var instance = SessionManager()
+    
+    func close(){
+        UserDefaults.standard.removeObject(forKey: "token")
+        if FileManager.default.fileExists(atPath: ObjectPath.user.path.path) {
+            do {
+                try FileManager.default.removeItem(atPath: ObjectPath.user.path.path)
+            }catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+            }
+        }
+        if FileManager.default.fileExists(atPath: ObjectPath.room.path.path) {
+            do {
+                try FileManager.default.removeItem(atPath: ObjectPath.room.path.path)
+            }catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+            }
+        }
+        self.user = nil
+        self.dorm = nil
+    }
 }

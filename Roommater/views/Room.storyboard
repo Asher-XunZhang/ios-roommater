@@ -125,6 +125,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Join"/>
+                                <connections>
+                                    <action selector="join" destination="Wa2-O9-stn" eventType="touchUpInside" id="rAY-P2-Zwj"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or enter invite code to join a room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCB-q8-4BY">
                                 <rect key="frame" x="0.0" y="321" width="414" height="52"/>
@@ -169,6 +172,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="q07-9V-Q1l"/>
                     <connections>
+                        <outlet property="codeFld" destination="ftu-8B-fpp" id="DJs-AN-abN"/>
                         <segue destination="efJ-y7-k5z" kind="presentation" identifier="join" modalPresentationStyle="fullScreen" id="5Ej-PA-MSa"/>
                     </connections>
                 </viewController>

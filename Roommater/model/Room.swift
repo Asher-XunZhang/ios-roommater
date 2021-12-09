@@ -53,7 +53,10 @@ class RoomInfo : NSObject, NSSecureCoding {
         if let value = data["inviteCode"] as? String{inviteCode = value}
         if let value = data["roomName"] as? String{roomName = value}
         if let value = data["maxRsidents"] as? Int{maxMemeber = value}
-        if let value = data["owner"] as? [String:Any]{owner = RoommateInfo(data: value)}
+        if let value = data["owner"] as? [String:Any]{
+            owner = RoommateInfo(data: value)
+            
+        }
         roomChatId = data["cid"] as? String
         if let residents = data["residents"] as? [[String:Any]]{
             for res in residents {

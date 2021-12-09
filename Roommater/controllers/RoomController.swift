@@ -23,7 +23,20 @@ class RoomNavVC : UINavigationController{
 }
 
 class RoomBindVC : PrototypeViewController {
+    @IBOutlet var codeFld : UITextField!
     
+    @IBAction func join(){
+        if let code = codeFld.text, code != ""{
+            APIAction.joinDrom(code: code){ res in
+                switch res {
+                    case .Success(_):
+                        self.performSegue(withIdentifier: "join", sender: nil)
+                    case .Error(let msg), .NONE(let msg), .Fail(let msg), .Timeout(let msg):
+                        SPIndicator.present(title: msg, preset: .error)
+                }
+            }
+        }
+    }
 }
 
 class RoomController :UIViewController {

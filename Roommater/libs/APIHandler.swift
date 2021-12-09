@@ -196,7 +196,7 @@ enum Router : URLRequestConvertible {
             case .updateInfo(update: let update):
                 return (path, update)
             case .bindDorm(code : let code):
-                return (path, ["inviteCode": code])
+                return (path, ["code": code])
             case .unbindDorm:
                 return (path, [:])
             case .createDorm(roomName: let roomName, max: let max):
@@ -458,7 +458,7 @@ class APIAction {
                             SwiftEventBus.post("logout")
                             if let json = res.value as? [String:Any] {
                                 if json["err"] as! Int == 0 {
-                                    UserDefaults.standard.removeObject(forKey: "token")
+                                    SessionManager.instance.close()
                                     ChatClient.shared.disconnect()
                                 }
                                 DispatchQueue.main.async {

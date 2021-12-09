@@ -143,7 +143,8 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
                     switch res {
                         case .Success(_):
                             SessionManager.instance.user?.nickname = text
-                            SwiftEventBus.postToMainThread("updateUsername")
+                            SwiftEventBus.post("update_user")
+                            SPIndicator.present(title: "Rename Successfully", preset: .done)
                         case .Fail(let msg),.Timeout(let msg),.Error(let msg),.NONE(let msg):
                             SPIndicator.present(title: msg, preset: .error)
                     }
@@ -160,10 +161,8 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
             }.onSelected{row in
                 self.performSegue(withIdentifier: "passwordPage", sender: nil)
             }
-        
         let section = SectionFormer(rowFormer: nicknameLabel, passwordFld)
             .set(footerViewFormer: FormLabelFooterView.createFooter(SessionManager.instance.user?.uid ?? ""))
-        
         former.append(sectionFormer: section)
     }
     
@@ -196,7 +195,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
 
 class PasswordChangeController : FormViewController {
     var password : String? = nil
-    var ressPass : String? = nil
+    var repass : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -206,6 +205,9 @@ class PasswordChangeController : FormViewController {
     func initForm(){
         let updateBtn = CustomRowFormer<ButtonCell>(instantiateType: .Nib(nibName: "ButtonCell")){
             $0.button.setTitle("Update Password", for: .normal)
+        }.configure{
+            $0.enabled  =  false
+            $0.cell.button.isEnabled = false
         }
         
         let repasswordRow = TextFieldRowFormer<TextFieldWithHintCell>(instantiateType: .Nib(nibName: "TextFieldWithHintCell")) {
@@ -216,19 +218,10 @@ class PasswordChangeController : FormViewController {
         }.configure {
             $0.placeholder = "Reenter your new password"
             $0.rowHeight = 80
-        }.onUpdate{ row in
-            if self.ressPass != self.password {
-                row.cell.hint(msg: "Mismatched password", color: .systemRed)
-                updateBtn.cell.button.isEnabled = false
-                updateBtn.enabled = false
-            }else{
-                row.cell.clear()
-                updateBtn.enabled = true
-                updateBtn.cell.button.isEnabled = true
-            }
         }
         repasswordRow.onTextChanged {row in
-            if self.ressPass != self.password {
+            self.repass = row
+            if self.repass != self.password {
                 repasswordRow.cell.hint(msg: "Mismatched password", color: .systemRed)
                 updateBtn.cell.button.isEnabled = false
                 updateBtn.enabled = false
@@ -238,7 +231,7 @@ class PasswordChangeController : FormViewController {
                 updateBtn.enabled = true
             }
         }.onReturn{[weak self] in
-            self?.ressPass = $0
+            self?.repass = $0
             repasswordRow.update()
         }
         
@@ -266,20 +259,22 @@ class PasswordChangeController : FormViewController {
                 passwordRow.enabled = false
                 repasswordRow.enabled = false
                 btn.startLoading()
-                //TODO: update password
-                APIAction.updateUserInfo(data: ["password":self.password ?? ""]){ res in
+                APIAction.updateUserInfo(data: ["password": self.password ?? ""]){ res in
                     switch res {
                         case .Success(_):
-                            print("Updated!")
                             self.navigationController?.popViewController(animated: true)
                         case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
                             SPIndicator.present(title: msg, preset: .error)
+                            row.enabled = true
+                            passwordRow.enabled = true
+                            repasswordRow.enabled = true
                     }
                 }
             }
         }
-        passwordRow.onTextChanged {_ in
+        passwordRow.onTextChanged {
             repasswordRow.cell.textfield.text = nil
+            self.password = $0
             if !passwordMatcher.match(input: self.password ?? ""){
                 passwordRow.cell.hint(msg: "Not meet the requirement", color: .systemRed)
                 updateBtn.cell.button.isEnabled = false
