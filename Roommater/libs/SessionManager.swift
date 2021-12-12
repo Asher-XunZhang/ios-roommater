@@ -10,98 +10,75 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SwiftEventBus
+import StreamChat
 
-class SessionManager{
+class SessionManager {
     enum ObjectPath {
         case user
         case room
         fileprivate static var data = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        var path : URL {
+        var path: URL {
             switch self {
-                case .user:
-                    return SessionManager.ObjectPath.data.appendingPathComponent("userdata")!
-                case .room:
-                    return SessionManager.ObjectPath.data.appendingPathComponent("roomdata")!
+            case .user: return SessionManager.ObjectPath.data.appendingPathComponent("userdata")!
+            case .room: return SessionManager.ObjectPath.data.appendingPathComponent("roomdata")!
             }
         }
     }
-    fileprivate static let imageCache = AutoPurgingImageCache()
-    var user : UserInfo?
-    var dorm : RoomInfo?
-    
+
+    static let imageCache = AutoPurgingImageCache()
+
+    var user: UserInfo?
+    var dorm: RoomInfo?
+
     func userPreCheck() -> Bool {
-        if UserDefaults.standard.string(forKey: "token") != nil, FileManager.default.fileExists(atPath: ObjectPath.user.path.path){
-            if let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.user.path.path) as? UserInfo {
-                ImageDownloader.instance = ImageDownloader(
-                    configuration: APIAction.getDefaultURLSessionConfig(),
-                    downloadPrioritization: .fifo,
-                    maximumActiveDownloads: 4,
-                    imageCache: SessionManager.imageCache
-                )
-                self.user = value
-                print("[Session Manager]Successfully Init User(local)")
-                if FileManager.default.fileExists(atPath: ObjectPath.room.path.path) {
-                    if let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.room.path.path) as? RoomInfo {
-                        self.dorm = value
-                        print("[Session Manager]Successfully Init Room(local)")
-                    }
+        if UserDefaults.standard.string(forKey: "token") != nil,
+           FileManager.default.fileExists(atPath: ObjectPath.user.path.path),
+           let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.user.path.path) as? UserInfo {
+            self.user = value
+            if FileManager.default.fileExists(atPath: ObjectPath.room.path.path) {
+                if let value = NSKeyedUnarchiver.unarchiveObject(withFile: ObjectPath.room.path.path) as? RoomInfo {
+                    self.dorm = value
                 }
-                return true
             }
+            return true
         }
-        
         return false
     }
-    
-    func initUser(data: [String : Any]){
+
+    func initUser(data: [String: Any]) {
         user = UserInfo(data: data)
-        print("[Session Manager]Successfully Init User(json)")
-        if user != nil {
-            do{
-                let user_encoded = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)
-                try user_encoded.write(to: ObjectPath.user.path)
-                RoomInfo.users[user!.uid] = user
-            }catch (let e){
-                print(e)
-                print("[Session Manager]Save User failed Failed")
-            }
-        }
     }
-    
-    func initDorm(data: [String : Any]){
+
+    func initDorm(data: [String: Any]) {
         dorm = RoomInfo(data: data)
-        if dorm != nil {
-            do{
-                let room_encoded = try NSKeyedArchiver.archivedData(withRootObject: dorm!, requiringSecureCoding: false)
-                try room_encoded.write(to: ObjectPath.room.path)
-            }catch (let e){
-                print(e)
-                print("[Session Manager]Save room info failed!")
-            }
-        }
-        print("[Session Manager]Successfully Init Room(json)")
     }
-    
-    func getAvatar(callback: @escaping(UIImage?, Int) -> Void){
+
+    func getAvatar(callback: @escaping (UIImage?, Int) -> Void) {
         if let thisUser = user {
-            if thisUser.avatarImage == nil {
-                if let req = user?.getAvatarRequest() {
-                    if ImageDownloader.instance == nil {
-                        print("Image down")
-                        callback(nil,2)
-                        return}
-                    ImageDownloader.instance?.download(req, completion: {[self] response in
-                        if case .success(let image) = response.result {
-                            self.user?.avatarImage = image
-                            callback(user?.avatarImage, 0)
-                        }else{callback(nil,1)}
-                    })
+            if thisUser.avatarImage == nil, let req = user?.getAvatarRequest() {
+                if let image = SessionManager.imageCache.image(withIdentifier: thisUser.username!) {
+                    self.user?.avatarImage = image
+                    callback(image, 0)
+                    return
                 }
-            }else{callback(self.user?.avatarImage, 0)}
-        }else{callback(nil,2)}
+                AF.request(req).responseImage { res in
+                    if case .success(let image) = res.result {
+                        thisUser.avatarImage = image
+                        SessionManager.imageCache.add(image, withIdentifier: thisUser.username!)
+                        callback(image, 0)
+                    }else{
+                        callback(UIImage(named: "DefaultAvatar"), 1)
+                    }
+                }
+            } else {
+                callback(self.user?.avatarImage, 0)
+            }
+        } else {
+            callback(UIImage(named: "DefaultAvatar"), 1)
+        }
     }
-    
-    func updateAvatar(callback: @escaping(UIImage?, Int) -> Void){
+
+    func updateAvatar(callback: @escaping (UIImage?, Int) -> Void) {
         if let req = user?.getAvatarRequest() {
             SessionManager.imageCache.removeImages(matching: req)
         }
@@ -112,24 +89,36 @@ class SessionManager{
 
 extension SessionManager {
     static var instance = SessionManager()
-    
-    func close(){
+
+    func close() {
         UserDefaults.standard.removeObject(forKey: "token")
-        if FileManager.default.fileExists(atPath: ObjectPath.user.path.path) {
-            do {
-                try FileManager.default.removeItem(atPath: ObjectPath.user.path.path)
-            }catch let error as NSError {
-                print("error: \(error.localizedDescription)")
-            }
-        }
+        clearUser()
+        clearRoom()
+    }
+    
+    func clearRoom(){
+        self.dorm = nil
         if FileManager.default.fileExists(atPath: ObjectPath.room.path.path) {
             do {
                 try FileManager.default.removeItem(atPath: ObjectPath.room.path.path)
-            }catch let error as NSError {
+            } catch let error as NSError {
                 print("error: \(error.localizedDescription)")
             }
         }
-        self.user = nil
-        self.dorm = nil
     }
+    
+    func clearUser(){
+        self.user = nil
+        if FileManager.default.fileExists(atPath: ObjectPath.user.path.path) {
+            do {
+                try FileManager.default.removeItem(atPath: ObjectPath.user.path.path)
+            } catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+extension ChatClient {
+    static var shared: ChatClient!
 }

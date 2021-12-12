@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-// classes
 class PrototypeViewController: UIViewController, UITextViewDelegate{
     var keyboardMarginY:CGFloat = 0
     var keyboardAnimitionDuration: TimeInterval = 0
@@ -37,7 +36,6 @@ class PrototypeViewController: UIViewController, UITextViewDelegate{
             nextResponder.becomeFirstResponder()
         } else {
             self.view.endEditing(true)
-//            disableAllTextField()
             textFieldDone(textField)
         }
         return true
@@ -112,23 +110,5 @@ class PrototypeButton:UIButton{
         self.isEnabled = true
         self.backgroundColor = .systemBlue
         self.setTitleColor(.white, for: .normal)
-    }
-}
-
-struct MyRegex {
-    let regex: NSRegularExpression?
-     
-    init(_ pattern: String) {
-        regex = try? NSRegularExpression(pattern: pattern)
-    }
-     
-    func match(input: String) -> Bool {
-        if let matches = regex?.matches(in: input,
-            options: [],
-            range: NSMakeRange(0, (input as NSString).length)) {
-                return matches.count > 0
-        } else {
-            return false
-        }
     }
 }

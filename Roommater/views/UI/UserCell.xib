@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="Ejh-SE-ma8" customClass="UserCell" customModule="Roommater" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ejh-SE-ma8" id="nGS-Vu-U8r">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xvc-ok-NL7">
+                        <rect key="frame" x="10" y="10" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Xvc-ok-NL7" secondAttribute="height" multiplier="1:1" id="pHu-J1-cIg"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-Rv-VMG">
+                        <rect key="frame" x="82" y="17" width="183" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pg2-bS-dEK">
+                        <rect key="frame" x="271" y="25" width="133" height="34"/>
+                        <buttonConfiguration key="configuration" style="tinted" title="Set as Host" cornerStyle="capsule" titleAlignment="automatic"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="YqI-Rv-VMG" secondAttribute="trailing" constant="149" id="3gO-qB-ISH"/>
+                    <constraint firstItem="YqI-Rv-VMG" firstAttribute="top" secondItem="nGS-Vu-U8r" secondAttribute="top" constant="17" id="FaL-Eb-rZW"/>
+                    <constraint firstItem="YqI-Rv-VMG" firstAttribute="leading" secondItem="Xvc-ok-NL7" secondAttribute="trailing" constant="8" id="JCh-G8-1RQ"/>
+                    <constraint firstItem="pg2-bS-dEK" firstAttribute="leading" secondItem="YqI-Rv-VMG" secondAttribute="trailing" constant="6" id="UCX-br-2h0"/>
+                    <constraint firstItem="Xvc-ok-NL7" firstAttribute="top" secondItem="nGS-Vu-U8r" secondAttribute="top" constant="10" id="Zjp-Km-hOh"/>
+                    <constraint firstAttribute="bottom" secondItem="pg2-bS-dEK" secondAttribute="bottom" constant="25" id="el3-mc-c3Q"/>
+                    <constraint firstAttribute="trailing" secondItem="pg2-bS-dEK" secondAttribute="trailing" constant="10" id="fFt-MB-N9V"/>
+                    <constraint firstAttribute="bottom" secondItem="YqI-Rv-VMG" secondAttribute="bottom" constant="17" id="fkJ-qP-w7C"/>
+                    <constraint firstItem="pg2-bS-dEK" firstAttribute="top" secondItem="nGS-Vu-U8r" secondAttribute="top" constant="25" id="fmG-Vl-EyW"/>
+                    <constraint firstAttribute="bottom" secondItem="Xvc-ok-NL7" secondAttribute="bottom" constant="10" id="vN8-IH-FK8"/>
+                    <constraint firstItem="Xvc-ok-NL7" firstAttribute="leading" secondItem="nGS-Vu-U8r" secondAttribute="leading" constant="10" id="ygf-GO-qsN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="asHost" destination="pg2-bS-dEK" id="mUF-oh-QRS"/>
+                <outlet property="userAvatar" destination="Xvc-ok-NL7" id="JK4-4C-ccV"/>
+                <outlet property="userName" destination="YqI-Rv-VMG" id="BHp-Gl-V5t"/>
+            </connections>
+            <point key="canvasLocation" x="76.811594202898561" y="83.035714285714278"/>
+        </tableViewCell>
+    </objects>
+</document>

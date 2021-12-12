@@ -33,6 +33,7 @@
 		B6E435B4275D77D700E56CD1 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E435B3275D77D700E56CD1 /* ButtonCell.xib */; };
 		B6E435B6275DD05700E56CD1 /* AvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E435B5275DD05700E56CD1 /* AvatarCell.xib */; };
 		B6EC25192715D7B500F55EBC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC25182715D7B500F55EBC /* APIHandler.swift */; };
+		B6F37A0C2765B61200682F77 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F37A0B2765B61200682F77 /* UserCell.xib */; };
 		BC209A27488F892911198C8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC2091F93A1675003F65A767 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		B6E435B3275D77D700E56CD1 /* ButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		B6E435B5275DD05700E56CD1 /* AvatarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarCell.xib; sourceTree = "<group>"; };
 		B6EC25182715D7B500F55EBC /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		B6F37A0B2765B61200682F77 /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		BC2091F93A1675003F65A767 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		D1CA8776211AE7D5A05474BA /* Pods-Roommater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.debug.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BDE161B3CDA89DF39A6B23 /* Pods-Roommater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommater.release.xcconfig"; path = "Target Support Files/Pods-Roommater/Pods-Roommater.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				B6E435B1275D609400E56CD1 /* TextFieldWithHintCell.xib */,
 				B6E435B3275D77D700E56CD1 /* ButtonCell.xib */,
 				B6E435B5275DD05700E56CD1 /* AvatarCell.xib */,
+				B6F37A0B2765B61200682F77 /* UserCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				B63E50FE270CA45B005F83EB /* Setup.storyboard in Resources */,
 				BC209A27488F892911198C8E /* .gitignore in Resources */,
 				B6C05C2727251EA80047C0C8 /* Setting.storyboard in Resources */,
+				B6F37A0C2765B61200682F77 /* UserCell.xib in Resources */,
 				B6E435B4275D77D700E56CD1 /* ButtonCell.xib in Resources */,
 				B6E435B6275DD05700E56CD1 /* AvatarCell.xib in Resources */,
 				B6C05C1F2724E76A0047C0C8 /* App.storyboard in Resources */,

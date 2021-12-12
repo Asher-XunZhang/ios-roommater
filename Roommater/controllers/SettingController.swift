@@ -16,41 +16,27 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
     @IBOutlet var usernameLabel : UILabel!
     @IBOutlet var roomConigCell : UITableViewCell!
     @IBOutlet var userAvatar : UIImageView!
-    @IBOutlet var ratingLable : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         SwiftEventBus.onMainThread(self, name: "updateAvatar") { res in
-            print("Update avatar")
-            if let image =  res?.object as? UIImage{
+            if let image = res?.object as? UIImage {
+                print("update image")
                 self.userAvatar.image = image.af.imageAspectScaled(toFill: CGSize(width: self.userAvatar.bounds.width, height: self.userAvatar.bounds.height))
             }
         }
-        
-        SwiftEventBus.onBackgroundThread(self, name: "updateUsername") { _ in
-            self.usernameLabel.text = SessionManager.instance.user?.nickname
+        SwiftEventBus.onMainThread(self, name: "updateUsername") { res in
+            if let text = res?.object as? String{
+                self.usernameLabel.text = text
+            }
         }
         
         usernameLabel.text = SessionManager.instance.user?.nickname
-        ratingLable.text = String(format: "%.1f", SessionManager.instance.user?.rating ?? 0.0)
     
         userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
         userAvatar.layer.borderColor = CGColor(red: 8, green: 8, blue: 8, alpha: 1)
         userAvatar.layer.borderWidth = 1
-        
-        switch SessionManager.instance.user?.rating ?? -1 {
-            case 0...5:
-                ratingLable.textColor = .red
-            case 6...8:
-                ratingLable.textColor = .yellow
-            case 9:
-                ratingLable.textColor = .green
-            case 10:
-                ratingLable.textColor = .systemGreen
-            default:
-                ratingLable.textColor = .gray
-        }
         
         SessionManager.instance.getAvatar(callback: {res, err in
             if err == 0 {
@@ -60,7 +46,6 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
             }
         })
     }
-
     
     @IBAction func logout(){
         APIAction.logout(callback: {res in
@@ -78,7 +63,6 @@ class SettingController : UITableViewController, UINavigationControllerDelegate 
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        SwiftEventBus.unregister(self)
     }
 }
 
@@ -144,7 +128,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
                     switch res {
                         case .Success(_):
                             SessionManager.instance.user?.nickname = text
-                            SwiftEventBus.post("update_user")
+                            SwiftEventBus.postToMainThread("updateUsername", sender: text)
                             SPIndicator.present(title: "Rename Successfully", preset: .done)
                         case .Fail(let msg),.Timeout(let msg),.Error(let msg),.NONE(let msg):
                             SPIndicator.present(title: msg, preset: .error)
@@ -178,7 +162,7 @@ class ProfileController : FormViewController, UINavigationControllerDelegate, UI
                         }
                         SessionManager.instance.updateAvatar(callback: {res, err in
                             if err == 0 {
-                                SwiftEventBus.post("updateAvatar", sender: res)
+                                SwiftEventBus.postToMainThread("updateAvatar", sender: res)
                                 self.avatar?.cell.iconView.setImage(res!.af.imageAspectScaled(toFill: CGSize(width: self.avatar!.cell.iconView.bounds.width, height: self.avatar!.cell.iconView.bounds.height)))
                             }else{
                                 SPIndicator.present(title: "Error", message: "Failed to get the avatar", preset: .error)

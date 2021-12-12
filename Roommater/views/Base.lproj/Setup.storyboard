@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OFL-pi-TjE">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="245.66666666666663" width="288" height="43"/>
+                                <rect key="frame" x="63" y="245.5" width="288" height="43"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="bWa-xb-RaK"/>
@@ -44,7 +44,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="380.66666666666669" width="288" height="42.666666666666686"/>
+                                <rect key="frame" x="63" y="380.5" width="288" height="42.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42.670000000000002" id="A3J-8A-72E"/>
@@ -54,7 +54,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
-                                <rect key="frame" x="63" y="330.66666666666669" width="288" height="31"/>
+                                <rect key="frame" x="63" y="330.5" width="288" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="IOj-ib-8xT"/>
                                 </constraints>
@@ -83,7 +83,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="csj-BB-hVO">
-                                <rect key="frame" x="117" y="20" width="180" height="180"/>
+                                <rect key="frame" x="117" y="64" width="180" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="csj-BB-hVO" secondAttribute="height" multiplier="1:1" id="8t9-MS-AJ6"/>
                                 </constraints>
@@ -133,63 +133,109 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
-                                <rect key="frame" x="86" y="20" width="241" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
+                                <rect key="frame" x="0.0" y="49" width="414" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZLh-mQ-krH"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Already have an account? Log in!"/>
                                 <connections>
                                     <action selector="back:" destination="M1R-gG-2lp" eventType="touchDown" id="MBz-T5-7xg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBv-VQ-kPl" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="63" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61H-bq-tqd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="89" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="RjZ-LY-j2a"/>
+                                </constraints>
                                 <connections>
-                                    <outlet property="delegate" destination="M1R-gG-2lp" id="zRC-lD-iJz"/>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="scJ-cG-eBQ"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="COY-YP-avc" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="157" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COY-YP-avc" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="251" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="V4J-vA-DOk"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="M1R-gG-2lp" id="cbb-bz-i5b"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-7m-PFY" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="239" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-7m-PFY" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="332" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="NhH-w5-5H5"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="M1R-gG-2lp" id="kG9-uu-hKe"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8N-za-wjd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="340" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8N-za-wjd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="413" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="rSh-lg-vYG"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="M1R-gG-2lp" id="MrD-st-pbm"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJo-OQ-R5P" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="103" y="438" width="209" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJo-OQ-R5P" customClass="TransitionButton" customModule="TransitionButton">
+                                <rect key="frame" x="102" y="536" width="210" height="70"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="qAv-Rk-dyE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBv-VQ-kPl" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="170" width="336" height="57"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="fdM-7N-tbi"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="zRC-lD-iJz"/>
+                                </connections>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kf5-wP-cX2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="top" secondItem="Kf5-wP-cX2" secondAttribute="top" constant="5" id="2ZZ-hi-v8c"/>
+                            <constraint firstItem="uh5-7m-PFY" firstAttribute="top" secondItem="COY-YP-avc" secondAttribute="bottom" constant="24" id="3K7-YN-5yH"/>
+                            <constraint firstItem="iJo-OQ-R5P" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="102" id="3Kj-ye-Goe"/>
+                            <constraint firstItem="dBv-VQ-kPl" firstAttribute="top" secondItem="61H-bq-tqd" secondAttribute="bottom" constant="24" id="ADy-1u-RQw"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="dBv-VQ-kPl" secondAttribute="trailing" constant="39" id="D3J-7i-SxT"/>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" id="K1C-p3-ACn"/>
+                            <constraint firstItem="dBv-VQ-kPl" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="KLo-u3-Z5H"/>
+                            <constraint firstItem="d8N-za-wjd" firstAttribute="top" secondItem="uh5-7m-PFY" secondAttribute="bottom" constant="24" id="Q0F-5k-lj4"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="COY-YP-avc" secondAttribute="trailing" constant="39" id="ShD-DC-SWc"/>
+                            <constraint firstItem="d8N-za-wjd" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="SmX-xs-dDd"/>
+                            <constraint firstItem="iJo-OQ-R5P" firstAttribute="top" secondItem="d8N-za-wjd" secondAttribute="bottom" constant="66" id="Tin-yT-v2d"/>
+                            <constraint firstItem="61H-bq-tqd" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="WtD-QM-hbW"/>
+                            <constraint firstItem="uh5-7m-PFY" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="cgo-BD-BlH"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="uh5-7m-PFY" secondAttribute="trailing" constant="39" id="e9b-zM-N2L"/>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="trailing" secondItem="Kf5-wP-cX2" secondAttribute="trailing" id="edn-1a-Tfr"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="61H-bq-tqd" secondAttribute="trailing" constant="39" id="ivN-Fo-z5u"/>
+                            <constraint firstItem="COY-YP-avc" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="npj-gK-anz"/>
+                            <constraint firstItem="61H-bq-tqd" firstAttribute="top" secondItem="iGZ-xF-S9z" secondAttribute="bottom" constant="10" id="rwB-xJ-P2b"/>
+                            <constraint firstItem="COY-YP-avc" firstAttribute="top" secondItem="dBv-VQ-kPl" secondAttribute="bottom" constant="24" id="sCg-Ud-GPV"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="iJo-OQ-R5P" secondAttribute="trailing" constant="102" id="tWk-lE-fBL"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="d8N-za-wjd" secondAttribute="trailing" constant="39" id="xzv-Nj-s5q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Az7-qw-gxQ"/>
                     <connections>
                         <outlet property="backLogin" destination="iGZ-xF-S9z" id="zvb-FV-P3z"/>
                         <outlet property="emailTextField" destination="d8N-za-wjd" id="51O-kW-Sbv"/>
+                        <outlet property="nicknameTextField" destination="61H-bq-tqd" id="jN1-cr-2W5"/>
                         <outlet property="passwordTextField" destination="COY-YP-avc" id="NXm-cA-Fm4"/>
                         <outlet property="rePasswordTextField" destination="uh5-7m-PFY" id="dyN-wN-l0J"/>
                         <outlet property="signup" destination="iJo-OQ-R5P" id="rCb-Rz-hbg"/>
@@ -215,7 +261,7 @@
             <objects>
                 <viewController id="WbT-Np-JLj" customClass="ForgotPasswordViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWk-E5-svw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter the email address for receiving the verification email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-au-w5n">
@@ -279,6 +325,9 @@
         </designable>
         <designable name="2og-8d-AWW">
             <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+        <designable name="61H-bq-tqd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
         </designable>
         <designable name="COY-YP-avc">
             <size key="intrinsicContentSize" width="336" height="42.80078125"/>
