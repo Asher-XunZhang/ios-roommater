@@ -56,3 +56,4 @@ UI Part
 
 - [CocoaTextField](https://github.com/edgar-zigis/CocoaTextField)
 - [TransitionButton](https://github.com/AladinWay/TransitionButton)
+- [Folding-cell](https://github.com/Ramotion/folding-cell)
