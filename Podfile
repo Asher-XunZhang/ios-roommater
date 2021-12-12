@@ -7,16 +7,22 @@ target 'Roommater' do
 
   # Pods for Roommater
   # Network Libraries
-  pod 'AlamofireObjectMapper', '~> 5.2'
-  pod 'Socket.IO-Client-Swift', '~> 15.2.0'
-  pod 'SwiftJWT', '~> 3.6'
-	
+  pod 'CryptoSwift'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
+  pod 'Socket.IO-Client-Swift'
+  pod 'SwiftEventBus', :tag => '5.1.0', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
+
   # UI Libraries
+  pod 'loady'
   pod 'SPIndicator'
-  pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'SkyFloatingLabelTextField'
   pod 'TransitionButton'
+  pod 'StreamChatUI'
+  pod 'StreamChat'
+  pod 'Former'
+  pod 'TaggerKit'
+  pod 'FoldingCell'
 
 
-  #OCR
-  #pod 'SwiftOCR'
 end

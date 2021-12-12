@@ -1,73 +1,92 @@
 PODS:
-  - Alamofire (4.9.1)
-  - AlamofireObjectMapper (5.2.1):
-    - Alamofire (~> 4.7)
-    - ObjectMapper (~> 3.4)
-  - BlueCryptor (1.0.32)
-  - BlueECC (1.2.5)
-  - BlueRSA (1.0.34)
-  - KituraContracts (1.2.1):
-    - LoggerAPI (~> 1.7)
-  - LoggerAPI (1.9.200):
-    - Logging (~> 1.1)
-  - Logging (1.4.0)
-  - ObjectMapper (3.5.3)
-  - SkyFloatingLabelTextField (3.8.0)
-  - Socket.IO-Client-Swift (15.2.0):
-    - Starscream (~> 3.1)
-  - SPIndicator (1.4.1)
-  - Starscream (3.1.1)
-  - SwiftJWT (3.6.200):
-    - BlueCryptor (~> 1.0)
-    - BlueECC (~> 1.1)
-    - BlueRSA (~> 1.0)
-    - KituraContracts (~> 1.2)
-    - LoggerAPI (~> 1.7)
+  - Alamofire (5.4.4)
+  - AlamofireImage (4.2.0):
+    - Alamofire (~> 5.4)
+  - CryptoSwift (1.4.2)
+  - FoldingCell (5.0.2)
+  - Former (1.8.1)
+  - loady (1.0.7)
+  - Nuke (10.5.2)
+  - SkyFloatingLabelTextField (4.0.0)
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
+  - SPIndicator (1.5.0)
+  - Starscream (4.0.4)
+  - StreamChat (4.5.1):
+    - Starscream (~> 4.0)
+  - StreamChatUI (4.5.1):
+    - Nuke (~> 10.0)
+    - StreamChat (= 4.5.1)
+    - SwiftyGif (~> 5.4)
+  - SwiftEventBus (5.0.0)
+  - SwiftyGif (5.4.1)
+  - TaggerKit (0.6.1)
   - TransitionButton (0.5.3)
 
 DEPENDENCIES:
-  - AlamofireObjectMapper (~> 5.2)
-  - SkyFloatingLabelTextField (~> 3.0)
-  - Socket.IO-Client-Swift (~> 15.2.0)
+  - Alamofire
+  - AlamofireImage
+  - CryptoSwift
+  - FoldingCell
+  - Former
+  - loady
+  - SkyFloatingLabelTextField
+  - Socket.IO-Client-Swift
   - SPIndicator
-  - SwiftJWT (~> 3.6)
+  - StreamChat
+  - StreamChatUI
+  - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
+  - TaggerKit
   - TransitionButton
 
 SPEC REPOS:
   trunk:
     - Alamofire
-    - AlamofireObjectMapper
-    - BlueCryptor
-    - BlueECC
-    - BlueRSA
-    - KituraContracts
-    - LoggerAPI
-    - Logging
-    - ObjectMapper
+    - AlamofireImage
+    - CryptoSwift
+    - FoldingCell
+    - Former
+    - loady
+    - Nuke
     - SkyFloatingLabelTextField
     - Socket.IO-Client-Swift
     - SPIndicator
     - Starscream
-    - SwiftJWT
+    - StreamChat
+    - StreamChatUI
+    - SwiftyGif
+    - TaggerKit
     - TransitionButton
 
+EXTERNAL SOURCES:
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.1.0
+
+CHECKOUT OPTIONS:
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.1.0
+
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
-  BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
-  BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
-  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
-  KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
-  LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
-  Logging: beeb016c9c80cf77042d62e83495816847ef108b
-  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
-  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
-  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
-  SPIndicator: 390446852611bcebb4e69b1f5229f2c27026328f
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  CryptoSwift: a532e74ed010f8c95f611d00b8bbae42e9fe7c17
+  FoldingCell: f92eb5fb9842319e7cd08c71533c98408b785099
+  Former: f36edb5c1ac03755f8d6d03b26044b62de8c0b2d
+  loady: f2acbcbd53bdeb55425e478304da2f7ff3ec706e
+  Nuke: 62d6d401e2b3ce553151a6f5e2f9332878710fbd
+  SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
+  SPIndicator: 838af916c34c6219cf0fc7a25b867dae6227c594
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+  StreamChat: b5d0f93c3355a0d0211506be3da2c1c9680a2aa1
+  StreamChatUI: 4e8d01cb5d5f0f99faf2622c4870edbe65f6d95d
+  SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
+  SwiftyGif: 6895c887f5551618a3c5dd3ecb512419105bacca
+  TaggerKit: e88422048a006b409a37b37f24785dfcca69b5b2
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 7e6bc37c21d5ba5fd9d5032715f913adb1c38b68
+PODFILE CHECKSUM: 9895c3a6bc527a07c1f8923211294dc207474aba
 
 COCOAPODS: 1.11.2

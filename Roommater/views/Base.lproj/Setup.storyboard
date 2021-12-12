@@ -1,58 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OFL-pi-TjE">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Auth NavVC-->
+        <scene sceneID="NHC-KT-nbb">
+            <objects>
+                <navigationController hidesBottomBarWhenPushed="YES" navigationBarHidden="YES" id="OFL-pi-TjE" customClass="AuthNavVC" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0RC-ST-lUh">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="deT-Uk-ePT" kind="show" identifier="dashboardPage" id="ajc-KH-ES5"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2Gb-od-WMx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oOg-Kx-40f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-809" y="32"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="login" storyboardIdentifier="Loginpage" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="234" width="288" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2og-8d-AWW" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="63" y="245.5" width="288" height="43"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="bWa-xb-RaK"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="gf3-BD-hks"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="63" y="381" width="288" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-O8-efu" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="63" y="380.5" width="288" height="42.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42.670000000000002" id="A3J-8A-72E"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="OYB-J8-Xxb"/>
+                                </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
-                                <rect key="frame" x="203" y="331" width="148" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouM-h3-mbC">
+                                <rect key="frame" x="63" y="330.5" width="288" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="IOj-ib-8xT"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Forgot password?"/>
                                 <connections>
                                     <segue destination="WbT-Np-JLj" kind="show" id="9pB-QL-N8w"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18r-9Z-xkn" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="111" y="474" width="192" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18r-9Z-xkn" customClass="TransitionButton" customModule="TransitionButton">
+                                <rect key="frame" x="111" y="482" width="192" height="54"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="iNx-w9-ZSE"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-tJ-Lpf">
                                 <rect key="frame" x="20" y="544" width="374" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="vlU-Dd-xsy"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Don't have an account? Click here to signup!"/>
                                 <connections>
                                     <segue destination="M1R-gG-2lp" kind="show" id="XRB-4h-0eQ"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="csj-BB-hVO">
+                                <rect key="frame" x="117" y="64" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="csj-BB-hVO" secondAttribute="height" multiplier="1:1" id="8t9-MS-AJ6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vwK-CI-N37"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="z7N-O8-efu" secondAttribute="centerX" id="2fi-4z-2ld"/>
+                            <constraint firstItem="z7N-O8-efu" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="63" id="3a0-DO-F0w"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="bottom" secondItem="OSF-tJ-Lpf" secondAttribute="bottom" constant="75" id="7il-8F-dmb"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="18r-9Z-xkn" secondAttribute="centerX" id="FCE-51-GBO"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="csj-BB-hVO" secondAttribute="trailing" constant="117" id="GhV-Ny-nX9"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="63" id="K61-Vi-BXq"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="top" secondItem="2og-8d-AWW" secondAttribute="bottom" constant="42" id="KtN-bI-KlP"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="RL2-7B-eBn"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="centerX" secondItem="2og-8d-AWW" secondAttribute="centerX" id="RWq-SU-ZtV"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="SP2-Xs-o1m"/>
+                            <constraint firstItem="OSF-tJ-Lpf" firstAttribute="top" secondItem="18r-9Z-xkn" secondAttribute="bottom" constant="8" id="Uss-pl-hH7"/>
+                            <constraint firstItem="z7N-O8-efu" firstAttribute="top" secondItem="ouM-h3-mbC" secondAttribute="bottom" constant="19" id="VV5-2d-OX9"/>
+                            <constraint firstItem="csj-BB-hVO" firstAttribute="top" secondItem="vwK-CI-N37" secondAttribute="top" constant="20" id="Wx1-k4-p8C"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="trailing" secondItem="2og-8d-AWW" secondAttribute="trailing" id="ZFV-7x-0cJ"/>
+                            <constraint firstItem="18r-9Z-xkn" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="111" id="aay-8Z-vpz"/>
+                            <constraint firstItem="ouM-h3-mbC" firstAttribute="trailing" secondItem="z7N-O8-efu" secondAttribute="trailing" id="blA-nd-aFA"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="ouM-h3-mbC" secondAttribute="trailing" constant="63" id="jLK-RK-WgP"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="18r-9Z-xkn" secondAttribute="trailing" constant="111" id="jPA-yf-yV3"/>
+                            <constraint firstItem="vwK-CI-N37" firstAttribute="trailing" secondItem="z7N-O8-efu" secondAttribute="trailing" constant="63" id="kyP-F9-FRp"/>
+                            <constraint firstItem="csj-BB-hVO" firstAttribute="leading" secondItem="vwK-CI-N37" secondAttribute="leading" constant="117" id="ms5-L5-Xqd"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hPC-NK-kjV"/>
                     <size key="freeformSize" width="414" height="692"/>
@@ -73,51 +133,109 @@
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="M1R-gG-2lp" customClass="SignupViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAC-Cu-afi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
-                                <rect key="frame" x="86" y="20" width="241" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-xF-S9z">
+                                <rect key="frame" x="0.0" y="49" width="414" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZLh-mQ-krH"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Already have an account? Log in!"/>
                                 <connections>
                                     <action selector="back:" destination="M1R-gG-2lp" eventType="touchDown" id="MBz-T5-7xg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBv-VQ-kPl" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="63" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61H-bq-tqd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="89" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="RjZ-LY-j2a"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="scJ-cG-eBQ"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="COY-YP-avc" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="157" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COY-YP-avc" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="251" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="V4J-vA-DOk"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="cbb-bz-i5b"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-7m-PFY" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="239" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-7m-PFY" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="332" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="NhH-w5-5H5"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="kG9-uu-hKe"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8N-za-wjd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="39" y="340" width="336" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8N-za-wjd" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="413" width="336" height="57"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="rSh-lg-vYG"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="MrD-st-pbm"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJo-OQ-R5P" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="103" y="438" width="209" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJo-OQ-R5P" customClass="TransitionButton" customModule="TransitionButton">
+                                <rect key="frame" x="102" y="536" width="210" height="70"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="qAv-Rk-dyE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBv-VQ-kPl" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="39" y="170" width="336" height="57"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="fdM-7N-tbi"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="M1R-gG-2lp" id="zRC-lD-iJz"/>
+                                </connections>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kf5-wP-cX2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="top" secondItem="Kf5-wP-cX2" secondAttribute="top" constant="5" id="2ZZ-hi-v8c"/>
+                            <constraint firstItem="uh5-7m-PFY" firstAttribute="top" secondItem="COY-YP-avc" secondAttribute="bottom" constant="24" id="3K7-YN-5yH"/>
+                            <constraint firstItem="iJo-OQ-R5P" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="102" id="3Kj-ye-Goe"/>
+                            <constraint firstItem="dBv-VQ-kPl" firstAttribute="top" secondItem="61H-bq-tqd" secondAttribute="bottom" constant="24" id="ADy-1u-RQw"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="dBv-VQ-kPl" secondAttribute="trailing" constant="39" id="D3J-7i-SxT"/>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" id="K1C-p3-ACn"/>
+                            <constraint firstItem="dBv-VQ-kPl" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="KLo-u3-Z5H"/>
+                            <constraint firstItem="d8N-za-wjd" firstAttribute="top" secondItem="uh5-7m-PFY" secondAttribute="bottom" constant="24" id="Q0F-5k-lj4"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="COY-YP-avc" secondAttribute="trailing" constant="39" id="ShD-DC-SWc"/>
+                            <constraint firstItem="d8N-za-wjd" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="SmX-xs-dDd"/>
+                            <constraint firstItem="iJo-OQ-R5P" firstAttribute="top" secondItem="d8N-za-wjd" secondAttribute="bottom" constant="66" id="Tin-yT-v2d"/>
+                            <constraint firstItem="61H-bq-tqd" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="WtD-QM-hbW"/>
+                            <constraint firstItem="uh5-7m-PFY" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="cgo-BD-BlH"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="uh5-7m-PFY" secondAttribute="trailing" constant="39" id="e9b-zM-N2L"/>
+                            <constraint firstItem="iGZ-xF-S9z" firstAttribute="trailing" secondItem="Kf5-wP-cX2" secondAttribute="trailing" id="edn-1a-Tfr"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="61H-bq-tqd" secondAttribute="trailing" constant="39" id="ivN-Fo-z5u"/>
+                            <constraint firstItem="COY-YP-avc" firstAttribute="leading" secondItem="Kf5-wP-cX2" secondAttribute="leading" constant="39" id="npj-gK-anz"/>
+                            <constraint firstItem="61H-bq-tqd" firstAttribute="top" secondItem="iGZ-xF-S9z" secondAttribute="bottom" constant="10" id="rwB-xJ-P2b"/>
+                            <constraint firstItem="COY-YP-avc" firstAttribute="top" secondItem="dBv-VQ-kPl" secondAttribute="bottom" constant="24" id="sCg-Ud-GPV"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="iJo-OQ-R5P" secondAttribute="trailing" constant="102" id="tWk-lE-fBL"/>
+                            <constraint firstItem="Kf5-wP-cX2" firstAttribute="trailing" secondItem="d8N-za-wjd" secondAttribute="trailing" constant="39" id="xzv-Nj-s5q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Az7-qw-gxQ"/>
                     <connections>
                         <outlet property="backLogin" destination="iGZ-xF-S9z" id="zvb-FV-P3z"/>
                         <outlet property="emailTextField" destination="d8N-za-wjd" id="51O-kW-Sbv"/>
+                        <outlet property="nicknameTextField" destination="61H-bq-tqd" id="jN1-cr-2W5"/>
                         <outlet property="passwordTextField" destination="COY-YP-avc" id="NXm-cA-Fm4"/>
                         <outlet property="rePasswordTextField" destination="uh5-7m-PFY" id="dyN-wN-l0J"/>
                         <outlet property="signup" destination="iJo-OQ-R5P" id="rCb-Rz-hbg"/>
@@ -126,14 +244,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ij-N3-nFP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892.75362318840587" y="49.728260869565219"/>
+            <point key="canvasLocation" x="919" y="32"/>
+        </scene>
+        <!--App-->
+        <scene sceneID="UqG-gJ-SFn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="App" id="deT-Uk-ePT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="z3V-Gl-cHD"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s8V-L6-nX0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-809" y="587"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="sw0-Ms-Gkd">
             <objects>
                 <viewController id="WbT-Np-JLj" customClass="ForgotPasswordViewController" customModule="Roommater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWk-E5-svw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter the email address for receiving the verification email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-au-w5n">
@@ -156,6 +284,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Your E-mail"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="WbT-Np-JLj" id="m8f-5e-BXx"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cdO-2W-Vnk" customClass="TransitionButton" customModule="TransitionButton">
                                 <rect key="frame" x="108" y="239" width="198" height="56"/>
@@ -185,10 +316,46 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sj0-l7-0bn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="866.66666666666674" y="833.96739130434787"/>
+            <point key="canvasLocation" x="919" y="777"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="18r-9Z-xkn">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="2og-8d-AWW">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+        <designable name="61H-bq-tqd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="COY-YP-avc">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="L4B-2T-rvh">
+            <size key="intrinsicContentSize" width="319" height="42.80078125"/>
+        </designable>
+        <designable name="cdO-2W-Vnk">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="d8N-za-wjd">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="dBv-VQ-kPl">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="iJo-OQ-R5P">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+        <designable name="uh5-7m-PFY">
+            <size key="intrinsicContentSize" width="336" height="42.80078125"/>
+        </designable>
+        <designable name="z7N-O8-efu">
+            <size key="intrinsicContentSize" width="288" height="42.80078125"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="Icon" width="417" height="417"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

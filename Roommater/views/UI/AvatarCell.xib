@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="120" id="07r-ws-crt" customClass="ProfileImageCell" customModule="Roommater" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="07r-ws-crt" id="75v-be-S8R">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zij-K5-Jfs">
+                        <rect key="frame" x="157" y="0.0" width="100" height="100"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="zij-K5-Jfs" secondAttribute="height" id="fdJ-Em-aQj"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pn0-U0-plZ" appends="YES" id="sbi-ZJ-I2S"/>
+                        </connections>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVG-m0-lhG">
+                        <rect key="frame" x="157" y="100" width="100" height="20"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xVG-m0-lhG" firstAttribute="top" secondItem="zij-K5-Jfs" secondAttribute="bottom" id="9x3-KJ-bWM"/>
+                    <constraint firstItem="xVG-m0-lhG" firstAttribute="leading" secondItem="75v-be-S8R" secondAttribute="leading" constant="157" id="Ohh-L8-S3y"/>
+                    <constraint firstAttribute="trailing" secondItem="xVG-m0-lhG" secondAttribute="trailing" constant="157" id="VdM-HT-cR4"/>
+                    <constraint firstAttribute="bottom" secondItem="zij-K5-Jfs" secondAttribute="bottom" constant="20" id="ZoY-Ny-cPx"/>
+                    <constraint firstAttribute="bottom" secondItem="xVG-m0-lhG" secondAttribute="bottom" id="bB1-aB-4g1"/>
+                    <constraint firstItem="zij-K5-Jfs" firstAttribute="top" secondItem="75v-be-S8R" secondAttribute="top" id="k5x-7f-IAZ"/>
+                    <constraint firstItem="zij-K5-Jfs" firstAttribute="centerX" secondItem="75v-be-S8R" secondAttribute="centerX" id="v0R-7j-bYO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconView" destination="zij-K5-Jfs" id="fD0-Wd-rAm"/>
+                <outlet property="titleLabel" destination="xVG-m0-lhG" id="t1K-Up-5YE"/>
+            </connections>
+            <point key="canvasLocation" x="124.6376811594203" y="220.98214285714286"/>
+        </tableViewCell>
+        <tapGestureRecognizer id="pn0-U0-plZ">
+            <connections>
+                <action selector="clickImage" destination="07r-ws-crt" id="zlL-Hr-ItA"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
