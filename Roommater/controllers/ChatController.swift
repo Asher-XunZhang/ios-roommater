@@ -29,7 +29,7 @@ class ChatNavigationVC : UINavigationController {
     }
     
     func initChatVC(){
-        if SessionManager.instance.dorm != nil {
+        if SessionManager.instance.dorm != nil ,  ChatClient.shared != nil {
             if let cid = SessionManager.instance.dorm?.roomChatId {
                 do{
                     Appearance.default.colorPalette.background6 = .green

@@ -10,6 +10,7 @@ import UIKit
 import CryptoSwift
 import Alamofire
 import AlamofireImage
+import EventKit
 
 let WIDTH: CGFloat = UIScreen.main.bounds.width
 let HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -142,3 +143,5 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
+
+var eventStore = EKEventStore.init()

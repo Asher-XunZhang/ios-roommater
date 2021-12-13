@@ -168,7 +168,7 @@ class Affair: NSObject, NSSecureCoding {
         title = coder.decodeObject(forKey: "Name") as? String
         des = coder.decodeObject(forKey: "Name") as? String
         participant = coder.decodeObject(forKey: "Participant") as! [RoommateInfo]
-        date = coder.decodeObject(forKey: "Date") as? Date
+        date = coder.decodeObject(forKey: "Date") as! Date
         aid = coder.decodeObject(forKey: "AID") as? String ?? ""
 
         participant.forEach{
@@ -202,7 +202,7 @@ class Affair: NSObject, NSSecureCoding {
     var aid: String = ""
     var title: String!
     var des: String!
-    var date: Date!
+    var date: Date = Date()
     var participant: [RoommateInfo] = []
 
     func commit(callback: @escaping (Bool) -> Void) {
