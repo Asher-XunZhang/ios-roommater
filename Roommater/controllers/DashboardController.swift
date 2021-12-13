@@ -12,6 +12,7 @@ import Former
 import TaggerKit
 import SPIndicator
 import SwiftEventBus
+import EventKit
 
 final class DashboardNavVC: UINavigationController {
     override func viewDidLoad() {
@@ -202,8 +203,32 @@ class AffairFormViewController: UIViewController {
                         switch res {
                             case .Success(let data):
                                 SessionManager.instance.dorm?.affairs.append(Affair.init(data: data as! [String : Any]))
-                                SPIndicator.present(title: "Success", preset: .done)
-                                self.dismiss(animated: true)
+                                eventStore.requestAccess(to: .event){ isAllow, error in
+                                    if isAllow {
+                                        let newEvent = EKEvent.init(eventStore: eventStore)
+                                        newEvent.title = "[Roommater Affair]\(self.affairInfo.title!)"
+                                        newEvent.notes = self.affairInfo.des
+                                        newEvent.calendar = eventStore.defaultCalendarForNewEvents
+                                        newEvent.calendar.title =  newEvent.title
+                                        newEvent.startDate = self.affairInfo.date
+                                        newEvent.endDate = self.affairInfo.date.addingTimeInterval(30*60)
+                                        newEvent.addAlarm(EKAlarm(relativeOffset: -60 * 5))
+                                        newEvent.eventIdentifier
+                                        do {
+                                            try eventStore.save(newEvent, span: .thisEvent, commit: true)
+                                            DispatchQueue.main.async {
+                                                SPIndicator.present(title: "Success", preset: .done)
+                                                self.dismiss(animated: true)
+                                            }
+                                        }catch {
+                                            DispatchQueue.main.async {
+                                                SPIndicator.present(title: "Failed to add to the calendar!", preset: .error)
+                                                self.dismiss(animated: true)
+                                            }
+                                        }
+                                       
+                                    }
+                                }
                             case .Fail(let msg), .Timeout(let msg), .Error(let msg), .NONE(let msg):
                                 SPIndicator.present(title: msg, preset: .error)
                         }
